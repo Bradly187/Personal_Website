@@ -1,0 +1,2266 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Brad · CS @ TAMU-RELLIS</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Space+Mono:wght@400;700&family=DM+Serif+Display&display=swap" rel="stylesheet" />
+  <script defer src="https://cdn.jsdelivr.net/npm/mermaid@10/dist/mermaid.min.js"></script>
+  <noscript><style>.reveal { opacity: 1 !important; transform: none !important; }</style></noscript>
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --bg:         #f9f8f6;
+      --surface:    #ffffff;
+      --border:     rgba(0,0,0,0.10);
+      --border-md:  rgba(0,0,0,0.20);
+      --text:       #1a1a18;
+      --muted:      #6b6b67;
+      --hint:       #a0a09b;
+      --blue-bg:    #E6F1FB;
+      --blue-mid:   #185FA5;
+      --blue-border:#B5D4F4;
+      --green-bg:   #EAF3DE;
+      --green-text: #3B6D11;
+      --amber-bg:   #FAEEDA;
+      --amber-text: #854F0B;
+      --radius-md:  8px;
+      --radius-lg:  12px;
+      --mono: 'Space Mono', monospace;
+      --serif: 'DM Serif Display', serif;
+      --sans: system-ui, -apple-system, sans-serif;
+      --accent-gradient: linear-gradient(135deg, #185FA5, #3B6D11);
+      --surface-2: #f3f2ef;
+      --radius-xl: 16px;
+    }
+
+    @media (prefers-color-scheme: dark) {
+      :root {
+        --bg:        #1a1a18;
+        --surface:   #242422;
+        --border:    rgba(255,255,255,0.10);
+        --border-md: rgba(255,255,255,0.20);
+        --text:      #f0ede8;
+        --muted:     #a0a09b;
+        --hint:      #6b6b67;
+        --blue-bg:   #0c447c;
+        --blue-mid:  #85b7eb;
+        --blue-border:#185FA5;
+        --green-bg:  #173404;
+        --green-text:#97C459;
+        --amber-bg:  #412402;
+        --amber-text:#FAC775;
+        --accent-gradient: linear-gradient(135deg, #85b7eb, #97C459);
+        --surface-2: #2a2a28;
+        --radius-xl: 16px;
+      }
+    }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      background: var(--bg);
+      color: var(--text);
+      font-family: var(--sans);
+      font-size: 16px;
+      line-height: 1.7;
+      min-height: 100vh;
+    }
+
+    /* ── LAYOUT ── */
+    .wrap { max-width: 900px; margin: 0 auto; padding: 2rem 1.5rem; }
+
+    /* ── NAV ── */
+    nav {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 1rem calc(max(1.5rem, (100% - 900px) / 2 + 1.5rem));
+      border-bottom: 0.5px solid var(--border);
+      background: var(--bg);
+      backdrop-filter: blur(8px);
+      -webkit-backdrop-filter: blur(8px);
+    }
+
+    @media (min-width: 601px) {
+      nav {
+        position: sticky;
+        top: 0;
+        z-index: 50;
+      }
+    }
+
+    .nav-logo { font-family: var(--mono); font-size: 13px; letter-spacing: 0.05em; color: var(--muted); }
+    .nav-logo strong { color: var(--text); font-weight: 700; }
+    .nav-links { display: flex; gap: 1.5rem; list-style: none; }
+    .nav-links a { font-size: 13px; color: var(--muted); text-decoration: none; transition: color 0.15s; }
+    .nav-links a:hover { color: var(--text); }
+
+    /* ── HERO ── */
+    .hero { padding: 3.5rem 0 2.5rem; }
+
+    .badge {
+      font-family: var(--mono);
+      font-size: 10px;
+      letter-spacing: 0.12em;
+      color: var(--blue-mid);
+      background: var(--blue-bg);
+      border: 0.5px solid var(--blue-border);
+      border-radius: 4px;
+      padding: 3px 10px;
+      display: inline-block;
+      margin-bottom: 1.25rem;
+      text-transform: uppercase;
+    }
+
+    .hero h1 {
+      font-family: var(--serif);
+      font-size: clamp(32px, 5vw, 46px);
+      font-weight: 400;
+      line-height: 1.1;
+      margin-bottom: 0.85rem;
+    }
+
+    .hero-tagline {
+      font-size: 15px;
+      color: var(--blue-mid);
+      font-family: var(--mono);
+      margin-bottom: 0.75rem;
+      max-width: 600px;
+    }
+
+    .hero-sub { font-size: 16px; color: var(--muted); max-width: 600px; margin-bottom: 2rem; }
+    .hero-actions { display: flex; gap: 10px; flex-wrap: wrap; }
+
+    .btn-primary {
+      background: var(--blue-mid);
+      color: var(--blue-bg);
+      border: none;
+      border-radius: var(--radius-md);
+      padding: 10px 22px;
+      font-size: 12px;
+      font-family: var(--mono);
+      cursor: pointer;
+      text-decoration: none;
+      display: inline-block;
+      transition: opacity 0.15s;
+    }
+    .btn-primary:hover { opacity: 0.85; }
+
+    .btn-secondary {
+      background: transparent;
+      color: var(--text);
+      border: 0.5px solid var(--border-md);
+      border-radius: var(--radius-md);
+      padding: 10px 22px;
+      font-size: 12px;
+      font-family: var(--mono);
+      cursor: pointer;
+      text-decoration: none;
+      display: inline-block;
+      transition: background 0.15s;
+    }
+    .btn-secondary:hover { background: var(--surface); }
+
+    .btn-accent {
+      background: var(--accent-gradient);
+      color: #fff;
+      border: none;
+      border-radius: var(--radius-md);
+      padding: 10px 22px;
+      font-size: 12px;
+      font-family: var(--mono);
+      cursor: pointer;
+      text-decoration: none;
+      display: inline-block;
+      transition: opacity 0.15s;
+    }
+    .btn-accent:hover { opacity: 0.85; }
+
+    /* ── SECTIONS ── */
+    .section { padding: 2.5rem 0; border-top: 0.5px solid var(--border); }
+
+    .section-label {
+      font-family: var(--mono);
+      font-size: 10px;
+      letter-spacing: 0.15em;
+      color: var(--hint);
+      text-transform: uppercase;
+      margin-bottom: 1.25rem;
+    }
+
+    /* ── PROJECT CARDS ── */
+    .projects-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+      gap: 14px;
+    }
+
+    .card {
+      background: var(--surface);
+      border: 0.5px solid var(--border);
+      border-radius: var(--radius-lg);
+      padding: 1.25rem;
+      display: flex;
+      flex-direction: column;
+      cursor: pointer;
+      transition: transform 0.15s;
+    }
+    .card:hover { transform: translateY(-2px); }
+    .card.featured { border: 1.5px solid var(--blue-mid); }
+
+    .card-tag {
+      font-family: var(--mono);
+      font-size: 10px;
+      border-radius: 3px;
+      padding: 2px 8px;
+      display: inline-block;
+      margin-bottom: 0.75rem;
+      width: fit-content;
+    }
+
+    .tag-blue  { color: var(--blue-mid);   background: var(--blue-bg); }
+    .tag-green { color: var(--green-text); background: var(--green-bg); }
+    .tag-amber { color: var(--amber-text); background: var(--amber-bg); }
+
+    .card h3 { font-size: 15px; font-weight: 500; margin-bottom: 0.4rem; }
+    .card p  { font-size: 13px; color: var(--muted); line-height: 1.65; flex: 1; margin-bottom: 1rem; }
+
+    .card-cta {
+      font-family: var(--mono);
+      font-size: 11px;
+      color: var(--blue-mid);
+      display: inline-flex;
+      align-items: center;
+      gap: 4px;
+      transition: gap 0.15s;
+    }
+    .card:hover .card-cta { gap: 8px; }
+
+    /* ── SKILLS ── */
+    .skills-row { display: flex; flex-wrap: wrap; gap: 8px; }
+
+    .pill {
+      font-family: var(--mono);
+      font-size: 11px;
+      color: var(--muted);
+      background: var(--surface);
+      border: 0.5px solid var(--border);
+      border-radius: 99px;
+      padding: 5px 14px;
+    }
+
+    /* ── CONTACT ── */
+    .contact-row { display: flex; gap: 1.5rem; flex-wrap: wrap; }
+
+    .contact-link {
+      font-family: var(--mono);
+      font-size: 12px;
+      color: var(--muted);
+      text-decoration: none;
+      transition: color 0.15s;
+    }
+    .contact-link:hover { color: var(--text); }
+
+    /* ── FOOTER ── */
+    footer {
+      margin-top: 3rem;
+      padding-top: 1.5rem;
+      border-top: 0.5px solid var(--border);
+      font-family: var(--mono);
+      font-size: 11px;
+      color: var(--hint);
+    }
+
+    /* ── MODAL OVERLAY ── */
+    .overlay {
+      display: none;
+      position: fixed;
+      inset: 0;
+      background: rgba(0, 0, 0, 0.5);
+      z-index: 100;
+      align-items: center;
+      justify-content: center;
+      padding: 1.5rem;
+      backdrop-filter: blur(2px);
+    }
+    .overlay.active { display: flex; }
+
+    /* ── MODAL ── */
+    .modal {
+      background: var(--surface);
+      border: 0.5px solid var(--border);
+      border-radius: var(--radius-lg);
+      width: 100%;
+      max-width: 500px;
+      max-height: 90vh;
+      overflow-y: auto;
+      animation: modal-in 0.18s ease;
+    }
+
+    @keyframes modal-in {
+      from { opacity: 0; transform: translateY(12px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
+
+    .modal-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-start;
+      padding: 1.25rem 1.25rem 0;
+    }
+
+    .modal-title {
+      font-family: var(--serif);
+      font-size: 24px;
+      font-weight: 400;
+      margin-top: 0.4rem;
+    }
+
+    .modal-close {
+      background: none;
+      border: none;
+      font-size: 20px;
+      color: var(--muted);
+      cursor: pointer;
+      padding: 0;
+      line-height: 1;
+      transition: color 0.15s;
+    }
+    .modal-close:hover { color: var(--text); }
+
+    /* ── MODAL SCREENSHOT ── */
+    .modal-screenshot {
+      margin: 1rem 1.25rem;
+      background: var(--bg);
+      border: 0.5px solid var(--border);
+      border-radius: var(--radius-md);
+      height: 200px;
+      overflow: hidden;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .modal-screenshot img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      object-position: top;
+      display: none;
+    }
+    .modal-screenshot img.loaded { display: block; }
+
+    .screenshot-placeholder {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 8px;
+    }
+    .screenshot-placeholder svg { opacity: 0.25; }
+    .screenshot-placeholder span {
+      font-family: var(--mono);
+      font-size: 11px;
+      color: var(--hint);
+    }
+
+    .modal-desc {
+      padding: 0 1.25rem;
+      font-size: 13px;
+      color: var(--muted);
+      line-height: 1.7;
+    }
+
+    /* ── MODAL CREDENTIALS ── */
+    .modal-credentials {
+      margin: 0.75rem 1.25rem 0;
+      padding: 0.75rem 1rem;
+      background: var(--blue-bg);
+      border: 0.5px solid var(--blue-border);
+      border-radius: var(--radius-md);
+      display: none;
+    }
+    .modal-credentials.visible { display: block; }
+    .modal-credentials-label {
+      font-family: var(--mono);
+      font-size: 10px;
+      letter-spacing: 0.08em;
+      color: var(--blue-mid);
+      text-transform: uppercase;
+      margin-bottom: 0.4rem;
+    }
+    .modal-credentials-row {
+      display: flex;
+      gap: 1.5rem;
+      flex-wrap: wrap;
+    }
+    .modal-credentials-row span {
+      font-family: var(--mono);
+      font-size: 12px;
+      color: var(--text);
+    }
+    .modal-credentials-row .cred-label {
+      color: var(--muted);
+      font-size: 11px;
+    }
+
+    /* ── MODAL ACTIONS ── */
+    .modal-actions { display: flex; gap: 10px; padding: 1.25rem; }
+    .modal-actions .btn-primary,
+    .modal-actions .btn-secondary { flex: 1; text-align: center; padding: 11px; }
+
+    /* ── STATS COUNTER ── */
+    .stat-number {
+      font-family: var(--mono);
+      font-size: clamp(28px, 4vw, 38px);
+      font-weight: 700;
+      color: var(--text);
+      display: inline-block;
+      line-height: 1.2;
+    }
+
+    /* ── SCROLL REVEAL ── */
+    /* Default: animations disabled — elements shown in final visible state */
+    .reveal {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    /* When animations are explicitly enabled */
+    .animations-enabled .reveal {
+      opacity: 0;
+      transform: translateY(20px);
+      transition: opacity 600ms ease, transform 600ms ease;
+    }
+
+    .animations-enabled .reveal.revealed {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    /* prefers-reduced-motion: disable all scroll animations, show final state */
+    @media (prefers-reduced-motion: reduce) {
+      .animations-enabled .reveal {
+        opacity: 1 !important;
+        transform: none !important;
+        transition: none !important;
+      }
+    }
+
+    /* ── TAB PANEL ── */
+    .tablist {
+      display: flex;
+      gap: 4px;
+      border-bottom: 1px solid var(--border);
+      margin-bottom: 1.25rem;
+      overflow-x: auto;
+      -webkit-overflow-scrolling: touch;
+      scrollbar-width: thin;
+    }
+
+    .tab-btn {
+      font-family: var(--mono);
+      font-size: 12px;
+      color: var(--muted);
+      background: transparent;
+      border: none;
+      border-bottom: 2px solid transparent;
+      padding: 10px 18px;
+      cursor: pointer;
+      white-space: nowrap;
+      transition: color 0.15s, border-color 0.15s;
+      flex-shrink: 0;
+    }
+
+    .tab-btn:hover { color: var(--text); }
+    .tab-btn:focus-visible {
+      outline: 2px solid var(--blue-mid);
+      outline-offset: -2px;
+      border-radius: 2px;
+    }
+
+    .tab-btn[aria-selected="true"] {
+      color: var(--blue-mid);
+      border-bottom-color: var(--blue-mid);
+      font-weight: 700;
+    }
+
+    .tabpanel {
+      display: none;
+    }
+
+    .tabpanel.active {
+      display: block;
+    }
+
+    @media (max-width: 768px) {
+      .tab-btn {
+        min-width: 44px;
+        min-height: 44px;
+        padding: 12px 16px;
+      }
+
+      .arch-card {
+        min-height: 44px;
+      }
+
+      .nav-links a {
+        min-height: 44px;
+        display: inline-flex;
+        align-items: center;
+      }
+
+      .btn-primary,
+      .btn-secondary,
+      .btn-accent {
+        min-height: 44px;
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+      }
+
+      .modal-close {
+        min-width: 44px;
+        min-height: 44px;
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+      }
+
+      .contact-link {
+        min-height: 44px;
+        display: inline-flex;
+        align-items: center;
+      }
+
+      .card {
+        min-height: 44px;
+      }
+    }
+
+    /* ── ARCHITECTURE CARDS ── */
+    .arch-cards {
+      display: grid;
+      gap: 8px;
+    }
+
+    .arch-card {
+      background: var(--surface);
+      border: 0.5px solid var(--border);
+      border-radius: var(--radius-md);
+      padding: 12px 16px;
+      cursor: pointer;
+      max-height: 44px;
+      overflow: hidden;
+      transition: max-height 0.3s ease;
+    }
+
+    .arch-card.expanded {
+      max-height: 120px;
+    }
+
+    .arch-card-name {
+      font-family: var(--mono);
+      font-size: 13px;
+      font-weight: 700;
+      color: var(--text);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      min-height: 20px;
+    }
+
+    .arch-card-name::after {
+      content: '+';
+      font-size: 14px;
+      color: var(--muted);
+      transition: transform 0.3s ease;
+    }
+
+    .arch-card.expanded .arch-card-name::after {
+      transform: rotate(45deg);
+    }
+
+    .arch-card-desc {
+      font-size: 13px;
+      color: var(--muted);
+      line-height: 1.6;
+      margin-top: 8px;
+    }
+
+    /* ── SENSOR TABLE ── */
+    .sensor-table-wrap {
+      overflow-x: auto;
+      -webkit-overflow-scrolling: touch;
+      scrollbar-width: thin;
+    }
+
+    .sensor-table-wrap::-webkit-scrollbar {
+      height: 6px;
+    }
+
+    .sensor-table-wrap::-webkit-scrollbar-track {
+      background: var(--surface-2);
+      border-radius: 3px;
+    }
+
+    .sensor-table-wrap::-webkit-scrollbar-thumb {
+      background: var(--border-md);
+      border-radius: 3px;
+    }
+
+    .sensor-table {
+      width: 100%;
+      min-width: 500px;
+      border-collapse: collapse;
+      font-size: 13px;
+    }
+
+    .sensor-table thead {
+      border-bottom: 1px solid var(--border);
+    }
+
+    .sensor-table th {
+      font-family: var(--mono);
+      font-size: 11px;
+      font-weight: 700;
+      color: var(--muted);
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      text-align: left;
+      padding: 8px 12px;
+    }
+
+    .sensor-table td {
+      padding: 8px 12px;
+      color: var(--text);
+      border-bottom: 0.5px solid var(--border);
+    }
+
+    .sensor-table tbody tr:last-child td {
+      border-bottom: none;
+    }
+
+    .sensor-table td:first-child {
+      font-family: var(--mono);
+      font-weight: 700;
+      color: var(--blue-mid);
+      text-align: center;
+      width: 60px;
+    }
+
+    .sensor-table td:nth-child(3) {
+      font-family: var(--mono);
+      font-size: 12px;
+      white-space: nowrap;
+    }
+
+    /* ── ROUTING DIAGRAM ── */
+    .mermaid-diagram {
+      overflow-x: auto;
+      -webkit-overflow-scrolling: touch;
+      scrollbar-width: thin;
+      min-height: 100px;
+    }
+
+    .mermaid-diagram pre.mermaid {
+      min-width: 600px;
+    }
+
+    .diagram-fallback {
+      padding: 1rem;
+      background: var(--surface);
+      border: 0.5px solid var(--border);
+      border-radius: var(--radius-md);
+    }
+
+    .routing-gates {
+      display: grid;
+      gap: 8px;
+      margin-top: 1rem;
+    }
+
+    .routing-gate-item {
+      display: flex;
+      flex-direction: column;
+      gap: 2px;
+      padding: 10px 14px;
+      background: var(--surface);
+      border: 0.5px solid var(--border);
+      border-radius: var(--radius-md);
+    }
+
+    .routing-gate-name {
+      font-family: var(--mono);
+      font-size: 12px;
+      font-weight: 700;
+      color: var(--blue-mid);
+    }
+
+    .routing-gate-criteria {
+      font-size: 13px;
+      color: var(--muted);
+      line-height: 1.5;
+    }
+
+    /* ── TECH STACK GROUPS ── */
+    .tech-stack-groups {
+      display: grid;
+      gap: 1.25rem;
+    }
+
+    .tech-stack-group {
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+    }
+
+    .tech-stack-label {
+      font-family: var(--mono);
+      font-size: 11px;
+      font-weight: 700;
+      color: var(--muted);
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+    }
+
+    .tech-stack-pills {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 6px;
+    }
+
+    /* ── MODEL COMPARISON TABLE ── */
+    .model-table-wrap {
+      overflow-x: auto;
+      -webkit-overflow-scrolling: touch;
+      scrollbar-width: thin;
+      margin-bottom: 1.5rem;
+    }
+
+    .model-table-wrap::-webkit-scrollbar {
+      height: 6px;
+    }
+
+    .model-table-wrap::-webkit-scrollbar-track {
+      background: var(--surface-2);
+      border-radius: 3px;
+    }
+
+    .model-table-wrap::-webkit-scrollbar-thumb {
+      background: var(--border-md);
+      border-radius: 3px;
+    }
+
+    .model-table {
+      width: 100%;
+      min-width: 560px;
+      border-collapse: collapse;
+      font-size: 13px;
+    }
+
+    .model-table thead {
+      border-bottom: 1px solid var(--border);
+    }
+
+    .model-table th {
+      font-family: var(--mono);
+      font-size: 11px;
+      font-weight: 700;
+      color: var(--muted);
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      text-align: left;
+      padding: 8px 12px;
+    }
+
+    .model-table td {
+      padding: 8px 12px;
+      color: var(--text);
+      border-bottom: 0.5px solid var(--border);
+    }
+
+    .model-table tbody tr:last-child td {
+      border-bottom: none;
+    }
+
+    .model-table td.highlight {
+      background: var(--green-bg);
+      font-weight: 700;
+    }
+
+    .model-table td:first-child {
+      font-family: var(--mono);
+      font-weight: 700;
+      font-size: 12px;
+    }
+
+    /* ── BENCHMARK CHART ── */
+    .benchmark-chart-wrap {
+      overflow-x: auto;
+      -webkit-overflow-scrolling: touch;
+      scrollbar-width: thin;
+    }
+
+    .benchmark-chart-wrap::-webkit-scrollbar {
+      height: 6px;
+    }
+
+    .benchmark-chart-wrap::-webkit-scrollbar-track {
+      background: var(--surface-2);
+      border-radius: 3px;
+    }
+
+    .benchmark-chart-wrap::-webkit-scrollbar-thumb {
+      background: var(--border-md);
+      border-radius: 3px;
+    }
+
+    .benchmark-chart {
+      min-width: 400px;
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+    }
+
+    .benchmark-chart-title {
+      font-family: var(--mono);
+      font-size: 11px;
+      font-weight: 700;
+      color: var(--muted);
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      margin-bottom: 4px;
+    }
+
+    .chart-row {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .chart-label {
+      font-family: var(--mono);
+      font-size: 11px;
+      color: var(--text);
+      min-width: 130px;
+      flex-shrink: 0;
+    }
+
+    .chart-bar-container {
+      flex: 1;
+      height: 24px;
+      background: var(--surface);
+      border-radius: 4px;
+      overflow: hidden;
+      border: 0.5px solid var(--border);
+    }
+
+    .chart-bar {
+      height: 100%;
+      border-radius: 4px;
+      transition: width 0.6s ease;
+    }
+
+    .chart-value {
+      font-family: var(--mono);
+      font-size: 12px;
+      color: var(--muted);
+      min-width: 50px;
+      text-align: right;
+    }
+
+    /* ── QUANTUM CONFIG ── */
+    .quantum-config {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      gap: 10px;
+    }
+
+    .quantum-config-item {
+      background: var(--surface);
+      border: 0.5px solid var(--border);
+      border-radius: var(--radius-md);
+      padding: 12px 16px;
+      display: flex;
+      flex-direction: column;
+      gap: 2px;
+    }
+
+    .quantum-config-item dt {
+      font-family: var(--mono);
+      font-size: 11px;
+      font-weight: 700;
+      color: var(--muted);
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+    }
+
+    .quantum-config-item dd {
+      font-size: 14px;
+      color: var(--text);
+      font-weight: 500;
+      margin: 0;
+    }
+
+    /* ── DATASET CLASSES ── */
+    .dataset-classes {
+      list-style: none;
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+      gap: 8px;
+      margin-bottom: 1.25rem;
+    }
+
+    .dataset-classes li {
+      font-family: var(--mono);
+      font-size: 12px;
+      color: var(--text);
+      background: var(--surface);
+      border: 0.5px solid var(--border);
+      border-radius: var(--radius-md);
+      padding: 8px 14px;
+      text-align: center;
+    }
+
+    .dataset-note {
+      background: var(--blue-bg);
+      border: 0.5px solid var(--blue-border);
+      border-radius: var(--radius-md);
+      padding: 12px 16px;
+      margin-bottom: 10px;
+      font-size: 13px;
+      color: var(--text);
+      line-height: 1.6;
+    }
+
+    .dataset-note-label {
+      font-family: var(--mono);
+      font-size: 10px;
+      font-weight: 700;
+      color: var(--blue-mid);
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      margin-bottom: 4px;
+    }
+
+    /* ── SHOWCASE SECTION ── */
+    .showcase-section {
+      background: var(--surface-2);
+      border-radius: var(--radius-xl);
+      max-width: 1100px;
+      margin: 0 auto 2.5rem;
+      padding: 2.5rem 2rem;
+    }
+
+    .showcase-header h2 {
+      font-family: var(--serif);
+      font-size: clamp(24px, 3.5vw, 32px);
+      font-weight: 400;
+      margin-bottom: 0.75rem;
+    }
+
+    .showcase-header p {
+      font-size: 14px;
+      color: var(--muted);
+      line-height: 1.7;
+      max-width: 700px;
+      margin-bottom: 1rem;
+    }
+
+    .showcase-header .github-link {
+      font-family: var(--mono);
+      font-size: 12px;
+      color: var(--blue-mid);
+      text-decoration: none;
+      display: inline-flex;
+      align-items: center;
+      gap: 4px;
+      margin-bottom: 1.5rem;
+      transition: gap 0.15s;
+    }
+    .showcase-header .github-link:hover { gap: 8px; }
+
+    .stats-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 1.5rem 2.5rem;
+      margin-bottom: 1.5rem;
+    }
+
+    .stat-item {
+      display: flex;
+      flex-direction: column;
+      align-items: flex-start;
+    }
+
+    .stat-item .stat-label {
+      font-family: var(--mono);
+      font-size: 11px;
+      color: var(--muted);
+      margin-top: 2px;
+    }
+
+    .tech-badges {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 6px;
+      margin-bottom: 1.5rem;
+    }
+
+    .tech-badge {
+      font-family: var(--mono);
+      font-size: 11px;
+      color: var(--blue-mid);
+      background: var(--blue-bg);
+      border: 0.5px solid var(--blue-border);
+      border-radius: 99px;
+      padding: 4px 12px;
+    }
+
+    /* ── RESPONSIVE ── */
+    @media (max-width: 600px) {
+      nav { flex-wrap: wrap; gap: 0.75rem; }
+      .nav-links { gap: 1rem; flex-wrap: wrap; }
+      .hero { padding: 2.5rem 0 2rem; }
+      .projects-grid { grid-template-columns: 1fr; }
+      .modal-actions { flex-direction: column; }
+      .showcase-section { padding: 1.5rem 1rem; margin: 0 -0.5rem 2rem; }
+    }
+  </style>
+</head>
+<body>
+
+<!-- ══ MODAL ══════════════════════════════════════════════════════════ -->
+<div class="overlay" id="overlay" role="dialog" aria-modal="true" aria-labelledby="modal-title">
+  <div class="modal" id="modal">
+    <div class="modal-header">
+      <div>
+        <div class="card-tag" id="modal-tag"></div>
+        <div class="modal-title" id="modal-title"></div>
+      </div>
+      <button class="modal-close" id="modal-close" aria-label="Close">&times;</button>
+    </div>
+
+    <div class="modal-screenshot">
+      <img id="modal-img" alt="App screenshot" />
+      <div class="screenshot-placeholder" id="modal-placeholder">
+        <svg width="36" height="36" viewBox="0 0 36 36" fill="none">
+          <rect x="2" y="7" width="32" height="22" rx="3" stroke="currentColor" stroke-width="1.5"/>
+          <path d="M9 14h18M9 20h11" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/>
+        </svg>
+        <span>app screenshot · place image here</span>
+      </div>
+    </div>
+
+    <p class="modal-desc" id="modal-desc"></p>
+
+    <div class="modal-credentials" id="modal-credentials">
+      <div class="modal-credentials-label">Demo login</div>
+      <div class="modal-credentials-row">
+        <span><span class="cred-label">Email </span><span id="cred-email"></span></span>
+        <span><span class="cred-label">Password </span><span id="cred-pass"></span></span>
+      </div>
+    </div>
+
+    <div class="modal-actions">
+      <a class="btn-primary"   id="modal-launch" href="#" target="_blank" rel="noopener">Launch App &rarr;</a>
+      <a class="btn-secondary" id="modal-repo"   href="#" target="_blank" rel="noopener">View on GitHub &rarr;</a>
+    </div>
+  </div>
+</div>
+
+<!-- ══ PAGE ══════════════════════════════════════════════════════════ -->
+<nav>
+  <div class="nav-logo"><strong>Brad</strong> · CS @ TAMU-RELLIS</div>
+  <ul class="nav-links">
+    <li><a href="#desktop-agent">Desktop Agent</a></li>
+    <li><a href="#nids">NIDS</a></li>
+    <li><a href="#projects">Projects</a></li>
+    <li><a href="#skills">Skills</a></li>
+    <li><a href="#contact">Contact</a></li>
+  </ul>
+</nav>
+
+<div class="wrap">
+
+  <section class="hero">
+    <div class="badge">IBM Qiskit Advocate</div>
+    <h1>Building at the edge<br>of software.</h1>
+    <p class="hero-tagline">Flagship project: a multimodal Desktop Agent for hands-free Windows control via voice, gaze, and gesture.</p>
+    <p class="hero-sub">
+      Computer Science student at Texas A&amp;M-RELLIS. I work across machine learning,
+      quantum computing, and systems networking — and build software for real-world
+      healthcare workflows.
+    </p>
+    <div class="hero-actions">
+      <a href="#projects" class="btn-primary">View Projects</a>
+      <a href="/resume.pdf" class="btn-secondary" target="_blank">Download Résumé</a>
+      <a href="#desktop-agent" class="btn-accent">Featured Project</a>
+    </div>
+  </section>
+
+  <section class="section" id="desktop-agent">
+    <div class="showcase-section">
+      <div class="showcase-header" id="desktop-agent-header"></div>
+      <div class="stats-row" id="desktop-agent-stats"></div>
+      <div class="tech-badges" id="desktop-agent-badges"></div>
+      <div id="desktop-agent-tabs"></div>
+    </div>
+  </section>
+
+  <section class="section" id="nids">
+    <div class="showcase-section">
+      <div class="showcase-header" id="nids-header"></div>
+      <div class="stats-row" id="nids-stats"></div>
+      <div class="tech-badges" id="nids-badges"></div>
+      <div id="nids-tabs"></div>
+    </div>
+  </section>
+
+  <section class="section" id="projects">
+    <div class="section-label">// Projects</div>
+    <div class="projects-grid" id="projects-grid"></div>
+  </section>
+
+  <section class="section" id="skills">
+    <div class="section-label">// Skills</div>
+    <div class="skills-row">
+      <span class="pill">Python</span>
+      <span class="pill">C#</span>
+      <span class="pill">SQL</span>
+      <span class="pill">JavaScript</span>
+      <span class="pill">Django</span>
+      <span class="pill">.NET MAUI</span>
+      <span class="pill">Blazor</span>
+      <span class="pill">PyTorch</span>
+      <span class="pill">Qiskit</span>
+      <span class="pill">scikit-learn</span>
+      <span class="pill">AWS Lambda</span>
+      <span class="pill">DynamoDB</span>
+      <span class="pill">Rekognition</span>
+      <span class="pill">EC2</span>
+      <span class="pill">S3</span>
+      <span class="pill">SAM</span>
+      <span class="pill">boto3</span>
+      <span class="pill">Cisco IOS</span>
+      <span class="pill">VLANs / OSPF / STP</span>
+      <span class="pill">Docker</span>
+      <span class="pill">Git</span>
+      <span class="pill">Linux</span>
+      <span class="pill">Nginx</span>
+    </div>
+
+    <div class="section-label" style="margin-top: 1.5rem;">// Certifications</div>
+    <div class="skills-row">
+      <span class="pill" style="border-color: var(--blue-border); color: var(--blue-mid);">AWS Cloud Practitioner ✓</span>
+      <span class="pill" style="border-color: var(--blue-border); color: var(--blue-mid);">AWS AI Practitioner ✓</span>
+      <span class="pill" style="border-color: var(--blue-border); color: var(--blue-mid);">IBM Qiskit Advocate ✓</span>
+      <span class="pill" style="border-color: var(--amber-bg); color: var(--amber-text);">AWS Cloud Institute · Jun 2026</span>
+      <span class="pill" style="border-color: var(--amber-bg); color: var(--amber-text);">AWS Developer Associate · Jul 2026</span>
+    </div>
+  </section>
+
+  <section class="section" id="contact">
+    <div class="section-label">// Contact</div>
+    <div class="contact-row">
+      <a class="contact-link" href="https://github.com/Bradly187"      target="_blank">GitHub &rarr;</a>
+      <a class="contact-link" href="https://linkedin.com/in/john-tarver-863277358" target="_blank">LinkedIn &rarr;</a>
+      <a class="contact-link" href="mailto:bradtarber477@gmail.com">Email &rarr;</a>
+    </div>
+  </section>
+
+  <footer>
+    &copy; 2026 Brad &mdash; hosted on EC2 &mdash; built with curiosity
+  </footer>
+
+</div>
+
+<script>
+/* ── DESKTOP AGENT CONFIG ─────────────────────────────────────────── */
+const DESKTOP_AGENT = {
+  name: 'Personal Desktop Agent',
+  description: 'Multimodal accessibility agent enabling hands-free Windows control through voice, gaze, gesture, tilt, and touch — powered by local GPU inference with AWS cloud fallback.',
+  repoUrl: 'https://github.com/Bradly187/Personal_Desktop_Agent',
+  stats: [
+    { value: 10, label: 'Input Modalities' },
+    { value: 14, label: 'MCP Tools' },
+    { value: 100, prefix: '<', suffix: 'ms', label: 'Touch Latency' },
+    { value: 60, suffix: 'Hz', label: 'Fusion Rate' },
+    { value: 4, label: 'Routing Gates' },
+  ],
+  techBadges: ['Python', 'Swift', 'PyTorch', 'Whisper', 'MediaPipe', 'MCP', 'AWS Bedrock', 'WebSocket'],
+  architecture: [
+    { name: 'MCP Server', desc: 'Exposes 14 desktop control tools (mouse, keyboard, screen, windows) to Claude via stdio transport.' },
+    { name: 'iPad Bridge', desc: 'WebSocket server receiving all iPad sensor streams and dispatching to processing pipelines.' },
+    { name: 'Fusion Engine', desc: 'Merges 10 input modalities at 60Hz using priority-based routing with confidence gating.' },
+    { name: 'Hybrid Coordinator', desc: '4-gate routing engine deciding local vs. cloud inference based on confidence and GPU load.' },
+    { name: 'Local Inference', desc: 'Whisper large-v3 + Llama 3.1 running on RTX 5090 for sub-600ms voice command processing.' },
+    { name: 'Continuous Trainer', desc: 'Background learning system that adapts routing thresholds and vocabulary over time.' },
+  ],
+  sensors: [
+    { priority: 1, source: 'iPad Touch Command', latency: '<100ms', gate: 'Immediate — bypasses LLM' },
+    { priority: 2, source: 'Sound Action', latency: '<50ms', gate: 'Mapped mouth sounds (cluck, pop, hiss)' },
+    { priority: 3, source: 'Gaze Dwell Click', latency: '~300ms', gate: 'Resting gaze auto-clicks after dwell duration' },
+    { priority: 4, source: 'Gaze + Voice "click"', latency: '<200ms', gate: 'Click at gaze coordinates on voice trigger' },
+    { priority: 5, source: 'Gaze + Gesture POINT', latency: '<200ms', gate: 'Click at gaze coordinates on point gesture' },
+    { priority: 6, source: 'Tilt Navigation', latency: '<50ms', gate: 'iPad tilt moves cursor via Core Motion' },
+    { priority: 7, source: 'Head Tracking', latency: '<100ms', gate: 'Head pose moves cursor via ARKit' },
+    { priority: 8, source: 'Gesture Alone', latency: '<50ms', gate: 'Hand gesture via iPad camera + MediaPipe' },
+    { priority: 9, source: 'On-device Voice Keyword', latency: '<150ms', gate: 'Speech Framework fast-path match' },
+    { priority: 10, source: 'PC-transcribed Voice', latency: '<600ms', gate: 'Full Whisper + LLM pipeline' },
+  ],
+  routing: {
+    mermaidDef: 'graph TD\n    A[Input Received] --> B{Gate 1: Confidence}\n    B -->|High conf ≥0.85| C{Gate 2: Complexity}\n    B -->|Low conf <0.85| F[Cloud Fallback]\n    C -->|Simple command| D{Gate 3: GPU Load}\n    C -->|Complex/multi-step| F\n    D -->|VRAM available| E{Gate 4: Latency Budget}\n    D -->|GPU saturated| F\n    E -->|Within budget| G[Local Execution]\n    E -->|Over budget| F',
+    gates: [
+      { name: 'Confidence Gate', criteria: 'Whisper logprob \u2265 0.85 or gesture confidence \u2265 0.85' },
+      { name: 'Complexity Gate', criteria: 'Single action verb in constrained vocabulary (10 actions)' },
+      { name: 'GPU Load Gate', criteria: 'VRAM usage < 90% of available (monitored via pynvml)' },
+      { name: 'Latency Budget Gate', criteria: 'Estimated local inference < source latency target' },
+    ],
+    fallbackText: 'Input \u2192 Confidence Gate \u2192 Complexity Gate \u2192 GPU Load Gate \u2192 Latency Gate \u2192 Local or Cloud'
+  },
+  techStack: {
+    pc: ['Python 3.11+', 'PyTorch', 'faster-whisper', 'MediaPipe', 'YOLOv8', 'pyautogui', 'MCP SDK', 'aiohttp'],
+    ipad: ['Swift/SwiftUI', 'Core Motion', 'ARKit', 'Speech Framework', 'AVFoundation'],
+    cloud: ['Amazon Bedrock (Claude)', 'Amazon Transcribe', 'AWS Lambda'],
+  },
+};
+
+/* ── RENDER DESKTOP AGENT SECTION ─────────────────────────────────── */
+(function renderDesktopAgentSection() {
+  // Header
+  var header = document.getElementById('desktop-agent-header');
+  if (header) {
+    header.innerHTML =
+      '<h2>' + DESKTOP_AGENT.name + '</h2>' +
+      '<p>' + DESKTOP_AGENT.description + '</p>' +
+      '<a class="github-link" href="' + DESKTOP_AGENT.repoUrl + '" target="_blank" rel="noopener">View on GitHub &rarr;</a>';
+  }
+
+  // Stats row
+  var statsRow = document.getElementById('desktop-agent-stats');
+  if (statsRow) {
+    DESKTOP_AGENT.stats.forEach(function(stat) {
+      var item = document.createElement('div');
+      item.className = 'stat-item';
+
+      var num = document.createElement('span');
+      num.className = 'stat-number';
+      num.setAttribute('data-target', stat.value);
+      if (stat.prefix) num.setAttribute('data-prefix', stat.prefix);
+      if (stat.suffix) num.setAttribute('data-suffix', stat.suffix);
+      num.textContent = '0';
+
+      var label = document.createElement('span');
+      label.className = 'stat-label';
+      label.textContent = stat.label;
+
+      item.appendChild(num);
+      item.appendChild(label);
+      statsRow.appendChild(item);
+    });
+
+    // Observe stat elements with the stats counter observer
+    if (window._statsCounterObserver) {
+      statsRow.querySelectorAll('.stat-number').forEach(function(el) {
+        window._statsCounterObserver.observe(el);
+      });
+    }
+  }
+
+  // Tech badges
+  var badgesContainer = document.getElementById('desktop-agent-badges');
+  if (badgesContainer) {
+    DESKTOP_AGENT.techBadges.forEach(function(badge) {
+      var span = document.createElement('span');
+      span.className = 'tech-badge';
+      span.textContent = badge;
+      badgesContainer.appendChild(span);
+    });
+  }
+})();
+
+/* ── DESKTOP AGENT TABS ───────────────────────────────────────────── */
+(function renderDesktopAgentTabs() {
+  createTabPanel('desktop-agent-tabs', [
+    {
+      id: 'architecture',
+      label: 'Architecture',
+      render: function() {
+        var html = '<div class="arch-cards">';
+        DESKTOP_AGENT.architecture.forEach(function(comp) {
+          html += '<div class="arch-card" role="button" tabindex="0" aria-expanded="false">' +
+            '<div class="arch-card-name">' + comp.name + '</div>' +
+            '<div class="arch-card-desc">' + comp.desc + '</div>' +
+            '</div>';
+        });
+        html += '</div>';
+        return html;
+      }
+    },
+    {
+      id: 'sensors',
+      label: 'Sensors',
+      render: function() {
+        var html = '<div class="sensor-table-wrap">' +
+          '<table class="sensor-table">' +
+          '<thead><tr>' +
+          '<th scope="col">Priority</th>' +
+          '<th scope="col">Source</th>' +
+          '<th scope="col">Latency</th>' +
+          '<th scope="col">Gate Behavior</th>' +
+          '</tr></thead><tbody>';
+        DESKTOP_AGENT.sensors.forEach(function(s) {
+          html += '<tr>' +
+            '<td>' + s.priority + '</td>' +
+            '<td>' + s.source + '</td>' +
+            '<td>' + s.latency + '</td>' +
+            '<td>' + s.gate + '</td>' +
+            '</tr>';
+        });
+        html += '</tbody></table></div>';
+        return html;
+      }
+    },
+    {
+      id: 'routing',
+      label: 'Routing',
+      render: function() {
+        var html = '<div class="mermaid-diagram" aria-label="4-gate routing decision flow: input passes through confidence, complexity, GPU load, and latency gates to determine local or cloud execution">';
+        html += '<pre class="mermaid">' + DESKTOP_AGENT.routing.mermaidDef + '</pre>';
+        html += '</div>';
+        html += '<div class="diagram-fallback" style="display:none;">';
+        html += '<p style="font-family:var(--mono);font-size:12px;color:var(--muted);line-height:1.8;">' + DESKTOP_AGENT.routing.fallbackText + '</p>';
+        html += '</div>';
+        html += '<div class="routing-gates">';
+        DESKTOP_AGENT.routing.gates.forEach(function(gate) {
+          html += '<div class="routing-gate-item">';
+          html += '<span class="routing-gate-name">' + gate.name + '</span>';
+          html += '<span class="routing-gate-criteria">' + gate.criteria + '</span>';
+          html += '</div>';
+        });
+        html += '</div>';
+        return html;
+      }
+    },
+    {
+      id: 'techstack',
+      label: 'Tech Stack',
+      render: function() {
+        var categories = [
+          { label: 'PC-side (Python)', items: DESKTOP_AGENT.techStack.pc },
+          { label: 'iPad-side (Swift)', items: DESKTOP_AGENT.techStack.ipad },
+          { label: 'Cloud (AWS)', items: DESKTOP_AGENT.techStack.cloud },
+        ];
+        var html = '<div class="tech-stack-groups">';
+        categories.forEach(function(cat) {
+          html += '<div class="tech-stack-group">';
+          html += '<div class="tech-stack-label">' + cat.label + '</div>';
+          html += '<div class="tech-stack-pills">';
+          cat.items.forEach(function(item) {
+            html += '<span class="tech-badge">' + item + '</span>';
+          });
+          html += '</div></div>';
+        });
+        html += '</div>';
+        return html;
+      }
+    }
+  ], 'architecture');
+
+  // Attach click handlers for architecture cards
+  document.querySelectorAll('.arch-card').forEach(function(card) {
+    card.addEventListener('click', function() {
+      card.classList.toggle('expanded');
+      card.setAttribute('aria-expanded', card.classList.contains('expanded') ? 'true' : 'false');
+    });
+    card.addEventListener('keydown', function(e) {
+      if (e.key === 'Enter' || e.key === ' ') {
+        e.preventDefault();
+        card.classList.toggle('expanded');
+        card.setAttribute('aria-expanded', card.classList.contains('expanded') ? 'true' : 'false');
+      }
+    });
+  });
+})();
+
+/* ── NIDS PROJECT CONFIG ───────────────────────────────────────────── */
+const NIDS_PROJECT = {
+  name: 'Network Intrusion Detection: Classical vs. Quantum ML',
+  description: 'Systematic comparison of PCA+SVM, deep learning (MLP), and quantum ML approaches for network intrusion detection on the NSL-KDD dataset. CSCI 459 — AI Enhanced Security, Texas A&M.',
+  repoUrl: 'https://github.com/Bradly187/NIDS_ML_Project',
+  figuresUrl: 'https://github.com/Bradly187/NIDS_ML_Project/tree/main/figures',
+  stats: [
+    { value: 125973, label: 'Training Records' },
+    { value: 22544, label: 'Test Records' },
+    { value: 41, label: 'Features' },
+    { value: 5, label: 'Attack Classes' },
+    { value: 3, label: 'Model Types' },
+  ],
+  techBadges: ['Python', 'scikit-learn', 'PyTorch', 'Qiskit', 'Amazon Braket', 'PennyLane', 'NumPy', 'matplotlib'],
+  models: [
+    { name: 'PCA + SVM (RBF)', category: 'Classical', binaryAcc: 0.9245, binaryF1: 0.9312, multiAcc: 0.7891, multiF1: 0.6234 },
+    { name: 'MLP (PyTorch)', category: 'Deep Learning', binaryAcc: 0.9456, binaryF1: 0.9501, multiAcc: 0.8123, multiF1: 0.6789 },
+    { name: 'Quantum Transfer', category: 'Quantum', binaryAcc: 0.8934, binaryF1: 0.8876, multiAcc: 0.7234, multiF1: 0.5612 },
+  ],
+  pipeline: {
+    mermaidDef: 'graph LR\n    A[Raw NSL-KDD] --> B[One-Hot Encoding]\n    B --> C[Standard Scaling]\n    C --> D[PCA - 30 components]\n    D --> E1[SVM Training]\n    D --> E2[MLP Training]\n    D --> E3[Quantum Circuit]',
+    fallbackText: 'Raw NSL-KDD \u2192 One-Hot Encoding \u2192 Standard Scaling \u2192 PCA (30 components) \u2192 SVM / MLP / Quantum'
+  },
+  quantum: {
+    qubits: 4,
+    ansatz: 'real_amplitudes (reps=2)',
+    featureMap: 'zz_feature_map (reps=1)',
+    epochs: 20,
+    trainingTime: '~874s',
+    backends: ['IBM Quantum Heron R2', 'Amazon Braket simulators'],
+  },
+  dataset: {
+    classes: ['Normal', 'DoS', 'Probe', 'R2L', 'U2R'],
+    imbalanceNote: 'R2L and U2R classes are severely underrepresented in training data, creating significant class imbalance challenges.',
+    shiftNote: 'The test set has a different class distribution than training, simulating real-world distribution shift.',
+  }
+};
+
+/* ── RENDER NIDS SECTION ──────────────────────────────────────────── */
+(function renderNidsSection() {
+  // Header
+  var header = document.getElementById('nids-header');
+  if (header) {
+    header.innerHTML =
+      '<h2>' + NIDS_PROJECT.name + '</h2>' +
+      '<p>' + NIDS_PROJECT.description + '</p>' +
+      '<span class="badge" style="margin-bottom: 1rem;">CSCI 459 — AI Enhanced Security, Texas A&amp;M</span><br>' +
+      '<a class="github-link" href="' + NIDS_PROJECT.repoUrl + '" target="_blank" rel="noopener">View on GitHub &rarr;</a> ' +
+      '<a class="github-link" href="' + NIDS_PROJECT.figuresUrl + '" target="_blank" rel="noopener" style="margin-left: 1rem;">View Figures &rarr;</a>';
+  }
+
+  // Stats row
+  var statsRow = document.getElementById('nids-stats');
+  if (statsRow) {
+    NIDS_PROJECT.stats.forEach(function(stat) {
+      var item = document.createElement('div');
+      item.className = 'stat-item';
+
+      var num = document.createElement('span');
+      num.className = 'stat-number';
+      num.setAttribute('data-target', stat.value);
+      if (stat.prefix) num.setAttribute('data-prefix', stat.prefix);
+      if (stat.suffix) num.setAttribute('data-suffix', stat.suffix);
+      num.textContent = '0';
+
+      var label = document.createElement('span');
+      label.className = 'stat-label';
+      label.textContent = stat.label;
+
+      item.appendChild(num);
+      item.appendChild(label);
+      statsRow.appendChild(item);
+    });
+
+    // Observe stat elements with the stats counter observer
+    if (window._statsCounterObserver) {
+      statsRow.querySelectorAll('.stat-number').forEach(function(el) {
+        window._statsCounterObserver.observe(el);
+      });
+    }
+  }
+
+  // Tech badges
+  var badgesContainer = document.getElementById('nids-badges');
+  if (badgesContainer) {
+    NIDS_PROJECT.techBadges.forEach(function(badge) {
+      var span = document.createElement('span');
+      span.className = 'tech-badge';
+      span.textContent = badge;
+      badgesContainer.appendChild(span);
+    });
+  }
+})();
+
+/* ── NIDS TABS ────────────────────────────────────────────────────── */
+(function renderNidsTabs() {
+  // Determine default tab from localStorage
+  var savedTab = null;
+  try { savedTab = localStorage.getItem('nids-active-tab'); } catch(e) {}
+  var defaultTab = (savedTab && ['results','pipeline','quantum','dataset'].indexOf(savedTab) !== -1) ? savedTab : 'results';
+
+  var nidsTabs = createTabPanel('nids-tabs', [
+    {
+      id: 'results',
+      label: 'Results',
+      render: function() {
+        var models = NIDS_PROJECT.models;
+        var columns = ['binaryAcc', 'binaryF1', 'multiAcc', 'multiF1'];
+        var columnLabels = ['Binary Acc', 'Binary F1', 'Multi-Class Acc', 'Multi-Class F1'];
+
+        // Find max value per numeric column
+        var maxValues = {};
+        columns.forEach(function(col) {
+          var max = -Infinity;
+          models.forEach(function(m) {
+            if (m[col] > max) max = m[col];
+          });
+          maxValues[col] = max;
+        });
+
+        // Model comparison table
+        var html = '<div class="model-table-wrap">' +
+          '<table class="model-table">' +
+          '<thead><tr>' +
+          '<th scope="col">Model</th>' +
+          '<th scope="col">Category</th>';
+        columnLabels.forEach(function(label) {
+          html += '<th scope="col">' + label + '</th>';
+        });
+        html += '</tr></thead><tbody>';
+
+        models.forEach(function(m) {
+          html += '<tr>';
+          html += '<td>' + m.name + '</td>';
+          html += '<td>' + m.category + '</td>';
+          columns.forEach(function(col) {
+            var isMax = m[col] === maxValues[col];
+            html += '<td' + (isMax ? ' class="highlight"' : '') + '>' + m[col].toFixed(4) + '</td>';
+          });
+          html += '</tr>';
+        });
+        html += '</tbody></table></div>';
+
+        // Benchmark chart - binary F1 scores
+        var categoryColors = {
+          'Classical': 'var(--green-text)',
+          'Deep Learning': 'var(--blue-mid)',
+          'Quantum': 'var(--amber-text)'
+        };
+
+        html += '<div class="benchmark-chart-wrap">';
+        html += '<div class="benchmark-chart">';
+        html += '<div class="benchmark-chart-title">Binary F1 Score Comparison</div>';
+
+        models.forEach(function(m) {
+          var widthPercent = (m.binaryF1 * 100).toFixed(2);
+          var color = categoryColors[m.category] || 'var(--muted)';
+          html += '<div class="chart-row">';
+          html += '<span class="chart-label">' + m.name + '</span>';
+          html += '<div class="chart-bar-container">';
+          html += '<div class="chart-bar" style="width:' + widthPercent + '%;background:' + color + ';" data-category="' + m.category + '"></div>';
+          html += '</div>';
+          html += '<span class="chart-value">' + m.binaryF1.toFixed(4) + '</span>';
+          html += '</div>';
+        });
+
+        html += '</div></div>';
+        return html;
+      }
+    },
+    {
+      id: 'pipeline',
+      label: 'Pipeline',
+      render: function() {
+        var html = '<div class="mermaid-diagram" aria-label="NIDS data pipeline: Raw NSL-KDD flows through one-hot encoding, standard scaling, and PCA to SVM, MLP, and quantum model training">';
+        html += '<pre class="mermaid">' + NIDS_PROJECT.pipeline.mermaidDef + '</pre>';
+        html += '</div>';
+        html += '<div class="diagram-fallback" style="display:none;">';
+        html += '<p style="font-family:var(--mono);font-size:12px;color:var(--muted);line-height:1.8;">' + NIDS_PROJECT.pipeline.fallbackText + '</p>';
+        html += '</div>';
+        return html;
+      }
+    },
+    {
+      id: 'quantum',
+      label: 'Quantum',
+      render: function() {
+        var q = NIDS_PROJECT.quantum;
+        var items = [
+          { label: 'Qubits', value: q.qubits },
+          { label: 'Circuit Ansatz', value: q.ansatz },
+          { label: 'Feature Map', value: q.featureMap },
+          { label: 'Training Epochs', value: q.epochs },
+          { label: 'Training Time', value: q.trainingTime },
+          { label: 'QPU Backends', value: q.backends.join(', ') },
+        ];
+        var html = '<dl class="quantum-config">';
+        items.forEach(function(item) {
+          html += '<div class="quantum-config-item">';
+          html += '<dt>' + item.label + '</dt>';
+          html += '<dd>' + item.value + '</dd>';
+          html += '</div>';
+        });
+        html += '</dl>';
+        return html;
+      }
+    },
+    {
+      id: 'dataset',
+      label: 'Dataset',
+      render: function() {
+        var d = NIDS_PROJECT.dataset;
+        var html = '<ul class="dataset-classes">';
+        d.classes.forEach(function(cls) {
+          html += '<li>' + cls + '</li>';
+        });
+        html += '</ul>';
+        html += '<div class="dataset-note">';
+        html += '<div class="dataset-note-label">Class Imbalance</div>';
+        html += '<p>' + d.imbalanceNote + '</p>';
+        html += '</div>';
+        html += '<div class="dataset-note">';
+        html += '<div class="dataset-note-label">Distribution Shift</div>';
+        html += '<p>' + d.shiftNote + '</p>';
+        html += '</div>';
+        return html;
+      }
+    }
+  ], defaultTab);
+
+  // Persist tab selection to localStorage on tab change
+  if (nidsTabs) {
+    var tabContainer = document.getElementById('nids-tabs');
+    if (tabContainer) {
+      var tabButtons = tabContainer.querySelectorAll('[role="tab"]');
+      tabButtons.forEach(function(btn) {
+        btn.addEventListener('click', function() {
+          var activeTab = nidsTabs.getActiveTab();
+          try { localStorage.setItem('nids-active-tab', activeTab); } catch(e) {}
+        });
+        btn.addEventListener('keydown', function(e) {
+          if (e.key === 'ArrowRight' || e.key === 'ArrowLeft') {
+            // Defer to allow the tab panel to update first
+            setTimeout(function() {
+              var activeTab = nidsTabs.getActiveTab();
+              try { localStorage.setItem('nids-active-tab', activeTab); } catch(e) {}
+            }, 0);
+          }
+        });
+      });
+    }
+  }
+})();
+
+/* ── PROJECT DATA ───────────────────────────────────────────────────
+   type: 'LIVE_APP'    → opens modal with Launch App + View Repo buttons
+   type: 'GITHUB_ONLY' → navigates straight to repoUrl in a new tab
+──────────────────────────────────────────────────────────────────── */
+const PROJECTS = [
+  {
+    id: 'clinicscheduler',
+    name: 'ClinicScheduler',
+    tag: '.NET MAUI · Blazor',
+    tagClass: 'tag-blue',
+    description: 'A full-stack clinic scheduling application with role-based access control, patient & appointment management, and HL7 FHIR integration concepts. Built as a Systems Analysis & Design capstone.',
+    cta: 'View live app →',
+    type: 'LIVE_APP',
+    featured: true,
+    liveUrl: 'https://clinic.bradtarver.com',
+    repoUrl: 'https://github.com/Bradly187/clinic-scheduler',
+    screenshot: 'assets/clinicscheduler.png',
+    demoCredentials: { email: 'guest@clinic.com', password: 'GuestPass123!' },
+  },
+  {
+    id: 'patient-onboarding',
+    name: 'Patient Onboarding',
+    tag: 'Django · AWS · Serverless',
+    tagClass: 'tag-amber',
+    description: "Serverless patient identity verification system using Amazon Rekognition to scan and validate driver's licenses. Built with Django, AWS Lambda, and DynamoDB.",
+    cta: 'View on GitHub →',
+    type: 'GITHUB_ONLY',
+    featured: false,
+    liveUrl: '',
+    repoUrl: 'https://github.com/',  // ← replace with repo URL
+    screenshot: '',
+  },
+];
+
+/* ── RENDER CARDS ─────────────────────────────────────────────────── */
+const grid = document.getElementById('projects-grid');
+
+PROJECTS.forEach(project => {
+  const card = document.createElement('div');
+  card.className = 'card' + (project.featured ? ' featured' : '');
+  card.classList.add('reveal');
+  card.setAttribute('role', 'button');
+  card.setAttribute('tabindex', '0');
+  card.setAttribute('aria-label', 'Open ' + project.name);
+
+  card.innerHTML = `
+    <span class="card-tag ${project.tagClass}">${project.tag}</span>
+    <h3>${project.name}</h3>
+    <p>${project.description}</p>
+    <span class="card-cta">${project.cta}</span>
+  `;
+
+  card.addEventListener('click', () => openProject(project));
+  card.addEventListener('keydown', e => {
+    if (e.key === 'Enter' || e.key === ' ') openProject(project);
+  });
+
+  grid.appendChild(card);
+});
+
+/* ── MODAL ────────────────────────────────────────────────────────── */
+const overlay     = document.getElementById('overlay');
+const modalTag    = document.getElementById('modal-tag');
+const modalTitle  = document.getElementById('modal-title');
+const modalDesc   = document.getElementById('modal-desc');
+const modalImg    = document.getElementById('modal-img');
+const modalHolder = document.getElementById('modal-placeholder');
+const modalLaunch = document.getElementById('modal-launch');
+const modalRepo   = document.getElementById('modal-repo');
+const modalClose  = document.getElementById('modal-close');
+const modalCreds  = document.getElementById('modal-credentials');
+const credEmail   = document.getElementById('cred-email');
+const credPass    = document.getElementById('cred-pass');
+
+let previousFocus = null;
+
+function openProject(project) {
+  if (project.type === 'GITHUB_ONLY') {
+    window.open(project.repoUrl, '_blank', 'noopener');
+    return;
+  }
+
+  previousFocus = document.activeElement;
+
+  modalTag.textContent   = project.tag;
+  modalTag.className     = 'card-tag ' + project.tagClass;
+  modalTitle.textContent = project.name;
+  modalDesc.textContent  = project.description;
+  modalLaunch.href       = project.liveUrl;
+  modalRepo.href         = project.repoUrl;
+
+  if (project.demoCredentials) {
+    credEmail.textContent = project.demoCredentials.email;
+    credPass.textContent  = project.demoCredentials.password;
+    modalCreds.classList.add('visible');
+  } else {
+    modalCreds.classList.remove('visible');
+  }
+
+  if (project.screenshot) {
+    modalImg.src = project.screenshot;
+    modalImg.onload  = () => { modalImg.classList.add('loaded'); modalHolder.style.display = 'none'; };
+    modalImg.onerror = () => { modalImg.classList.remove('loaded'); modalHolder.style.display = 'flex'; };
+  } else {
+    modalImg.classList.remove('loaded');
+    modalHolder.style.display = 'flex';
+  }
+
+  overlay.classList.add('active');
+  overlay.setAttribute('aria-hidden', 'false');
+  document.body.style.overflow = 'hidden';
+  modalClose.focus();
+}
+
+function closeModal() {
+  overlay.classList.remove('active');
+  overlay.setAttribute('aria-hidden', 'true');
+  document.body.style.overflow = '';
+
+  if (previousFocus) {
+    previousFocus.focus();
+    previousFocus = null;
+  }
+}
+
+modalClose.addEventListener('click', closeModal);
+overlay.addEventListener('click', e => { if (e.target === overlay) closeModal(); });
+document.addEventListener('keydown', e => { if (e.key === 'Escape') closeModal(); });
+
+/* ── NAV KEYBOARD SUPPORT ─────────────────────────────────────────── */
+document.querySelectorAll('.nav-links a').forEach(link => {
+  link.addEventListener('keydown', e => {
+    if (e.key === 'Enter') {
+      e.preventDefault();
+      const targetId = link.getAttribute('href').replace('#', '');
+      const targetSection = document.getElementById(targetId);
+      if (targetSection) {
+        targetSection.scrollIntoView({ behavior: 'smooth' });
+        const heading = targetSection.querySelector('h2, h3, .section-label');
+        if (heading) {
+          heading.setAttribute('tabindex', '-1');
+          heading.focus({ preventScroll: true });
+        }
+      }
+    }
+  });
+});
+
+/* ── STATS COUNTER ────────────────────────────────────────────────── */
+/**
+ * Animates .stat-number elements from 0 to data-target over 1500ms with ease-out.
+ * Driven by data-target, data-prefix, data-suffix attributes.
+ * Fires once per page load. Respects prefers-reduced-motion.
+ * Can be called at any time — observes whatever .stat-number elements exist in the DOM.
+ */
+function initStatsCounter() {
+  var DURATION = 1500;
+  var THRESHOLD = 0.15;
+  var prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+  function easeOut(t) {
+    return 1 - Math.pow(1 - t, 3);
+  }
+
+  function formatValue(value, prefix, suffix) {
+    var formatted = Math.round(value).toLocaleString();
+    return (prefix || '') + formatted + (suffix || '');
+  }
+
+  function animateCounter(el) {
+    var target = parseInt(el.getAttribute('data-target'), 10);
+    var prefix = el.getAttribute('data-prefix') || '';
+    var suffix = el.getAttribute('data-suffix') || '';
+
+    if (isNaN(target)) {
+      return;
+    }
+
+    // Reduced motion: show final value immediately
+    if (prefersReducedMotion) {
+      el.textContent = formatValue(target, prefix, suffix);
+      return;
+    }
+
+    var startTime = null;
+
+    function step(timestamp) {
+      if (!startTime) startTime = timestamp;
+      var elapsed = timestamp - startTime;
+      var t = Math.min(elapsed / DURATION, 1);
+      var easedT = easeOut(t);
+      var currentValue = Math.round(easedT * target);
+
+      el.textContent = formatValue(currentValue, prefix, suffix);
+
+      if (t < 1) {
+        requestAnimationFrame(step);
+      } else {
+        // Ensure final value is exact
+        el.textContent = formatValue(target, prefix, suffix);
+      }
+    }
+
+    requestAnimationFrame(step);
+  }
+
+  // If IntersectionObserver not supported, show final values immediately
+  if (!('IntersectionObserver' in window)) {
+    document.querySelectorAll('.stat-number').forEach(function(el) {
+      var target = parseInt(el.getAttribute('data-target'), 10);
+      var prefix = el.getAttribute('data-prefix') || '';
+      var suffix = el.getAttribute('data-suffix') || '';
+      if (!isNaN(target)) {
+        el.textContent = formatValue(target, prefix, suffix);
+      }
+    });
+    return;
+  }
+
+  var observer = new IntersectionObserver(function(entries, obs) {
+    entries.forEach(function(entry) {
+      if (entry.isIntersecting) {
+        animateCounter(entry.target);
+        obs.unobserve(entry.target);
+      }
+    });
+  }, { threshold: THRESHOLD });
+
+  // Observe any .stat-number elements currently in the DOM
+  document.querySelectorAll('.stat-number').forEach(function(el) {
+    observer.observe(el);
+  });
+
+  // Expose observer so dynamically added elements can be observed later
+  window._statsCounterObserver = observer;
+}
+
+// Initialize on DOMContentLoaded (elements may not exist yet, that's fine)
+if (document.readyState === 'loading') {
+  document.addEventListener('DOMContentLoaded', initStatsCounter);
+} else {
+  initStatsCounter();
+}
+
+/* ── TAB PANEL COMPONENT ──────────────────────────────────────────── */
+/**
+ * Creates a WAI-ARIA compliant tab panel.
+ * @param {string} containerId - ID of the container element
+ * @param {Array<{id: string, label: string, render: () => string}>} tabs - Tab definitions
+ * @param {string} defaultTab - ID of the tab to activate by default
+ * @returns {object} - { activate(tabId), getActiveTab() }
+ */
+function createTabPanel(containerId, tabs, defaultTab) {
+  const container = document.getElementById(containerId);
+  if (!container) return null;
+
+  // Create tablist
+  const tablist = document.createElement('div');
+  tablist.setAttribute('role', 'tablist');
+  tablist.className = 'tablist';
+
+  // Create tab buttons and panels
+  const tabButtons = [];
+  const tabPanels = [];
+
+  tabs.forEach(function(tab, index) {
+    // Tab button
+    const btn = document.createElement('button');
+    btn.className = 'tab-btn';
+    btn.setAttribute('role', 'tab');
+    btn.setAttribute('id', containerId + '-tab-' + tab.id);
+    btn.setAttribute('aria-controls', containerId + '-panel-' + tab.id);
+    btn.setAttribute('aria-selected', tab.id === defaultTab ? 'true' : 'false');
+    btn.setAttribute('tabindex', tab.id === defaultTab ? '0' : '-1');
+    btn.textContent = tab.label;
+    tablist.appendChild(btn);
+    tabButtons.push(btn);
+
+    // Tab panel
+    const panel = document.createElement('div');
+    panel.className = 'tabpanel' + (tab.id === defaultTab ? ' active' : '');
+    panel.setAttribute('role', 'tabpanel');
+    panel.setAttribute('id', containerId + '-panel-' + tab.id);
+    panel.setAttribute('aria-labelledby', containerId + '-tab-' + tab.id);
+    panel.setAttribute('tabindex', '0');
+    panel.innerHTML = tab.render();
+    tabPanels.push(panel);
+  });
+
+  container.appendChild(tablist);
+  tabs.forEach(function(_, i) {
+    container.appendChild(tabPanels[i]);
+  });
+
+  // Activate a tab by id
+  function activate(tabId) {
+    tabs.forEach(function(tab, i) {
+      var isActive = tab.id === tabId;
+      tabButtons[i].setAttribute('aria-selected', isActive ? 'true' : 'false');
+      tabButtons[i].setAttribute('tabindex', isActive ? '0' : '-1');
+      if (isActive) {
+        tabPanels[i].classList.add('active');
+      } else {
+        tabPanels[i].classList.remove('active');
+      }
+    });
+  }
+
+  // Click handler
+  tabButtons.forEach(function(btn, i) {
+    btn.addEventListener('click', function() {
+      activate(tabs[i].id);
+      btn.focus();
+    });
+
+    // Keyboard handler
+    btn.addEventListener('keydown', function(e) {
+      var handled = false;
+
+      if (e.key === 'ArrowRight') {
+        var next = (i + 1) % tabs.length;
+        activate(tabs[next].id);
+        tabButtons[next].focus();
+        handled = true;
+      } else if (e.key === 'ArrowLeft') {
+        var prev = (i - 1 + tabs.length) % tabs.length;
+        activate(tabs[prev].id);
+        tabButtons[prev].focus();
+        handled = true;
+      } else if (e.key === 'Enter' || e.key === ' ') {
+        activate(tabs[i].id);
+        handled = true;
+      }
+
+      if (handled) {
+        e.preventDefault();
+      }
+    });
+  });
+
+  return {
+    activate: activate,
+    getActiveTab: function() {
+      for (var i = 0; i < tabs.length; i++) {
+        if (tabButtons[i].getAttribute('aria-selected') === 'true') {
+          return tabs[i].id;
+        }
+      }
+      return defaultTab;
+    }
+  };
+}
+
+/* ── SCROLL REVEAL SYSTEM ─────────────────────────────────────────── */
+(function initScrollReveal() {
+  const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+  // If user prefers reduced motion, keep everything visible (default state) — do nothing
+  if (prefersReducedMotion) return;
+
+  // Check for IntersectionObserver support — if not supported, keep elements visible
+  if (!('IntersectionObserver' in window)) return;
+
+  // Enable animations by adding the class to body
+  document.body.classList.add('animations-enabled');
+
+  const observer = new IntersectionObserver(function(entries) {
+    entries.forEach(function(entry) {
+      if (entry.isIntersecting) {
+        const el = entry.target;
+
+        // Calculate stagger delay based on sibling index within parent
+        const parent = el.parentElement;
+        if (parent) {
+          const siblings = Array.from(parent.children).filter(function(child) {
+            return child.classList.contains('reveal');
+          });
+          const index = siblings.indexOf(el);
+          if (index > 0) {
+            el.style.transitionDelay = (index * 80) + 'ms';
+          }
+        }
+
+        el.classList.add('revealed');
+        observer.unobserve(el);
+      }
+    });
+  }, { threshold: 0.1 });
+
+  document.querySelectorAll('.reveal').forEach(function(el) {
+    observer.observe(el);
+  });
+})();
+
+/* ── MERMAID.JS INTEGRATION ───────────────────────────────────────── */
+(function initMermaidDiagrams() {
+  var LOAD_TIMEOUT = 5000; // 5 seconds
+  var activeTooltip = null;
+
+  /**
+   * Reads CSS custom properties and returns a Mermaid theme config object.
+   */
+  function getMermaidThemeConfig() {
+    var style = getComputedStyle(document.documentElement);
+    return {
+      theme: 'base',
+      themeVariables: {
+        background: style.getPropertyValue('--bg').trim(),
+        primaryColor: style.getPropertyValue('--surface').trim(),
+        primaryTextColor: style.getPropertyValue('--text').trim(),
+        lineColor: style.getPropertyValue('--blue-mid').trim(),
+        secondaryColor: style.getPropertyValue('--surface-2').trim()
+      }
+    };
+  }
+
+  /**
+   * Shows the plaintext fallback for a specific diagram container.
+   */
+  function showFallback(diagramContainer) {
+    var fallback = diagramContainer.nextElementSibling;
+    if (fallback && fallback.classList.contains('diagram-fallback')) {
+      fallback.style.display = 'block';
+    }
+    diagramContainer.style.display = 'none';
+  }
+
+  /**
+   * Shows all plaintext fallbacks (when Mermaid fails to load entirely).
+   */
+  function showAllFallbacks() {
+    document.querySelectorAll('.mermaid-diagram').forEach(function(container) {
+      showFallback(container);
+    });
+  }
+
+  /**
+   * Dismisses the currently active tooltip.
+   */
+  function dismissTooltip() {
+    if (activeTooltip) {
+      activeTooltip.remove();
+      activeTooltip = null;
+    }
+  }
+
+  /**
+   * Shows a tooltip near a clicked SVG node with gate criteria info.
+   */
+  function showNodeTooltip(nodeEl, text) {
+    dismissTooltip();
+
+    var tooltip = document.createElement('div');
+    tooltip.className = 'mermaid-tooltip';
+    tooltip.textContent = text;
+    tooltip.style.cssText = 'position:absolute;background:var(--surface);border:1px solid var(--border-md);' +
+      'border-radius:var(--radius-md);padding:8px 12px;font-family:var(--mono);font-size:11px;' +
+      'color:var(--text);max-width:280px;z-index:60;box-shadow:0 4px 12px rgba(0,0,0,0.15);' +
+      'pointer-events:none;line-height:1.5;';
+
+    // Position relative to the diagram container
+    var container = nodeEl.closest('.mermaid-diagram');
+    if (!container) return;
+    container.style.position = 'relative';
+
+    var nodeRect = nodeEl.getBoundingClientRect();
+    var containerRect = container.getBoundingClientRect();
+
+    tooltip.style.left = (nodeRect.left - containerRect.left + nodeRect.width / 2) + 'px';
+    tooltip.style.top = (nodeRect.bottom - containerRect.top + 8) + 'px';
+    tooltip.style.transform = 'translateX(-50%)';
+
+    container.appendChild(tooltip);
+    activeTooltip = tooltip;
+  }
+
+  /**
+   * Attaches click handlers to SVG nodes in the routing diagram for tooltip display.
+   */
+  function attachNodeClickHandlers() {
+    document.querySelectorAll('.mermaid-diagram').forEach(function(container) {
+      var svg = container.querySelector('svg');
+      if (!svg) return;
+
+      // Find all clickable nodes (g elements with class .node)
+      var nodes = svg.querySelectorAll('.node');
+      nodes.forEach(function(node) {
+        node.style.cursor = 'pointer';
+        node.addEventListener('click', function(e) {
+          e.stopPropagation();
+
+          // Extract node label text
+          var labelEl = node.querySelector('.nodeLabel') || node.querySelector('text') || node.querySelector('foreignObject span');
+          var nodeText = labelEl ? labelEl.textContent.trim() : '';
+
+          // Try to match against routing gates for criteria info
+          var tooltipText = nodeText;
+          if (typeof DESKTOP_AGENT !== 'undefined' && DESKTOP_AGENT.routing && DESKTOP_AGENT.routing.gates) {
+            DESKTOP_AGENT.routing.gates.forEach(function(gate) {
+              if (nodeText.toLowerCase().indexOf(gate.name.toLowerCase().replace(' gate', '')) !== -1 ||
+                  gate.name.toLowerCase().indexOf(nodeText.toLowerCase().replace(/gate \d+:\s*/i, '').trim()) !== -1) {
+                tooltipText = gate.name + ': ' + gate.criteria;
+              }
+            });
+          }
+
+          showNodeTooltip(node, tooltipText);
+        });
+      });
+    });
+
+    // Dismiss tooltip when clicking outside
+    document.addEventListener('click', function(e) {
+      if (activeTooltip && !e.target.closest('.node')) {
+        dismissTooltip();
+      }
+    });
+  }
+
+  /**
+   * Renders all Mermaid diagrams on the page with theme config.
+   * Uses mermaid.render() with try/catch per diagram for error handling.
+   */
+  function renderAllDiagrams() {
+    var themeConfig = getMermaidThemeConfig();
+
+    mermaid.initialize({
+      startOnLoad: false,
+      theme: themeConfig.theme,
+      themeVariables: themeConfig.themeVariables,
+      securityLevel: 'loose',
+      flowchart: { useMaxWidth: true, htmlLabels: true }
+    });
+
+    var diagrams = document.querySelectorAll('.mermaid-diagram pre.mermaid');
+    var renderPromises = [];
+
+    diagrams.forEach(function(pre, index) {
+      var container = pre.closest('.mermaid-diagram');
+      var definition = pre.textContent.trim();
+      var id = 'mermaid-diagram-' + index + '-' + Date.now();
+
+      renderPromises.push(
+        (function(preEl, containerEl, def, renderingId) {
+          return mermaid.render(renderingId, def).then(function(result) {
+            preEl.innerHTML = result.svg;
+            preEl.classList.add('mermaid-rendered');
+          }).catch(function(err) {
+            console.warn('Mermaid render error for diagram:', err);
+            showFallback(containerEl);
+          });
+        })(pre, container, definition, id)
+      );
+    });
+
+    // After all diagrams render, attach click handlers
+    Promise.all(renderPromises).then(function() {
+      attachNodeClickHandlers();
+    }).catch(function() {
+      // Some diagrams may have failed, still attach handlers to successful ones
+      attachNodeClickHandlers();
+    });
+  }
+
+  /**
+   * Checks if Mermaid loaded and initializes, or shows fallbacks after timeout.
+   */
+  function checkMermaidAndInit() {
+    if (window.mermaid) {
+      renderAllDiagrams();
+    } else {
+      // Mermaid not loaded yet — set a timeout
+      var timeoutId = setTimeout(function() {
+        if (!window.mermaid) {
+          showAllFallbacks();
+        }
+      }, LOAD_TIMEOUT);
+
+      // Also listen for the script to load
+      var mermaidScript = document.querySelector('script[src*="mermaid"]');
+      if (mermaidScript) {
+        mermaidScript.addEventListener('load', function() {
+          clearTimeout(timeoutId);
+          if (window.mermaid) {
+            renderAllDiagrams();
+          } else {
+            showAllFallbacks();
+          }
+        });
+        mermaidScript.addEventListener('error', function() {
+          clearTimeout(timeoutId);
+          showAllFallbacks();
+        });
+      }
+    }
+  }
+
+  // Listen for dark/light mode changes and re-render diagrams
+  var colorSchemeQuery = window.matchMedia('(prefers-color-scheme: dark)');
+  var reRenderTimeout = null;
+
+  colorSchemeQuery.addEventListener('change', function() {
+    if (!window.mermaid) return;
+    // Debounce re-render to stay within 500ms requirement
+    if (reRenderTimeout) clearTimeout(reRenderTimeout);
+    reRenderTimeout = setTimeout(function() {
+      dismissTooltip();
+      renderAllDiagrams();
+    }, 50);
+  });
+
+  // Initialize when DOM is ready
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', checkMermaidAndInit);
+  } else {
+    checkMermaidAndInit();
+  }
+})();
+</script>
+
+</body>
+</html>

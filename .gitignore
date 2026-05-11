@@ -1,0 +1,14 @@
+# OS
+Thumbs.db
+.DS_Store
+
+# Editor
+.vscode/
+*.swp
+*.swo
+
+# Kiro
+.kiro/
+
+# Archives
+*.zip
