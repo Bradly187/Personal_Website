@@ -1,9 +1,28 @@
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Brad · CS @ TAMU-RELLIS</title>
+  <meta name="description" content="Brad Tarver — Computer Science student at Texas A&M-RELLIS. Projects in machine learning, quantum computing, systems networking, and healthcare software." />
+  <meta name="author" content="Brad Tarver" />
+
+  <!-- Open Graph -->
+  <meta property="og:title" content="Brad · CS @ TAMU-RELLIS" />
+  <meta property="og:description" content="Portfolio — machine learning, quantum computing, systems networking, and healthcare software." />
+  <meta property="og:type" content="website" />
+  <meta property="og:url" content="https://bradtarver.com" />
+  <meta property="og:image" content="https://bradtarver.com/assets/og-image.png" />
+
+  <!-- Twitter Card -->
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:title" content="Brad · CS @ TAMU-RELLIS" />
+  <meta name="twitter:description" content="Portfolio — machine learning, quantum computing, systems networking, and healthcare software." />
+  <meta name="twitter:image" content="https://bradtarver.com/assets/og-image.png" />
+
+  <!-- Favicon (inline SVG) -->
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><rect width='100' height='100' rx='16' fill='%23185FA5'/><text x='50' y='68' font-family='system-ui' font-size='48' font-weight='700' fill='white' text-anchor='middle'>BT</text></svg>" />
+
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Space+Mono:wght@400;700&family=DM+Serif+Display&display=swap" rel="stylesheet" />
@@ -559,7 +578,7 @@
     }
 
     .arch-card.expanded {
-      max-height: 120px;
+      max-height: 160px;
     }
 
     .arch-card-name {
@@ -1021,6 +1040,18 @@
       padding: 4px 12px;
     }
 
+    /* ── SCROLL PROGRESS BAR ── */
+    .scroll-progress {
+      position: fixed;
+      top: 0;
+      left: 0;
+      height: 3px;
+      width: 0%;
+      background: var(--accent-gradient);
+      z-index: 999;
+      transition: width 50ms linear;
+    }
+
     /* ── RESPONSIVE ── */
     @media (max-width: 600px) {
       nav { flex-wrap: wrap; gap: 0.75rem; }
@@ -1033,6 +1064,9 @@
   </style>
 </head>
 <body>
+
+<!-- ══ SCROLL PROGRESS ═══════════════════════════════════════════════ -->
+<div class="scroll-progress" id="scroll-progress" aria-hidden="true"></div>
 
 <!-- ══ MODAL ══════════════════════════════════════════════════════════ -->
 <div class="overlay" id="overlay" role="dialog" aria-modal="true" aria-labelledby="modal-title">
@@ -1079,6 +1113,7 @@
   <ul class="nav-links">
     <li><a href="#desktop-agent">Desktop Agent</a></li>
     <li><a href="#nids">NIDS</a></li>
+    <li><a href="#identity-pipeline">Identity Pipeline</a></li>
     <li><a href="#projects">Projects</a></li>
     <li><a href="#skills">Skills</a></li>
     <li><a href="#contact">Contact</a></li>
@@ -1101,6 +1136,12 @@
       <a href="/resume.pdf" class="btn-secondary" target="_blank">Download Résumé</a>
       <a href="#desktop-agent" class="btn-accent">Featured Project</a>
     </div>
+
+    <div style="margin-top: 2rem; padding: 1rem 1.25rem; background: var(--surface); border: 0.5px solid var(--border); border-radius: var(--radius-lg);">
+      <div style="font-family: var(--mono); font-size: 10px; letter-spacing: 0.1em; color: var(--green-text); text-transform: uppercase; margin-bottom: 0.5rem;">// Currently building</div>
+      <p style="font-size: 14px; color: var(--text); margin-bottom: 0.25rem; font-weight: 500;">Personal Desktop Agent — iPad Control Plane</p>
+      <p style="font-size: 13px; color: var(--muted); line-height: 1.6;">Building the iPad as a multimodal control surface for hands-free Windows operation. Fusing voice, gaze, tilt, gesture, LiDAR depth, head tracking, and touch inputs over WebSocket into a priority-based routing engine with local GPU inference.</p>
+    </div>
   </section>
 
   <section class="section" id="desktop-agent">
@@ -1118,6 +1159,15 @@
       <div class="stats-row" id="nids-stats"></div>
       <div class="tech-badges" id="nids-badges"></div>
       <div id="nids-tabs"></div>
+    </div>
+  </section>
+
+  <section class="section" id="identity-pipeline">
+    <div class="showcase-section">
+      <div class="showcase-header" id="identity-pipeline-header"></div>
+      <div class="stats-row" id="identity-pipeline-stats"></div>
+      <div class="tech-badges" id="identity-pipeline-badges"></div>
+      <div id="identity-pipeline-tabs"></div>
     </div>
   </section>
 
@@ -1164,6 +1214,17 @@
     </div>
   </section>
 
+  <section class="section" id="writing">
+    <div class="section-label">// Writing & Research</div>
+    <div style="display: flex; flex-direction: column; gap: 12px;">
+      <a href="/multi-agent-orchestration-on-aws.pdf" target="_blank" style="background: var(--surface); border: 0.5px solid var(--border); border-radius: var(--radius-lg); padding: 1.25rem; text-decoration: none; transition: transform 0.15s; display: block;" onmouseover="this.style.transform='translateY(-2px)'" onmouseout="this.style.transform='none'">
+        <span style="font-family: var(--mono); font-size: 10px; border-radius: 3px; padding: 2px 8px; color: var(--blue-mid); background: var(--blue-bg); display: inline-block; margin-bottom: 0.75rem;">PDF · Research</span>
+        <h3 style="font-size: 15px; font-weight: 500; color: var(--text); margin-bottom: 0.4rem;">Multi-Agent Orchestration on AWS</h3>
+        <p style="font-size: 13px; color: var(--muted); line-height: 1.65;">Exploration of multi-agent architectures using AWS Bedrock, covering orchestration patterns, agent communication, and practical deployment strategies.</p>
+      </a>
+    </div>
+  </section>
+
   <section class="section" id="contact">
     <div class="section-label">// Contact</div>
     <div class="contact-row">
@@ -1190,16 +1251,20 @@ const DESKTOP_AGENT = {
     { value: 14, label: 'MCP Tools' },
     { value: 100, prefix: '<', suffix: 'ms', label: 'Touch Latency' },
     { value: 60, suffix: 'Hz', label: 'Fusion Rate' },
-    { value: 4, label: 'Routing Gates' },
+    { value: 5, label: 'Routing Gates' },
   ],
-  techBadges: ['Python', 'Swift', 'PyTorch', 'Whisper', 'MediaPipe', 'MCP', 'AWS Bedrock', 'WebSocket'],
+  techBadges: ['Python', 'Swift', 'Whisper', 'MediaPipe', 'MCP', 'AWS Bedrock', 'aiosqlite', 'DuckDB', 'WebSocket'],
   architecture: [
     { name: 'MCP Server', desc: 'Exposes 14 desktop control tools (mouse, keyboard, screen, windows) to Claude via stdio transport.' },
-    { name: 'iPad Bridge', desc: 'WebSocket server receiving all iPad sensor streams and dispatching to processing pipelines.' },
+    { name: 'iPad Bridge', desc: 'WebSocket server handling 13 incoming sensor message types and 4 outgoing reply types, dispatching to processing pipelines.' },
     { name: 'Fusion Engine', desc: 'Merges 10 input modalities at 60Hz using priority-based routing with confidence gating.' },
-    { name: 'Hybrid Coordinator', desc: '4-gate routing engine deciding local vs. cloud inference based on confidence and GPU load.' },
+    { name: 'Hybrid Coordinator', desc: '5-gate routing engine (Gate 0 privacy + Gates 1–4) deciding local vs. cloud inference based on confidence, complexity, and GPU load.' },
     { name: 'Local Inference', desc: 'Whisper large-v3 + Llama 3.1 running on RTX 5090 for sub-600ms voice command processing.' },
-    { name: 'Continuous Trainer', desc: 'Background learning system that adapts routing thresholds and vocabulary over time.' },
+    { name: 'Continuous Trainer', desc: 'Background learning system that adapts routing thresholds and gesture confidence floors; delegates storage to AgentDB.' },
+    { name: 'Gesture + LiDAR', desc: 'MediaPipe hand landmark detection for POINT/PINCH/OPEN_PALM/FIST; LiDAR depth map (256×192) used for 3D pinch distance validation at <30mm threshold.' },
+    { name: 'Domain Classifier', desc: 'Keyword-scoring classifier routes commands to the accessibility pipeline or one of 5 dev domains (CODE/MATH/VISION/PLAN/GENERAL).' },
+    { name: 'Dev Agent', desc: 'Plan→execute→reflect agentic loop; selects specialist model per domain via ModelRouter; emits 5 dev verbs (WRITE_FILE, RUN_TERMINAL, EXPLAIN, SEARCH_WEB, READ_SCREEN).' },
+    { name: 'AgentDB / AnalyticsDB', desc: 'aiosqlite 12-table pipeline store + DuckDB benchmark analytics; MiniLM semantic few-shot retrieval for routing decisions.' },
   ],
   sensors: [
     { priority: 1, source: 'iPad Touch Command', latency: '<100ms', gate: 'Immediate — bypasses LLM' },
@@ -1209,24 +1274,25 @@ const DESKTOP_AGENT = {
     { priority: 5, source: 'Gaze + Gesture POINT', latency: '<200ms', gate: 'Click at gaze coordinates on point gesture' },
     { priority: 6, source: 'Tilt Navigation', latency: '<50ms', gate: 'iPad tilt moves cursor via Core Motion' },
     { priority: 7, source: 'Head Tracking', latency: '<100ms', gate: 'Head pose moves cursor via ARKit' },
-    { priority: 8, source: 'Gesture Alone', latency: '<50ms', gate: 'Hand gesture via iPad camera + MediaPipe' },
+    { priority: 8, source: 'Gesture Alone', latency: '<50ms', gate: 'Hand gesture via iPad camera + MediaPipe; LiDAR depth validates 3D pinch/grab' },
     { priority: 9, source: 'On-device Voice Keyword', latency: '<150ms', gate: 'Speech Framework fast-path match' },
     { priority: 10, source: 'PC-transcribed Voice', latency: '<600ms', gate: 'Full Whisper + LLM pipeline' },
   ],
   routing: {
-    mermaidDef: 'graph TD\n    A[Input Received] --> B{Gate 1: Confidence}\n    B -->|High conf ≥0.85| C{Gate 2: Complexity}\n    B -->|Low conf <0.85| F[Cloud Fallback]\n    C -->|Simple command| D{Gate 3: GPU Load}\n    C -->|Complex/multi-step| F\n    D -->|VRAM available| E{Gate 4: Latency Budget}\n    D -->|GPU saturated| F\n    E -->|Within budget| G[Local Execution]\n    E -->|Over budget| F',
+    mermaidDef: 'graph TD\n    A[Input Received] --> G0{Gate 0: Privacy}\n    G0 -->|Sensitive pattern detected| LOC[Force Local]\n    G0 -->|Clean| B{Gate 1: Confidence}\n    B -->|Whisper logprob ≥ -1.0 / gesture ≥ 0.60| C{Gate 2: Complexity}\n    B -->|Below threshold| F[AgentCore / Bedrock Fallback]\n    C -->|Token count ≤ 40| D{Gate 3: VRAM}\n    C -->|Complex / multi-step| F\n    D -->|≥ 8 GB free| E{Gate 4: Latency Budget}\n    D -->|GPU saturated| F\n    E -->|Within budget| G[Local Execution]\n    E -->|Over budget| F',
     gates: [
-      { name: 'Confidence Gate', criteria: 'Whisper logprob \u2265 0.85 or gesture confidence \u2265 0.85' },
-      { name: 'Complexity Gate', criteria: 'Single action verb in constrained vocabulary (10 actions)' },
-      { name: 'GPU Load Gate', criteria: 'VRAM usage < 90% of available (monitored via pynvml)' },
-      { name: 'Latency Budget Gate', criteria: 'Estimated local inference < source latency target' },
+      { name: 'Privacy Gate (0)', criteria: 'Detects sensitive patterns (passwords, tokens, SSNs, card numbers) \u2014 forces local silently, no cloud exposure' },
+      { name: 'Confidence Gate (1)', criteria: 'Whisper logprob \u2265 -1.0 or gesture confidence \u2265 0.60; low-confidence voice triggers re-transcription' },
+      { name: 'Complexity Gate (2)', criteria: 'Token count proxy \u2264 40 words; complex/multi-step queries routed to specialist models via DevAgent' },
+      { name: 'VRAM Gate (3)', criteria: '\u2265 8 GB free VRAM required (absolute floor, not percentage) \u2014 tuned for RTX 5090 alongside Whisper' },
+      { name: 'Latency Budget Gate (4)', criteria: 'Estimated local inference latency < source latency target for that input modality' },
     ],
-    fallbackText: 'Input \u2192 Confidence Gate \u2192 Complexity Gate \u2192 GPU Load Gate \u2192 Latency Gate \u2192 Local or Cloud'
+    fallbackText: 'Input \u2192 Privacy Gate \u2192 Confidence Gate \u2192 Complexity Gate \u2192 VRAM Gate \u2192 Latency Gate \u2192 Local or AgentCore/Bedrock'
   },
   techStack: {
-    pc: ['Python 3.11+', 'PyTorch', 'faster-whisper', 'MediaPipe', 'YOLOv8', 'pyautogui', 'MCP SDK', 'aiohttp'],
-    ipad: ['Swift/SwiftUI', 'Core Motion', 'ARKit', 'Speech Framework', 'AVFoundation'],
-    cloud: ['Amazon Bedrock (Claude)', 'Amazon Transcribe', 'AWS Lambda'],
+    pc: ['Python 3.11+', 'faster-whisper', 'silero-vad', 'MediaPipe', 'pyautogui', 'MCP SDK', 'aiohttp', 'aiosqlite', 'DuckDB', 'Ollama'],
+    ipad: ['Swift/SwiftUI', 'Core Motion', 'ARKit (LiDAR + Face Tracking)', 'Speech Framework', 'AVFoundation'],
+    cloud: ['Amazon Bedrock (Claude)', 'AWS AgentCore'],
   },
 };
 
@@ -1642,6 +1708,187 @@ const NIDS_PROJECT = {
   }
 })();
 
+/* ── IDENTITY VERIFICATION PIPELINE CONFIG ─────────────────────────── */
+const IDENTITY_PIPELINE = {
+  name: 'Identity Verification Pipeline',
+  description: 'Serverless patient and therapist onboarding system using AWS Rekognition for facial comparison, Textract for document OCR, and Step Functions for orchestration. Automates identity verification against driver\'s licenses and extracts insurance/medical license data.',
+  repoUrl: 'https://github.com/Bradly187/Patient_Onboard_SAM',
+  stats: [
+    { value: 10, label: 'Lambda Functions' },
+    { value: 2, label: 'Workflows' },
+    { value: 2, label: 'DynamoDB Tables' },
+    { value: 3, label: 'Parallel Checks' },
+    { value: 6, label: 'AWS Services' },
+  ],
+  techBadges: ['Python 3.13', 'AWS SAM', 'Rekognition', 'Textract', 'Step Functions', 'Lambda', 'DynamoDB', 'S3', 'EventBridge', 'SNS'],
+  architecture: [
+    { name: 'S3 Document Bucket', desc: 'Encrypted, private bucket storing patient/therapist images. EventBridge triggers workflow on selfie upload.' },
+    { name: 'EventBridge Rules', desc: 'Decoupled event routing — detects _selfie.png or _therapist_selfie.png uploads and starts the correct state machine.' },
+    { name: 'Step Functions (Patient)', desc: 'Orchestrates 3 parallel branches: face comparison, license OCR, and insurance extraction. Merges results and stores verification.' },
+    { name: 'Step Functions (Therapist)', desc: 'Parallel branches: face comparison, medical license verification, and medical license OCR. Same merge-and-store pattern.' },
+    { name: 'CompareFaces Lambda', desc: 'Rekognition face match between selfie and driver\'s license photo. Returns similarity score and match boolean.' },
+    { name: 'ExtractLicense Lambda', desc: 'Textract analyze_id to OCR driver\'s license — extracts name, DOB, address as structured data.' },
+    { name: 'ExtractInsurance Lambda', desc: 'Textract analyze_document with Queries to read insurance card — carrier, policy number, group ID.' },
+    { name: 'VerifyMedicalLicense Lambda', desc: 'Validates therapist medical license authenticity and status for the therapist onboarding workflow.' },
+    { name: 'StoreVerification Lambda', desc: 'Aggregates parallel results, writes to DynamoDB, and POSTs verification to the ClinicScheduler API.' },
+    { name: 'DynamoDB + SNS', desc: 'Patient/Therapist verification tables with auto-scaling. SNS alerts staff on failures or manual review needed.' },
+  ],
+  workflow: {
+    mermaidDef: 'graph TD\n    A[Staff uploads license + insurance] --> B[Staff takes selfie]\n    B --> C[S3 triggers EventBridge]\n    C --> D[Step Functions starts]\n    D --> E[Parallel Execution]\n    E --> F[CompareFaces<br/>Rekognition]\n    E --> G[ExtractLicense<br/>Textract]\n    E --> H[ExtractInsurance<br/>Textract]\n    F --> I[StoreVerification]\n    G --> I\n    H --> I\n    I --> J[Write to DynamoDB]\n    I --> K[POST to Clinic API]\n    I --> L{Failure?}\n    L -->|Yes| M[SNS Alert to Staff]',
+    fallbackText: 'Upload Images → S3 EventBridge Trigger → Step Functions → Parallel (Face Match + License OCR + Insurance OCR) → Store Verification → DynamoDB + Clinic API (or SNS alert on failure)'
+  },
+  security: [
+    { name: 'Encrypted Storage', detail: 'S3 bucket uses AES-256 server-side encryption for all patient images.' },
+    { name: 'HTTPS-Only Policy', detail: 'Bucket policy denies any request not using secure transport (aws:SecureTransport).' },
+    { name: '90-Day Lifecycle', detail: 'Raw images auto-expire after 90 days — processed data lives in DynamoDB.' },
+    { name: 'Auto-Scaling DynamoDB', detail: 'Read/write capacity scales 2–20 units based on 70% utilization target.' },
+    { name: 'X-Ray Tracing', detail: 'Active tracing on all Lambda functions and state machines for observability.' },
+    { name: 'Point-in-Time Recovery', detail: 'DynamoDB tables have PITR enabled for data protection and recovery.' },
+  ],
+};
+
+/* ── RENDER IDENTITY PIPELINE SECTION ──────────────────────────────── */
+(function renderIdentityPipelineSection() {
+  // Header
+  var header = document.getElementById('identity-pipeline-header');
+  if (header) {
+    header.innerHTML =
+      '<h2>' + IDENTITY_PIPELINE.name + '</h2>' +
+      '<p>' + IDENTITY_PIPELINE.description + '</p>' +
+      '<a class="github-link" href="' + IDENTITY_PIPELINE.repoUrl + '" target="_blank" rel="noopener">View on GitHub &rarr;</a>';
+  }
+
+  // Stats row
+  var statsRow = document.getElementById('identity-pipeline-stats');
+  if (statsRow) {
+    IDENTITY_PIPELINE.stats.forEach(function(stat) {
+      var item = document.createElement('div');
+      item.className = 'stat-item';
+
+      var num = document.createElement('span');
+      num.className = 'stat-number';
+      num.setAttribute('data-target', stat.value);
+      if (stat.prefix) num.setAttribute('data-prefix', stat.prefix);
+      if (stat.suffix) num.setAttribute('data-suffix', stat.suffix);
+      num.textContent = '0';
+
+      var label = document.createElement('span');
+      label.className = 'stat-label';
+      label.textContent = stat.label;
+
+      item.appendChild(num);
+      item.appendChild(label);
+      statsRow.appendChild(item);
+    });
+
+    if (window._statsCounterObserver) {
+      statsRow.querySelectorAll('.stat-number').forEach(function(el) {
+        window._statsCounterObserver.observe(el);
+      });
+    }
+  }
+
+  // Tech badges
+  var badgesContainer = document.getElementById('identity-pipeline-badges');
+  if (badgesContainer) {
+    IDENTITY_PIPELINE.techBadges.forEach(function(badge) {
+      var span = document.createElement('span');
+      span.className = 'tech-badge';
+      span.textContent = badge;
+      badgesContainer.appendChild(span);
+    });
+  }
+})();
+
+/* ── IDENTITY PIPELINE TABS ────────────────────────────────────────── */
+(function renderIdentityPipelineTabs() {
+  createTabPanel('identity-pipeline-tabs', [
+    {
+      id: 'architecture',
+      label: 'Architecture',
+      render: function() {
+        var html = '<div class="arch-cards">';
+        IDENTITY_PIPELINE.architecture.forEach(function(comp) {
+          html += '<div class="arch-card" role="button" tabindex="0" aria-expanded="false">' +
+            '<div class="arch-card-name">' + comp.name + '</div>' +
+            '<div class="arch-card-desc">' + comp.desc + '</div>' +
+            '</div>';
+        });
+        html += '</div>';
+        return html;
+      }
+    },
+    {
+      id: 'workflow',
+      label: 'Workflow',
+      render: function() {
+        var html = '<div class="mermaid-diagram" aria-label="Identity verification workflow: upload triggers parallel face match, license OCR, and insurance extraction, then stores results">';
+        html += '<pre class="mermaid">' + IDENTITY_PIPELINE.workflow.mermaidDef + '</pre>';
+        html += '</div>';
+        html += '<div class="diagram-fallback" style="display:none;">';
+        html += '<p style="font-family:var(--mono);font-size:12px;color:var(--muted);line-height:1.8;">' + IDENTITY_PIPELINE.workflow.fallbackText + '</p>';
+        html += '</div>';
+        return html;
+      }
+    },
+    {
+      id: 'security',
+      label: 'Security',
+      render: function() {
+        var html = '<div class="arch-cards">';
+        IDENTITY_PIPELINE.security.forEach(function(item) {
+          html += '<div class="arch-card" role="button" tabindex="0" aria-expanded="false">' +
+            '<div class="arch-card-name">' + item.name + '</div>' +
+            '<div class="arch-card-desc">' + item.detail + '</div>' +
+            '</div>';
+        });
+        html += '</div>';
+        return html;
+      }
+    },
+    {
+      id: 'techstack',
+      label: 'Tech Stack',
+      render: function() {
+        var categories = [
+          { label: 'Compute', items: ['AWS Lambda', 'Python 3.13', 'AWS Lambda Powertools'] },
+          { label: 'AI/ML Services', items: ['Amazon Rekognition', 'Amazon Textract'] },
+          { label: 'Orchestration', items: ['AWS Step Functions', 'Amazon EventBridge'] },
+          { label: 'Storage', items: ['Amazon S3', 'Amazon DynamoDB'] },
+          { label: 'Infrastructure', items: ['AWS SAM', 'CloudFormation', 'Amazon SNS'] },
+        ];
+        var html = '<div class="tech-stack-groups">';
+        categories.forEach(function(cat) {
+          html += '<div class="tech-stack-group">';
+          html += '<div class="tech-stack-label">' + cat.label + '</div>';
+          html += '<div class="tech-stack-pills">';
+          cat.items.forEach(function(item) {
+            html += '<span class="tech-badge">' + item + '</span>';
+          });
+          html += '</div></div>';
+        });
+        html += '</div>';
+        return html;
+      }
+    }
+  ], 'architecture');
+
+  // Attach click handlers for architecture and security cards
+  document.querySelectorAll('#identity-pipeline-tabs .arch-card').forEach(function(card) {
+    card.addEventListener('click', function() {
+      card.classList.toggle('expanded');
+      card.setAttribute('aria-expanded', card.classList.contains('expanded') ? 'true' : 'false');
+    });
+    card.addEventListener('keydown', function(e) {
+      if (e.key === 'Enter' || e.key === ' ') {
+        e.preventDefault();
+        card.classList.toggle('expanded');
+        card.setAttribute('aria-expanded', card.classList.contains('expanded') ? 'true' : 'false');
+      }
+    });
+  });
+})();
+
 /* ── PROJECT DATA ───────────────────────────────────────────────────
    type: 'LIVE_APP'    → opens modal with Launch App + View Repo buttons
    type: 'GITHUB_ONLY' → navigates straight to repoUrl in a new tab
@@ -1664,15 +1911,15 @@ const PROJECTS = [
   {
     id: 'patient-onboarding',
     name: 'Patient Onboarding',
-    tag: 'Django · AWS · Serverless',
+    tag: 'AWS SAM · Serverless',
     tagClass: 'tag-amber',
-    description: "Serverless patient identity verification system using Amazon Rekognition to scan and validate driver's licenses. Built with Django, AWS Lambda, and DynamoDB.",
+    description: "Serverless identity verification pipeline using Rekognition face matching, Textract OCR, and Step Functions orchestration. Automates patient and therapist onboarding for the ClinicScheduler system.",
     cta: 'View on GitHub →',
     type: 'GITHUB_ONLY',
     featured: false,
     liveUrl: '',
-    repoUrl: 'https://github.com/',  // ← replace with repo URL
-    screenshot: '',
+    repoUrl: 'https://github.com/Bradly187/Patient_Onboard_SAM',
+    screenshot: 'assets/identity-pipeline.png',
   },
 ];
 
@@ -2259,6 +2506,22 @@ function createTabPanel(containerId, tabs, defaultTab) {
   } else {
     checkMermaidAndInit();
   }
+})();
+
+/* ── SCROLL PROGRESS BAR ──────────────────────────────────────────── */
+(function initScrollProgress() {
+  var bar = document.getElementById('scroll-progress');
+  if (!bar) return;
+
+  function updateProgress() {
+    var scrollTop = window.pageYOffset || document.documentElement.scrollTop;
+    var docHeight = document.documentElement.scrollHeight - document.documentElement.clientHeight;
+    var progress = docHeight > 0 ? (scrollTop / docHeight) * 100 : 0;
+    bar.style.width = progress + '%';
+  }
+
+  window.addEventListener('scroll', updateProgress, { passive: true });
+  updateProgress();
 })();
 </script>
 
