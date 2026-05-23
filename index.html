@@ -3,22 +3,22 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Brad · CS @ TAMU-RELLIS</title>
+  <title>Brad Tarver · CS @ TAMU-RELLIS</title>
   <meta name="description" content="Brad Tarver — Computer Science student at Texas A&M-RELLIS. Projects in machine learning, quantum computing, systems networking, and healthcare software." />
   <meta name="author" content="Brad Tarver" />
 
   <!-- Open Graph -->
-  <meta property="og:title" content="Brad · CS @ TAMU-RELLIS" />
+  <meta property="og:title" content="Brad Tarver · CS @ TAMU-RELLIS" />
   <meta property="og:description" content="Portfolio — machine learning, quantum computing, systems networking, and healthcare software." />
   <meta property="og:type" content="website" />
   <meta property="og:url" content="https://bradtarver.com" />
-  <meta property="og:image" content="https://bradtarver.com/assets/og-image.png" />
+  <meta property="og:image" content="https://bradtarver.com/assets/og-image.svg" />
 
   <!-- Twitter Card -->
   <meta name="twitter:card" content="summary_large_image" />
-  <meta name="twitter:title" content="Brad · CS @ TAMU-RELLIS" />
+  <meta name="twitter:title" content="Brad Tarver · CS @ TAMU-RELLIS" />
   <meta name="twitter:description" content="Portfolio — machine learning, quantum computing, systems networking, and healthcare software." />
-  <meta name="twitter:image" content="https://bradtarver.com/assets/og-image.png" />
+  <meta name="twitter:image" content="https://bradtarver.com/assets/og-image.svg" />
 
   <!-- Favicon (inline SVG) -->
   <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><rect width='100' height='100' rx='16' fill='%23185FA5'/><text x='50' y='68' font-family='system-ui' font-size='48' font-weight='700' fill='white' text-anchor='middle'>BT</text></svg>" />
@@ -117,6 +117,7 @@
     .nav-links { display: flex; gap: 1.5rem; list-style: none; }
     .nav-links a { font-size: 13px; color: var(--muted); text-decoration: none; transition: color 0.15s; }
     .nav-links a:hover { color: var(--text); }
+    .nav-links a.nav-active { color: var(--blue-mid); }
 
     /* ── HERO ── */
     .hero { padding: 3.5rem 0 2.5rem; }
@@ -578,7 +579,7 @@
     }
 
     .arch-card.expanded {
-      max-height: 160px;
+      max-height: 400px;
     }
 
     .arch-card-name {
@@ -1061,12 +1062,140 @@
       .modal-actions { flex-direction: column; }
       .showcase-section { padding: 1.5rem 1rem; margin: 0 -0.5rem 2rem; }
     }
+
+    /* ── BACK TO TOP ── */
+    .back-to-top {
+      position: fixed;
+      bottom: 2rem;
+      right: 2rem;
+      width: 40px;
+      height: 40px;
+      border-radius: 50%;
+      background: var(--surface);
+      border: 0.5px solid var(--border-md);
+      color: var(--muted);
+      font-size: 16px;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity 0.2s, background 0.15s, color 0.15s;
+      z-index: 40;
+    }
+    .back-to-top.visible { opacity: 1; pointer-events: auto; }
+    .back-to-top:hover { background: var(--blue-bg); color: var(--blue-mid); }
+    @media (prefers-reduced-motion: reduce) { .back-to-top { transition: none; } }
+
+    /* ── SKILLS GROUPS ── */
+    .skills-groups { display: grid; gap: 1rem; }
+    .skills-group { display: flex; flex-direction: column; gap: 8px; }
+    .skills-group-label {
+      font-family: var(--mono);
+      font-size: 11px;
+      font-weight: 700;
+      color: var(--muted);
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+    }
+    .skills-certs-label { margin-top: 1.5rem; }
+
+    /* ── CURRENTLY BUILDING ── */
+    .currently-building {
+      margin-top: 2rem;
+      padding: 1rem 1.25rem;
+      background: var(--surface);
+      border: 0.5px solid var(--border);
+      border-radius: var(--radius-lg);
+    }
+    .currently-building-label {
+      font-family: var(--mono);
+      font-size: 10px;
+      letter-spacing: 0.1em;
+      color: var(--green-text);
+      text-transform: uppercase;
+      margin-bottom: 0.5rem;
+    }
+    .currently-building-title {
+      font-size: 14px;
+      color: var(--text);
+      margin-bottom: 0.25rem;
+      font-weight: 500;
+    }
+    .currently-building-desc {
+      font-size: 13px;
+      color: var(--muted);
+      line-height: 1.6;
+    }
+
+    /* ── WRITING CARD ── */
+    .writing-card {
+      background: var(--surface);
+      border: 0.5px solid var(--border);
+      border-radius: var(--radius-lg);
+      padding: 1.25rem;
+      text-decoration: none;
+      transition: transform 0.15s;
+      display: block;
+    }
+    .writing-card:hover { transform: translateY(-2px); }
+    .writing-card-title {
+      font-size: 15px;
+      font-weight: 500;
+      color: var(--text);
+      margin-bottom: 0.4rem;
+    }
+    .writing-card-desc {
+      font-size: 13px;
+      color: var(--muted);
+      line-height: 1.65;
+    }
+
+    /* ── EDUCATION CARD ── */
+    .education-card {
+      background: var(--surface);
+      border: 0.5px solid var(--border);
+      border-radius: var(--radius-lg);
+      padding: 1.25rem;
+    }
+    .education-card-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-start;
+      flex-wrap: wrap;
+      gap: 0.5rem;
+      margin-bottom: 0.5rem;
+    }
+    .education-degree {
+      font-size: 15px;
+      font-weight: 500;
+      color: var(--text);
+    }
+    .education-school {
+      font-size: 14px;
+      color: var(--muted);
+    }
+    .education-card-desc {
+      font-size: 13px;
+      color: var(--muted);
+      line-height: 1.65;
+      margin-bottom: 0.75rem;
+    }
+    .pill-amber {
+      border-color: var(--amber-bg);
+      color: var(--amber-text);
+      flex-shrink: 0;
+    }
   </style>
 </head>
 <body>
 
 <!-- ══ SCROLL PROGRESS ═══════════════════════════════════════════════ -->
 <div class="scroll-progress" id="scroll-progress" aria-hidden="true"></div>
+
+<!-- ══ BACK TO TOP ════════════════════════════════════════════════════ -->
+<button class="back-to-top" id="back-to-top" aria-label="Back to top" title="Back to top">↑</button>
 
 <!-- ══ MODAL ══════════════════════════════════════════════════════════ -->
 <div class="overlay" id="overlay" role="dialog" aria-modal="true" aria-labelledby="modal-title">
@@ -1080,7 +1209,7 @@
     </div>
 
     <div class="modal-screenshot">
-      <img id="modal-img" alt="App screenshot" />
+      <img id="modal-img" alt="App screenshot" loading="lazy" />
       <div class="screenshot-placeholder" id="modal-placeholder">
         <svg width="36" height="36" viewBox="0 0 36 36" fill="none">
           <rect x="2" y="7" width="32" height="22" rx="3" stroke="currentColor" stroke-width="1.5"/>
@@ -1137,10 +1266,10 @@
       <a href="#desktop-agent" class="btn-accent">Featured Project</a>
     </div>
 
-    <div style="margin-top: 2rem; padding: 1rem 1.25rem; background: var(--surface); border: 0.5px solid var(--border); border-radius: var(--radius-lg);">
-      <div style="font-family: var(--mono); font-size: 10px; letter-spacing: 0.1em; color: var(--green-text); text-transform: uppercase; margin-bottom: 0.5rem;">// Currently building</div>
-      <p style="font-size: 14px; color: var(--text); margin-bottom: 0.25rem; font-weight: 500;">Personal Desktop Agent — iPad Control Plane</p>
-      <p style="font-size: 13px; color: var(--muted); line-height: 1.6;">Building the iPad as a multimodal control surface for hands-free Windows operation. Fusing voice, gaze, tilt, gesture, LiDAR depth, head tracking, and touch inputs over WebSocket into a priority-based routing engine with local GPU inference.</p>
+    <div class="currently-building">
+      <div class="currently-building-label">// Currently building</div>
+      <p class="currently-building-title">Personal Desktop Agent — iPad Control Plane</p>
+      <p class="currently-building-desc">Building the iPad as a multimodal control surface for hands-free Windows operation. Fusing voice, gaze, tilt, gesture, LiDAR depth, head tracking, and touch inputs over WebSocket into a priority-based routing engine with local GPU inference.</p>
     </div>
   </section>
 
@@ -1178,33 +1307,53 @@
 
   <section class="section" id="skills">
     <div class="section-label">// Skills</div>
-    <div class="skills-row">
-      <span class="pill">Python</span>
-      <span class="pill">C#</span>
-      <span class="pill">SQL</span>
-      <span class="pill">JavaScript</span>
-      <span class="pill">Django</span>
-      <span class="pill">.NET MAUI</span>
-      <span class="pill">Blazor</span>
-      <span class="pill">PyTorch</span>
-      <span class="pill">Qiskit</span>
-      <span class="pill">scikit-learn</span>
-      <span class="pill">AWS Lambda</span>
-      <span class="pill">DynamoDB</span>
-      <span class="pill">Rekognition</span>
-      <span class="pill">EC2</span>
-      <span class="pill">S3</span>
-      <span class="pill">SAM</span>
-      <span class="pill">boto3</span>
-      <span class="pill">Cisco IOS</span>
-      <span class="pill">VLANs / OSPF / STP</span>
-      <span class="pill">Docker</span>
-      <span class="pill">Git</span>
-      <span class="pill">Linux</span>
-      <span class="pill">Nginx</span>
+    <div class="skills-groups">
+      <div class="skills-group">
+        <div class="skills-group-label">Languages</div>
+        <div class="skills-row">
+          <span class="pill">Python</span>
+          <span class="pill">C#</span>
+          <span class="pill">SQL</span>
+          <span class="pill">JavaScript</span>
+        </div>
+      </div>
+      <div class="skills-group">
+        <div class="skills-group-label">Frameworks &amp; Libraries</div>
+        <div class="skills-row">
+          <span class="pill">Django</span>
+          <span class="pill">.NET MAUI</span>
+          <span class="pill">Blazor</span>
+          <span class="pill">PyTorch</span>
+          <span class="pill">Qiskit</span>
+          <span class="pill">scikit-learn</span>
+        </div>
+      </div>
+      <div class="skills-group">
+        <div class="skills-group-label">Cloud &amp; DevOps</div>
+        <div class="skills-row">
+          <span class="pill">AWS Lambda</span>
+          <span class="pill">DynamoDB</span>
+          <span class="pill">Rekognition</span>
+          <span class="pill">EC2</span>
+          <span class="pill">S3</span>
+          <span class="pill">SAM</span>
+          <span class="pill">boto3</span>
+          <span class="pill">Docker</span>
+          <span class="pill">Git</span>
+          <span class="pill">Nginx</span>
+        </div>
+      </div>
+      <div class="skills-group">
+        <div class="skills-group-label">Networking &amp; OS</div>
+        <div class="skills-row">
+          <span class="pill">Cisco IOS</span>
+          <span class="pill">VLANs / OSPF / STP</span>
+          <span class="pill">Linux</span>
+        </div>
+      </div>
     </div>
 
-    <div class="section-label" style="margin-top: 1.5rem;">// Certifications</div>
+    <div class="section-label skills-certs-label">// Certifications</div>
     <div class="skills-row">
       <span class="pill" style="border-color: var(--blue-border); color: var(--blue-mid);">AWS Cloud Practitioner ✓</span>
       <span class="pill" style="border-color: var(--blue-border); color: var(--blue-mid);">AWS AI Practitioner ✓</span>
@@ -1216,16 +1365,16 @@
 
   <section class="section" id="education">
     <div class="section-label">// Education</div>
-    <div style="background: var(--surface); border: 0.5px solid var(--border); border-radius: var(--radius-lg); padding: 1.25rem;">
-      <div style="display: flex; justify-content: space-between; align-items: flex-start; flex-wrap: wrap; gap: 0.5rem; margin-bottom: 0.5rem;">
+    <div class="education-card">
+      <div class="education-card-header">
         <div>
-          <span style="font-size: 15px; font-weight: 500; color: var(--text);">B.S. Computer Science</span>
-          <span style="font-size: 14px; color: var(--muted);"> &middot; East Texas A&amp;M University</span>
+          <span class="education-degree">B.S. Computer Science</span>
+          <span class="education-school"> &middot; East Texas A&amp;M University</span>
         </div>
-        <span class="pill" style="border-color: var(--amber-bg); color: var(--amber-text); flex-shrink: 0;">Dec 2026</span>
+        <span class="pill pill-amber">Dec 2026</span>
       </div>
-      <p style="font-size: 13px; color: var(--muted); line-height: 1.65; margin-bottom: 0.75rem;">Texas A&amp;M-RELLIS campus, Bryan — a 2,300-acre applied research and testing facility shared with A&amp;M engineering institutes, federal partners, and industry. Not a typical undergraduate environment.</p>
-      <div style="display: flex; flex-wrap: wrap; gap: 6px;">
+      <p class="education-card-desc">Texas A&amp;M-RELLIS campus, Bryan — a 2,300-acre applied research and testing facility shared with A&amp;M engineering institutes, federal partners, and industry. Not a typical undergraduate environment.</p>
+      <div class="skills-row">
         <span class="pill">AI Enhanced Security</span>
         <span class="pill">Systems Analysis &amp; Design</span>
         <span class="pill">Machine Learning</span>
@@ -1237,10 +1386,10 @@
   <section class="section" id="writing">
     <div class="section-label">// Writing & Research</div>
     <div style="display: flex; flex-direction: column; gap: 12px;">
-      <a href="/multi-agent-orchestration-on-aws.pdf" target="_blank" style="background: var(--surface); border: 0.5px solid var(--border); border-radius: var(--radius-lg); padding: 1.25rem; text-decoration: none; transition: transform 0.15s; display: block;" onmouseover="this.style.transform='translateY(-2px)'" onmouseout="this.style.transform='none'">
-        <span style="font-family: var(--mono); font-size: 10px; border-radius: 3px; padding: 2px 8px; color: var(--blue-mid); background: var(--blue-bg); display: inline-block; margin-bottom: 0.75rem;">PDF · Research</span>
-        <h3 style="font-size: 15px; font-weight: 500; color: var(--text); margin-bottom: 0.4rem;">Multi-Agent Orchestration on AWS</h3>
-        <p style="font-size: 13px; color: var(--muted); line-height: 1.65;">Exploration of multi-agent architectures using AWS Bedrock, covering orchestration patterns, agent communication, and practical deployment strategies.</p>
+      <a href="/multi-agent-orchestration-on-aws.pdf" target="_blank" class="writing-card">
+        <span class="card-tag tag-blue">PDF · Research</span>
+        <h3 class="writing-card-title">Multi-Agent Orchestration on AWS</h3>
+        <p class="writing-card-desc">Exploration of multi-agent architectures using AWS Bedrock, covering orchestration patterns, agent communication, and practical deployment strategies.</p>
       </a>
     </div>
   </section>
@@ -1914,8 +2063,31 @@ const IDENTITY_PIPELINE = {
 /* ── PROJECT DATA ───────────────────────────────────────────────────
    type: 'LIVE_APP'    → opens modal with Launch App + View Repo buttons
    type: 'GITHUB_ONLY' → navigates straight to repoUrl in a new tab
+   type: 'SCROLL_TO'   → smooth-scrolls to showcase section on the page
 ──────────────────────────────────────────────────────────────────── */
 const PROJECTS = [
+  {
+    id: 'desktop-agent-card',
+    name: 'Personal Desktop Agent',
+    tag: 'Python · Swift · MCP',
+    tagClass: 'tag-blue',
+    description: 'Multimodal accessibility agent enabling hands-free Windows control through voice, gaze, gesture, tilt, and touch — powered by local GPU inference with AWS cloud fallback.',
+    cta: 'View showcase ↑',
+    type: 'SCROLL_TO',
+    featured: true,
+    scrollTarget: '#desktop-agent',
+  },
+  {
+    id: 'nids-card',
+    name: 'Network Intrusion Detection',
+    tag: 'PyTorch · Qiskit · ML',
+    tagClass: 'tag-green',
+    description: 'Classical vs. quantum ML comparison using PCA+SVM, MLP, and quantum transfer learning on the NSL-KDD dataset. CSCI 459 — AI Enhanced Security.',
+    cta: 'View showcase ↑',
+    type: 'SCROLL_TO',
+    featured: false,
+    scrollTarget: '#nids',
+  },
   {
     id: 'clinicscheduler',
     name: 'ClinicScheduler',
@@ -1990,6 +2162,12 @@ let previousFocus = null;
 function openProject(project) {
   if (project.type === 'GITHUB_ONLY') {
     window.open(project.repoUrl, '_blank', 'noopener');
+    return;
+  }
+
+  if (project.type === 'SCROLL_TO') {
+    const target = document.querySelector(project.scrollTarget);
+    if (target) target.scrollIntoView({ behavior: 'smooth' });
     return;
   }
 
@@ -2528,6 +2706,54 @@ function createTabPanel(containerId, tabs, defaultTab) {
   } else {
     checkMermaidAndInit();
   }
+})();
+
+/* ── ACTIVE NAV HIGHLIGHTING ──────────────────────────────────────── */
+(function initNavHighlight() {
+  if (!('IntersectionObserver' in window)) return;
+
+  var navMap = {};
+  document.querySelectorAll('.nav-links a').forEach(function(a) {
+    var href = a.getAttribute('href');
+    if (href && href.startsWith('#')) {
+      navMap[href.slice(1)] = a;
+    }
+  });
+
+  var currentActive = null;
+
+  var observer = new IntersectionObserver(function(entries) {
+    entries.forEach(function(entry) {
+      if (entry.isIntersecting) {
+        if (currentActive) currentActive.classList.remove('nav-active');
+        currentActive = navMap[entry.target.id] || null;
+        if (currentActive) currentActive.classList.add('nav-active');
+      }
+    });
+  }, { rootMargin: '-10% 0px -80% 0px', threshold: 0 });
+
+  Object.keys(navMap).forEach(function(id) {
+    var el = document.getElementById(id);
+    if (el) observer.observe(el);
+  });
+})();
+
+/* ── BACK TO TOP ──────────────────────────────────────────────────── */
+(function initBackToTop() {
+  var btn = document.getElementById('back-to-top');
+  if (!btn) return;
+
+  window.addEventListener('scroll', function() {
+    if (window.pageYOffset > 400) {
+      btn.classList.add('visible');
+    } else {
+      btn.classList.remove('visible');
+    }
+  }, { passive: true });
+
+  btn.addEventListener('click', function() {
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  });
 })();
 
 /* ── SCROLL PROGRESS BAR ──────────────────────────────────────────── */
