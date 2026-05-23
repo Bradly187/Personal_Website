@@ -27,6 +27,35 @@
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Space+Mono:wght@400;700&family=DM+Serif+Display&display=swap" rel="stylesheet" />
+  <script type="application/ld+json">
+  [
+    {
+      "@context": "https://schema.org",
+      "@type": "Person",
+      "name": "Brad Tarver",
+      "url": "https://bradtarver.com",
+      "image": "https://bradtarver.com/assets/brad.png",
+      "email": "bradtarber477@gmail.com",
+      "jobTitle": "Computer Science Student",
+      "description": "CS student at Texas A&M-RELLIS building AI-driven adaptive systems for accessibility. Projects in machine learning, quantum computing, systems networking, and healthcare software.",
+      "alumniOf": {
+        "@type": "CollegeOrUniversity",
+        "name": "East Texas A&M University"
+      },
+      "knowsAbout": ["Machine Learning", "Quantum Computing", "AWS", "Python", "C#", "Full-Stack Development", "Accessibility Technology", "Network Security"],
+      "sameAs": [
+        "https://github.com/Bradly187",
+        "https://linkedin.com/in/john-tarver-863277358"
+      ]
+    },
+    {
+      "@context": "https://schema.org",
+      "@type": "WebSite",
+      "name": "Brad Tarver",
+      "url": "https://bradtarver.com"
+    }
+  ]
+  </script>
   <script defer src="https://cdn.jsdelivr.net/npm/mermaid@10/dist/mermaid.min.js"></script>
   <noscript><style>.reveal { opacity: 1 !important; transform: none !important; }</style></noscript>
   <style>
@@ -1223,6 +1252,34 @@
     .back-to-top:hover { background: var(--blue-bg); color: var(--blue-mid); }
     @media (prefers-reduced-motion: reduce) { .back-to-top { transition: none; } }
 
+    /* ── AVAILABILITY BADGE ── */
+    .availability {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      margin-top: 1rem;
+    }
+    .availability-dot {
+      width: 8px;
+      height: 8px;
+      border-radius: 50%;
+      background: var(--green-text);
+      flex-shrink: 0;
+      animation: pulse-dot 2.5s ease-in-out infinite;
+    }
+    @keyframes pulse-dot {
+      0%, 100% { opacity: 1; }
+      50%       { opacity: 0.35; }
+    }
+    @media (prefers-reduced-motion: reduce) {
+      .availability-dot { animation: none; }
+    }
+    .availability-text {
+      font-family: var(--mono);
+      font-size: 12px;
+      color: var(--green-text);
+    }
+
     /* ── CONTACT FORM ── */
     .contact-form { display: flex; flex-direction: column; gap: 12px; margin-bottom: 1.5rem; }
 
@@ -1480,6 +1537,11 @@
       <a href="#projects" class="btn-primary">View Projects</a>
       <a href="/resume.pdf" class="btn-secondary" target="_blank">Download Résumé</a>
       <a href="#desktop-agent" class="btn-accent">Featured Project</a>
+    </div>
+
+    <div class="availability">
+      <span class="availability-dot" aria-hidden="true"></span>
+      <span class="availability-text">Open to opportunities &middot; graduating Dec 2026</span>
     </div>
 
     <div class="currently-building">
