@@ -361,6 +361,15 @@
       font-size: 11px;
       color: var(--hint);
     }
+    .footer-inner {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 0.5rem;
+    }
+    .footer-badge img { height: 18px; vertical-align: middle; opacity: 0.75; transition: opacity 0.15s; }
+    .footer-badge:hover img { opacity: 1; }
 
     /* ── MODAL OVERLAY ── */
     .overlay {
@@ -1758,7 +1767,12 @@
   </section>
 
   <footer>
-    &copy; 2026 Brad &mdash; hosted on EC2 &mdash; East Texas A&amp;M University
+    <div class="footer-inner">
+      <span>&copy; 2026 Brad &mdash; hosted on EC2 &mdash; East Texas A&amp;M University</span>
+      <a class="footer-badge" href="https://github.com/Bradly187/Personal_Website/actions/workflows/deploy.yml" target="_blank" rel="noopener" title="Deploy status">
+        <img src="https://github.com/Bradly187/Personal_Website/actions/workflows/deploy.yml/badge.svg" alt="Deploy status" />
+      </a>
+    </div>
   </footer>
 
 </div>
@@ -1767,7 +1781,7 @@
 /* ── DESKTOP AGENT CONFIG ─────────────────────────────────────────── */
 const DESKTOP_AGENT = {
   name: 'Personal Desktop Agent',
-  description: 'Multimodal accessibility agent enabling hands-free Windows control through voice, gaze, gesture, tilt, and touch — powered by local GPU inference with AWS cloud fallback.',
+  description: 'Hands-free Windows control via voice, gaze, gesture, tilt, and touch. Sub-600ms full voice pipeline (Whisper large-v3 + Llama 3.1 on RTX 5090); &lt;100ms touch response; 60Hz sensor fusion across 10 input modalities.',
   repoUrl: 'https://github.com/Bradly187/Personal_Desktop_Agent',
   stats: [
     { value: 10, label: 'Input Modalities' },
@@ -1980,7 +1994,7 @@ const DESKTOP_AGENT = {
 /* ── NIDS PROJECT CONFIG ───────────────────────────────────────────── */
 const NIDS_PROJECT = {
   name: 'Network Intrusion Detection: Classical vs. Quantum ML',
-  description: 'Systematic comparison of PCA+SVM, deep learning (MLP), and quantum ML approaches for network intrusion detection on the NSL-KDD dataset. CSCI 459 — AI Enhanced Security, Texas A&M.',
+  description: 'Benchmarked classical and quantum ML on 148K NSL-KDD records. MLP led at 94.6% binary accuracy and 95.0% F1; quantum transfer learning reached 89.3% accuracy on 4 qubits — near-classical performance at current qubit scale. CSCI 459 — AI Enhanced Security, Texas A&M.',
   repoUrl: 'https://github.com/Bradly187/NIDS_ML_Project',
   figuresUrl: 'https://github.com/Bradly187/NIDS_ML_Project/tree/main/figures',
   stats: [
@@ -2234,7 +2248,7 @@ const NIDS_PROJECT = {
 /* ── IDENTITY VERIFICATION PIPELINE CONFIG ─────────────────────────── */
 const IDENTITY_PIPELINE = {
   name: 'Identity Verification Pipeline',
-  description: 'Serverless patient and therapist onboarding system using AWS Rekognition for facial comparison, Textract for document OCR, and Step Functions for orchestration. Automates identity verification against driver\'s licenses and extracts insurance/medical license data.',
+  description: 'Serverless identity verification replacing manual onboarding with a fully automated parallel workflow. Three Step Functions branches run simultaneously — face match, license OCR, insurance extraction — completing in seconds. 24 unit tests, AES-256 encrypted storage, 90-day image lifecycle.',
   repoUrl: 'https://github.com/Bradly187/Patient_Onboard_SAM',
   stats: [
     { value: 8, label: 'Lambda Functions' },
@@ -2425,7 +2439,7 @@ const PROJECTS = [
     name: 'Personal Desktop Agent',
     tag: 'Python · Swift · MCP',
     tagClass: 'tag-blue',
-    description: 'Multimodal accessibility agent enabling hands-free Windows control through voice, gaze, gesture, tilt, and touch — powered by local GPU inference with AWS cloud fallback.',
+    description: 'Sub-600ms voice pipeline, <100ms touch response, 60Hz sensor fusion across 10 modalities. Hands-free Windows control via voice, gaze, gesture, tilt, and touch on local GPU.',
     cta: 'View showcase ↑',
     type: 'SCROLL_TO',
     featured: true,
@@ -2436,7 +2450,7 @@ const PROJECTS = [
     name: 'Network Intrusion Detection',
     tag: 'PyTorch · Qiskit · ML',
     tagClass: 'tag-green',
-    description: 'Classical vs. quantum ML comparison using PCA+SVM, MLP, and quantum transfer learning on the NSL-KDD dataset. CSCI 459 — AI Enhanced Security.',
+    description: 'MLP hit 94.6% binary accuracy and 95.0% F1 on 148K NSL-KDD records. Quantum transfer learning reached 89.3% on 4 qubits — near-classical performance at current qubit scale.',
     cta: 'View showcase ↑',
     type: 'SCROLL_TO',
     featured: false,
@@ -2447,7 +2461,7 @@ const PROJECTS = [
     name: 'ClinicScheduler',
     tag: '.NET MAUI · Blazor',
     tagClass: 'tag-blue',
-    description: 'A full-stack clinic scheduling application with role-based access control, patient & appointment management, and HL7 FHIR integration. Built as a Systems Analysis & Design capstone.',
+    description: 'Full-stack clinic scheduling with role-based access, patient management, appointment booking, and HL7 FHIR integration. Live at clinic.bradtarver.com — built as a Systems Analysis & Design capstone.',
     cta: 'View live app →',
     type: 'LIVE_APP',
     featured: true,
