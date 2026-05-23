@@ -1284,6 +1284,15 @@
       color: var(--amber-text);
       flex-shrink: 0;
     }
+    .pill-blue {
+      border-color: var(--blue-border);
+      color: var(--blue-mid);
+    }
+    a.pill {
+      text-decoration: none;
+      transition: background 0.15s;
+    }
+    a.pill:hover { background: var(--blue-bg); }
   </style>
 </head>
 <body>
@@ -1501,11 +1510,11 @@
 
     <div class="section-label skills-certs-label">// Certifications</div>
     <div class="skills-row">
-      <span class="pill" style="border-color: var(--blue-border); color: var(--blue-mid);">AWS Cloud Practitioner ✓</span>
-      <span class="pill" style="border-color: var(--blue-border); color: var(--blue-mid);">AWS AI Practitioner ✓</span>
-      <span class="pill" style="border-color: var(--blue-border); color: var(--blue-mid);">IBM Qiskit Advocate ✓</span>
-      <span class="pill" style="border-color: var(--amber-bg); color: var(--amber-text);">AWS Cloud Institute · Jun 2026</span>
-      <span class="pill" style="border-color: var(--amber-bg); color: var(--amber-text);">AWS Developer Associate · Jul 2026</span>
+      <a class="pill pill-blue" href="https://www.credly.com/badges/25b7d80d-d33f-41df-905f-9b9f271daf85/public_url" target="_blank" rel="noopener">AWS Cloud Practitioner ✓</a>
+      <a class="pill pill-blue" href="https://www.credly.com/badges/47cd603a-9028-4557-87fc-d042ceffc676/public_url" target="_blank" rel="noopener">AWS AI Practitioner ✓</a>
+      <span class="pill pill-blue">IBM Qiskit Advocate ✓</span>
+      <span class="pill pill-amber">AWS Cloud Institute · Jun 2026</span>
+      <span class="pill pill-amber">AWS Developer Associate · Jul 2026</span>
     </div>
   </section>
 
