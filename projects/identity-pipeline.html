@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Identity Verification Pipeline · Brad Tarver</title>
+  <meta name="description" content="Serverless identity verification pipeline using AWS Rekognition, Textract, and Step Functions. Three parallel branches complete in seconds. 24 unit tests, AES-256 storage." />
+  <meta name="author" content="Brad Tarver" />
+  <meta property="og:title" content="Identity Verification Pipeline · Brad Tarver" />
+  <meta property="og:description" content="Serverless patient and therapist onboarding with parallel Step Functions branches — face match, license OCR, insurance extraction — completing in seconds." />
+  <meta property="og:type" content="website" />
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><rect width='100' height='100' rx='16' fill='%23185FA5'/><text x='50' y='68' font-family='system-ui' font-size='48' font-weight='700' fill='white' text-anchor='middle'>BT</text></svg>" />
+  <script>try{var t=localStorage.getItem('theme');if(t)document.documentElement.setAttribute('data-theme',t);}catch(e){}</script>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Space+Mono:wght@400;700&family=DM+Serif+Display&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="/style.css" />
+</head>
+<body>
+
+<nav>
+  <a class="nav-logo" href="/" style="text-decoration:none;"><strong>Brad</strong> · CS @ TAMU-RELLIS</a>
+  <ul class="nav-links">
+    <li><a href="/#about">About</a></li>
+    <li><a href="/#projects">Projects</a></li>
+    <li><a href="/#skills">Skills</a></li>
+    <li><a href="/#contact">Contact</a></li>
+  </ul>
+</nav>
+
+<div class="wrap">
+
+  <div style="padding: 1.5rem 0 0;">
+    <a href="/" class="contact-link">&larr; Back to portfolio</a>
+  </div>
+
+  <section class="hero" style="padding-top: 2rem;">
+    <span class="card-tag tag-amber">AWS SAM &middot; Serverless</span>
+    <h1>Identity Verification Pipeline</h1>
+    <p class="hero-sub">
+      Serverless patient and therapist onboarding system replacing manual identity checks
+      with a fully automated parallel workflow. Three Step Functions branches run simultaneously —
+      face match, license OCR, and insurance extraction — with results merged and stored in seconds.
+    </p>
+    <div class="hero-actions">
+      <a href="https://github.com/Bradly187/Patient_Onboard_SAM" target="_blank" rel="noopener" class="btn-primary">View on GitHub &rarr;</a>
+      <a href="/#identity-pipeline" class="btn-secondary">View showcase &uarr;</a>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="section-label">// At a glance</div>
+    <div class="stats-row">
+      <div class="stat-item"><span class="stat-number">8</span><span class="stat-label">Lambda Functions</span></div>
+      <div class="stat-item"><span class="stat-number">2</span><span class="stat-label">Workflows</span></div>
+      <div class="stat-item"><span class="stat-number">2</span><span class="stat-label">DynamoDB Tables</span></div>
+      <div class="stat-item"><span class="stat-number">3</span><span class="stat-label">Parallel Checks</span></div>
+      <div class="stat-item"><span class="stat-number">8</span><span class="stat-label">AWS Services</span></div>
+      <div class="stat-item"><span class="stat-number">24</span><span class="stat-label">Unit Tests</span></div>
+    </div>
+    <div class="tech-badges" style="margin-top:1rem;">
+      <span class="tech-badge">Python 3.13</span>
+      <span class="tech-badge">AWS SAM</span>
+      <span class="tech-badge">Rekognition</span>
+      <span class="tech-badge">Textract</span>
+      <span class="tech-badge">Step Functions</span>
+      <span class="tech-badge">Lambda</span>
+      <span class="tech-badge">DynamoDB</span>
+      <span class="tech-badge">S3</span>
+      <span class="tech-badge">EventBridge</span>
+      <span class="tech-badge">SNS</span>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="section-label">// Architecture</div>
+    <div class="arch-cards">
+      <div class="arch-card expanded"><div class="arch-card-name">S3 Document Bucket</div><div class="arch-card-desc">Encrypted, private bucket storing patient/therapist images. EventBridge triggers workflow on selfie upload.</div></div>
+      <div class="arch-card expanded"><div class="arch-card-name">EventBridge Rules</div><div class="arch-card-desc">Decoupled event routing — detects _selfie.png or _therapist_selfie.png uploads and starts the correct state machine.</div></div>
+      <div class="arch-card expanded"><div class="arch-card-name">Step Functions (Patient)</div><div class="arch-card-desc">Orchestrates 3 parallel branches: face comparison, license OCR, and insurance extraction. Merges results and stores verification.</div></div>
+      <div class="arch-card expanded"><div class="arch-card-name">Step Functions (Therapist)</div><div class="arch-card-desc">Parallel branches: face comparison, medical license verification, and medical license OCR. Same merge-and-store pattern.</div></div>
+      <div class="arch-card expanded"><div class="arch-card-name">CompareFaces Lambda</div><div class="arch-card-desc">Rekognition face match between selfie and driver's license photo. Returns similarity score and match boolean.</div></div>
+      <div class="arch-card expanded"><div class="arch-card-name">ExtractLicense Lambda</div><div class="arch-card-desc">Textract analyze_id to OCR driver's license — extracts name, DOB, address as structured data.</div></div>
+      <div class="arch-card expanded"><div class="arch-card-name">ExtractInsurance Lambda</div><div class="arch-card-desc">Textract analyze_document with Queries to read insurance card — carrier, policy number, group ID.</div></div>
+      <div class="arch-card expanded"><div class="arch-card-name">VerifyMedicalLicense Lambda</div><div class="arch-card-desc">Calls an external medical board registry to validate therapist license number and status.</div></div>
+      <div class="arch-card expanded"><div class="arch-card-name">StoreVerification Lambda</div><div class="arch-card-desc">Aggregates parallel results, writes to DynamoDB, and POSTs verification to the ClinicScheduler API.</div></div>
+      <div class="arch-card expanded"><div class="arch-card-name">DynamoDB + SNS</div><div class="arch-card-desc">Patient/Therapist verification tables with auto-scaling. SNS alerts staff on failures or manual review needed.</div></div>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="section-label">// Workflow</div>
+    <p style="font-family:var(--mono);font-size:12px;color:var(--muted);line-height:2.2;">
+      Upload Images &rarr; S3 EventBridge Trigger &rarr; Step Functions &rarr;
+      Parallel (Face Match + License OCR + Insurance OCR) &rarr;
+      Store Verification &rarr; DynamoDB + Clinic API
+      <br><span style="color:var(--amber-text);">on failure &rarr; SNS Alert to Staff</span>
+    </p>
+  </section>
+
+  <section class="section">
+    <div class="section-label">// Security</div>
+    <div class="arch-cards">
+      <div class="arch-card expanded"><div class="arch-card-name">Encrypted Storage</div><div class="arch-card-desc">S3 bucket uses AES-256 server-side encryption for all patient images.</div></div>
+      <div class="arch-card expanded"><div class="arch-card-name">HTTPS-Only Policy</div><div class="arch-card-desc">Bucket policy denies any request not using secure transport (aws:SecureTransport).</div></div>
+      <div class="arch-card expanded"><div class="arch-card-name">90-Day Lifecycle</div><div class="arch-card-desc">Raw images auto-expire after 90 days — processed data lives in DynamoDB.</div></div>
+      <div class="arch-card expanded"><div class="arch-card-name">Auto-Scaling DynamoDB</div><div class="arch-card-desc">Read/write capacity scales 2–20 units based on 70% utilization target.</div></div>
+      <div class="arch-card expanded"><div class="arch-card-name">X-Ray Tracing</div><div class="arch-card-desc">Active tracing on all Lambda functions and state machines for observability.</div></div>
+      <div class="arch-card expanded"><div class="arch-card-name">Point-in-Time Recovery</div><div class="arch-card-desc">DynamoDB tables have PITR enabled for data protection and recovery.</div></div>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="section-label">// Tech stack</div>
+    <div class="tech-stack-groups">
+      <div class="tech-stack-group">
+        <div class="tech-stack-label">Compute</div>
+        <div class="tech-stack-pills"><span class="tech-badge">AWS Lambda</span><span class="tech-badge">Python 3.13</span><span class="tech-badge">AWS Lambda Powertools</span></div>
+      </div>
+      <div class="tech-stack-group">
+        <div class="tech-stack-label">AI / ML Services</div>
+        <div class="tech-stack-pills"><span class="tech-badge">Amazon Rekognition</span><span class="tech-badge">Amazon Textract</span></div>
+      </div>
+      <div class="tech-stack-group">
+        <div class="tech-stack-label">Orchestration</div>
+        <div class="tech-stack-pills"><span class="tech-badge">AWS Step Functions</span><span class="tech-badge">Amazon EventBridge</span></div>
+      </div>
+      <div class="tech-stack-group">
+        <div class="tech-stack-label">Storage</div>
+        <div class="tech-stack-pills"><span class="tech-badge">Amazon S3</span><span class="tech-badge">Amazon DynamoDB</span></div>
+      </div>
+      <div class="tech-stack-group">
+        <div class="tech-stack-label">Infrastructure</div>
+        <div class="tech-stack-pills"><span class="tech-badge">AWS SAM</span><span class="tech-badge">CloudFormation</span><span class="tech-badge">Amazon SNS</span></div>
+      </div>
+    </div>
+  </section>
+
+  <footer>
+    <div class="footer-inner">
+      <span>&copy; 2026 Brad &mdash; hosted on EC2 &mdash; East Texas A&amp;M University</span>
+      <a class="footer-badge" href="https://github.com/Bradly187/Personal_Website/actions/workflows/deploy.yml" target="_blank" rel="noopener" title="Deploy status">
+        <img src="https://github.com/Bradly187/Personal_Website/actions/workflows/deploy.yml/badge.svg" alt="Deploy status" />
+      </a>
+    </div>
+  </footer>
+
+</div>
+</body>
+</html>
