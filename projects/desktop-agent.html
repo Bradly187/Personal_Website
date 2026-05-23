@@ -1,0 +1,161 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Personal Desktop Agent · Brad Tarver</title>
+  <meta name="description" content="Multimodal accessibility agent enabling hands-free Windows control through voice, gaze, gesture, tilt, and touch. Sub-600ms voice pipeline on local GPU with AWS Bedrock fallback." />
+  <meta name="author" content="Brad Tarver" />
+  <meta property="og:title" content="Personal Desktop Agent · Brad Tarver" />
+  <meta property="og:description" content="Hands-free Windows control via 10 input modalities. Sub-600ms voice pipeline, <100ms touch response, 60Hz sensor fusion." />
+  <meta property="og:type" content="website" />
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><rect width='100' height='100' rx='16' fill='%23185FA5'/><text x='50' y='68' font-family='system-ui' font-size='48' font-weight='700' fill='white' text-anchor='middle'>BT</text></svg>" />
+  <script>try{var t=localStorage.getItem('theme');if(t)document.documentElement.setAttribute('data-theme',t);}catch(e){}</script>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Space+Mono:wght@400;700&family=DM+Serif+Display&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="/style.css" />
+</head>
+<body>
+
+<nav>
+  <a class="nav-logo" href="/" style="text-decoration:none;"><strong>Brad</strong> · CS @ TAMU-RELLIS</a>
+  <ul class="nav-links">
+    <li><a href="/#about">About</a></li>
+    <li><a href="/#projects">Projects</a></li>
+    <li><a href="/#skills">Skills</a></li>
+    <li><a href="/#contact">Contact</a></li>
+  </ul>
+</nav>
+
+<div class="wrap">
+
+  <div style="padding: 1.5rem 0 0;">
+    <a href="/" class="contact-link">&larr; Back to portfolio</a>
+  </div>
+
+  <section class="hero" style="padding-top: 2rem;">
+    <span class="card-tag tag-blue">Python &middot; Swift &middot; MCP</span>
+    <h1>Personal Desktop Agent</h1>
+    <p class="hero-sub">
+      Multimodal accessibility agent enabling hands-free Windows control through voice, gaze,
+      gesture, tilt, and touch — powered by local GPU inference with AWS cloud fallback.
+      Built to solve a real problem: computing access for people who can't use a keyboard.
+    </p>
+    <div class="hero-actions">
+      <a href="https://github.com/Bradly187/Personal_Desktop_Agent" target="_blank" rel="noopener" class="btn-primary">View on GitHub &rarr;</a>
+      <a href="/#desktop-agent" class="btn-secondary">View showcase &uarr;</a>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="section-label">// At a glance</div>
+    <div class="stats-row">
+      <div class="stat-item"><span class="stat-number">10</span><span class="stat-label">Input Modalities</span></div>
+      <div class="stat-item"><span class="stat-number">14</span><span class="stat-label">MCP Tools</span></div>
+      <div class="stat-item"><span class="stat-number">&lt;100ms</span><span class="stat-label">Touch Latency</span></div>
+      <div class="stat-item"><span class="stat-number">60Hz</span><span class="stat-label">Fusion Rate</span></div>
+      <div class="stat-item"><span class="stat-number">5</span><span class="stat-label">Routing Gates</span></div>
+    </div>
+    <div class="tech-badges" style="margin-top:1rem;">
+      <span class="tech-badge">Python</span>
+      <span class="tech-badge">Swift</span>
+      <span class="tech-badge">Whisper</span>
+      <span class="tech-badge">MediaPipe</span>
+      <span class="tech-badge">MCP</span>
+      <span class="tech-badge">AWS Bedrock</span>
+      <span class="tech-badge">aiosqlite</span>
+      <span class="tech-badge">DuckDB</span>
+      <span class="tech-badge">WebSocket</span>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="section-label">// Architecture</div>
+    <div class="arch-cards">
+      <div class="arch-card expanded"><div class="arch-card-name">MCP Server</div><div class="arch-card-desc">Exposes 14 desktop control tools (mouse, keyboard, screen, windows) to Claude via stdio transport.</div></div>
+      <div class="arch-card expanded"><div class="arch-card-name">iPad Bridge</div><div class="arch-card-desc">WebSocket server handling 13 incoming sensor message types and 4 outgoing reply types, dispatching to processing pipelines.</div></div>
+      <div class="arch-card expanded"><div class="arch-card-name">Fusion Engine</div><div class="arch-card-desc">Merges 10 input modalities at 60Hz using priority-based routing with confidence gating.</div></div>
+      <div class="arch-card expanded"><div class="arch-card-name">Hybrid Coordinator</div><div class="arch-card-desc">5-gate routing engine (Gate 0 privacy + Gates 1–4) deciding local vs. cloud inference based on confidence, complexity, and GPU load.</div></div>
+      <div class="arch-card expanded"><div class="arch-card-name">Local Inference</div><div class="arch-card-desc">Whisper large-v3 + Llama 3.1 running on RTX 5090 for sub-600ms voice command processing.</div></div>
+      <div class="arch-card expanded"><div class="arch-card-name">Continuous Trainer</div><div class="arch-card-desc">Background learning system that adapts routing thresholds and gesture confidence floors; delegates storage to AgentDB.</div></div>
+      <div class="arch-card expanded"><div class="arch-card-name">Gesture + LiDAR</div><div class="arch-card-desc">MediaPipe hand landmark detection for POINT/PINCH/OPEN_PALM/FIST; LiDAR depth map (256×192) used for 3D pinch distance validation at &lt;30mm threshold.</div></div>
+      <div class="arch-card expanded"><div class="arch-card-name">Domain Classifier</div><div class="arch-card-desc">Keyword-scoring classifier routes commands to the accessibility pipeline or one of 5 dev domains (CODE/MATH/VISION/PLAN/GENERAL).</div></div>
+      <div class="arch-card expanded"><div class="arch-card-name">Dev Agent</div><div class="arch-card-desc">Plan→execute→reflect agentic loop; selects specialist model per domain via ModelRouter; emits 5 dev verbs (WRITE_FILE, RUN_TERMINAL, EXPLAIN, SEARCH_WEB, READ_SCREEN).</div></div>
+      <div class="arch-card expanded"><div class="arch-card-name">AgentDB / AnalyticsDB</div><div class="arch-card-desc">aiosqlite 12-table pipeline store + DuckDB benchmark analytics; MiniLM semantic few-shot retrieval for routing decisions.</div></div>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="section-label">// Sensor priority</div>
+    <div class="sensor-table-wrap">
+      <table class="sensor-table">
+        <thead><tr>
+          <th scope="col">Priority</th>
+          <th scope="col">Source</th>
+          <th scope="col">Latency</th>
+          <th scope="col">Gate Behavior</th>
+        </tr></thead>
+        <tbody>
+          <tr><td>1</td><td>iPad Touch Command</td><td>&lt;100ms</td><td>Immediate — bypasses LLM</td></tr>
+          <tr><td>2</td><td>Sound Action</td><td>&lt;50ms</td><td>Mapped mouth sounds (cluck, pop, hiss)</td></tr>
+          <tr><td>3</td><td>Gaze Dwell Click</td><td>~300ms</td><td>Resting gaze auto-clicks after dwell duration</td></tr>
+          <tr><td>4</td><td>Gaze + Voice "click"</td><td>&lt;200ms</td><td>Click at gaze coordinates on voice trigger</td></tr>
+          <tr><td>5</td><td>Gaze + Gesture POINT</td><td>&lt;200ms</td><td>Click at gaze coordinates on point gesture</td></tr>
+          <tr><td>6</td><td>Tilt Navigation</td><td>&lt;50ms</td><td>iPad tilt moves cursor via Core Motion</td></tr>
+          <tr><td>7</td><td>Head Tracking</td><td>&lt;100ms</td><td>Head pose moves cursor via ARKit</td></tr>
+          <tr><td>8</td><td>Gesture Alone</td><td>&lt;50ms</td><td>Hand gesture via iPad camera + MediaPipe; LiDAR depth validates 3D pinch/grab</td></tr>
+          <tr><td>9</td><td>On-device Voice Keyword</td><td>&lt;150ms</td><td>Speech Framework fast-path match</td></tr>
+          <tr><td>10</td><td>PC-transcribed Voice</td><td>&lt;600ms</td><td>Full Whisper + LLM pipeline</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="section-label">// Routing gates</div>
+    <div class="routing-gates">
+      <div class="routing-gate-item"><span class="routing-gate-name">Privacy Gate (0)</span><span class="routing-gate-criteria">Detects sensitive patterns (passwords, tokens, SSNs, card numbers) — forces local silently, no cloud exposure.</span></div>
+      <div class="routing-gate-item"><span class="routing-gate-name">Confidence Gate (1)</span><span class="routing-gate-criteria">Whisper logprob &ge; -1.0 or gesture confidence &ge; 0.60; low-confidence voice triggers re-transcription.</span></div>
+      <div class="routing-gate-item"><span class="routing-gate-name">Complexity Gate (2)</span><span class="routing-gate-criteria">Token count proxy &le; 40 words; complex/multi-step queries routed to specialist models via DevAgent.</span></div>
+      <div class="routing-gate-item"><span class="routing-gate-name">VRAM Gate (3)</span><span class="routing-gate-criteria">&ge; 8 GB free VRAM required (absolute floor) — tuned for RTX 5090 running alongside Whisper.</span></div>
+      <div class="routing-gate-item"><span class="routing-gate-name">Latency Budget Gate (4)</span><span class="routing-gate-criteria">Estimated local inference latency must be within the latency target for that input modality.</span></div>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="section-label">// Tech stack</div>
+    <div class="tech-stack-groups">
+      <div class="tech-stack-group">
+        <div class="tech-stack-label">PC-side (Python)</div>
+        <div class="tech-stack-pills">
+          <span class="tech-badge">Python 3.11+</span><span class="tech-badge">faster-whisper</span><span class="tech-badge">silero-vad</span><span class="tech-badge">MediaPipe</span><span class="tech-badge">pyautogui</span><span class="tech-badge">MCP SDK</span><span class="tech-badge">aiohttp</span><span class="tech-badge">aiosqlite</span><span class="tech-badge">DuckDB</span><span class="tech-badge">Ollama</span>
+        </div>
+      </div>
+      <div class="tech-stack-group">
+        <div class="tech-stack-label">iPad-side (Swift)</div>
+        <div class="tech-stack-pills">
+          <span class="tech-badge">Swift/SwiftUI</span><span class="tech-badge">Core Motion</span><span class="tech-badge">ARKit (LiDAR + Face Tracking)</span><span class="tech-badge">Speech Framework</span><span class="tech-badge">AVFoundation</span>
+        </div>
+      </div>
+      <div class="tech-stack-group">
+        <div class="tech-stack-label">Cloud (AWS)</div>
+        <div class="tech-stack-pills">
+          <span class="tech-badge">Amazon Bedrock (Claude)</span><span class="tech-badge">AWS AgentCore</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <footer>
+    <div class="footer-inner">
+      <span>&copy; 2026 Brad &mdash; hosted on EC2 &mdash; East Texas A&amp;M University</span>
+      <a class="footer-badge" href="https://github.com/Bradly187/Personal_Website/actions/workflows/deploy.yml" target="_blank" rel="noopener" title="Deploy status">
+        <img src="https://github.com/Bradly187/Personal_Website/actions/workflows/deploy.yml/badge.svg" alt="Deploy status" />
+      </a>
+    </div>
+  </footer>
+
+</div>
+</body>
+</html>

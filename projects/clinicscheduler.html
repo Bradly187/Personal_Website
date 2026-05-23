@@ -1,0 +1,205 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>ClinicScheduler · Brad Tarver</title>
+  <meta name="description" content="Full-stack clinic scheduling application with role-based access control, patient and appointment management, and HL7 FHIR integration. Live at clinic.bradtarver.com." />
+  <meta name="author" content="Brad Tarver" />
+  <meta property="og:title" content="ClinicScheduler · Brad Tarver" />
+  <meta property="og:description" content="Full-stack clinic scheduling with role-based access, patient management, appointment booking, and HL7 FHIR integration. Live demo available." />
+  <meta property="og:type" content="website" />
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><rect width='100' height='100' rx='16' fill='%23185FA5'/><text x='50' y='68' font-family='system-ui' font-size='48' font-weight='700' fill='white' text-anchor='middle'>BT</text></svg>" />
+  <script>try{var t=localStorage.getItem('theme');if(t)document.documentElement.setAttribute('data-theme',t);}catch(e){}</script>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Space+Mono:wght@400;700&family=DM+Serif+Display&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="/style.css" />
+  <style>
+    .feature-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+      gap: 10px;
+    }
+    .feature-item {
+      background: var(--surface);
+      border: 0.5px solid var(--border);
+      border-radius: var(--radius-md);
+      padding: 12px 16px;
+      font-size: 13px;
+      color: var(--muted);
+      line-height: 1.5;
+    }
+    .feature-item strong {
+      display: block;
+      font-size: 13px;
+      font-weight: 500;
+      color: var(--text);
+      margin-bottom: 2px;
+    }
+    .demo-creds {
+      background: var(--blue-bg);
+      border: 0.5px solid var(--blue-border);
+      border-radius: var(--radius-md);
+      padding: 1rem 1.25rem;
+    }
+    .demo-creds-label {
+      font-family: var(--mono);
+      font-size: 10px;
+      letter-spacing: 0.08em;
+      color: var(--blue-mid);
+      text-transform: uppercase;
+      margin-bottom: 0.5rem;
+    }
+    .demo-creds-row {
+      display: flex;
+      gap: 2rem;
+      flex-wrap: wrap;
+    }
+    .demo-creds-row span {
+      font-family: var(--mono);
+      font-size: 13px;
+      color: var(--text);
+    }
+    .demo-creds-row .cred-label {
+      color: var(--muted);
+      font-size: 11px;
+    }
+    .screenshot-wrap {
+      background: var(--bg);
+      border: 0.5px solid var(--border);
+      border-radius: var(--radius-lg);
+      overflow: hidden;
+      margin-bottom: 0;
+    }
+    .screenshot-wrap img {
+      width: 100%;
+      display: block;
+      object-fit: cover;
+      object-position: top;
+    }
+  </style>
+</head>
+<body>
+
+<nav>
+  <a class="nav-logo" href="/" style="text-decoration:none;"><strong>Brad</strong> · CS @ TAMU-RELLIS</a>
+  <ul class="nav-links">
+    <li><a href="/#about">About</a></li>
+    <li><a href="/#projects">Projects</a></li>
+    <li><a href="/#skills">Skills</a></li>
+    <li><a href="/#contact">Contact</a></li>
+  </ul>
+</nav>
+
+<div class="wrap">
+
+  <div style="padding: 1.5rem 0 0;">
+    <a href="/" class="contact-link">&larr; Back to portfolio</a>
+  </div>
+
+  <section class="hero" style="padding-top: 2rem;">
+    <span class="card-tag tag-blue">.NET MAUI &middot; Blazor</span>
+    <h1>ClinicScheduler</h1>
+    <p class="hero-sub">
+      Full-stack clinic scheduling application with role-based access control, patient and
+      appointment management, and HL7 FHIR integration. Built as a Systems Analysis &amp;
+      Design capstone — deployed and live.
+    </p>
+    <div class="hero-actions">
+      <a href="https://clinic.bradtarver.com" target="_blank" rel="noopener" class="btn-primary">Launch App &rarr;</a>
+      <a href="https://github.com/Bradly187/clinic-scheduler" target="_blank" rel="noopener" class="btn-secondary">View on GitHub &rarr;</a>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="section-label">// Screenshot</div>
+    <div class="screenshot-wrap">
+      <img src="/assets/clinicscheduler.png" alt="ClinicScheduler application screenshot" loading="lazy" />
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="section-label">// Demo access</div>
+    <div class="demo-creds">
+      <div class="demo-creds-label">Guest login</div>
+      <div class="demo-creds-row">
+        <span><span class="cred-label">Email </span>guest@clinic.com</span>
+        <span><span class="cred-label">Password </span>GuestPass123!</span>
+      </div>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="section-label">// Features</div>
+    <div class="feature-grid">
+      <div class="feature-item">
+        <strong>Role-Based Access Control</strong>
+        Distinct permission levels for admin, clinician, and patient roles throughout the application.
+      </div>
+      <div class="feature-item">
+        <strong>Patient Management</strong>
+        Full CRUD for patient records including demographics, contact info, and medical history.
+      </div>
+      <div class="feature-item">
+        <strong>Appointment Scheduling</strong>
+        Calendar-based booking with conflict detection, reminders, and status tracking.
+      </div>
+      <div class="feature-item">
+        <strong>HL7 FHIR Integration</strong>
+        Structured health data exchange using the FHIR R4 standard for interoperability.
+      </div>
+      <div class="feature-item">
+        <strong>Identity Pipeline Integration</strong>
+        Receives verified patient and therapist records from the AWS serverless onboarding pipeline.
+      </div>
+      <div class="feature-item">
+        <strong>Cross-Platform Client</strong>
+        .NET MAUI mobile client alongside a Blazor web interface — one codebase, multiple targets.
+      </div>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="section-label">// Tech stack</div>
+    <div class="tech-stack-groups">
+      <div class="tech-stack-group">
+        <div class="tech-stack-label">Frontend</div>
+        <div class="tech-stack-pills">
+          <span class="tech-badge">Blazor</span>
+          <span class="tech-badge">.NET MAUI</span>
+          <span class="tech-badge">C#</span>
+        </div>
+      </div>
+      <div class="tech-stack-group">
+        <div class="tech-stack-label">Backend</div>
+        <div class="tech-stack-pills">
+          <span class="tech-badge">ASP.NET Core</span>
+          <span class="tech-badge">Entity Framework</span>
+          <span class="tech-badge">SQL Server</span>
+          <span class="tech-badge">HL7 FHIR R4</span>
+        </div>
+      </div>
+      <div class="tech-stack-group">
+        <div class="tech-stack-label">Infrastructure</div>
+        <div class="tech-stack-pills">
+          <span class="tech-badge">EC2</span>
+          <span class="tech-badge">Nginx</span>
+          <span class="tech-badge">Docker</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <footer>
+    <div class="footer-inner">
+      <span>&copy; 2026 Brad &mdash; hosted on EC2 &mdash; East Texas A&amp;M University</span>
+      <a class="footer-badge" href="https://github.com/Bradly187/Personal_Website/actions/workflows/deploy.yml" target="_blank" rel="noopener" title="Deploy status">
+        <img src="https://github.com/Bradly187/Personal_Website/actions/workflows/deploy.yml/badge.svg" alt="Deploy status" />
+      </a>
+    </div>
+  </footer>
+
+</div>
+</body>
+</html>

@@ -1,0 +1,190 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Network Intrusion Detection · Brad Tarver</title>
+  <meta name="description" content="Classical vs. quantum ML on 148K NSL-KDD records. MLP: 94.6% binary accuracy, 95.0% F1. Quantum transfer learning: 89.3% on 4 qubits. CSCI 459 — AI Enhanced Security, Texas A&M." />
+  <meta name="author" content="Brad Tarver" />
+  <meta property="og:title" content="Network Intrusion Detection · Brad Tarver" />
+  <meta property="og:description" content="Benchmarked PCA+SVM, MLP, and quantum transfer learning on 148K NSL-KDD records. MLP led at 94.6% binary accuracy and 95.0% F1." />
+  <meta property="og:type" content="website" />
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><rect width='100' height='100' rx='16' fill='%23185FA5'/><text x='50' y='68' font-family='system-ui' font-size='48' font-weight='700' fill='white' text-anchor='middle'>BT</text></svg>" />
+  <script>try{var t=localStorage.getItem('theme');if(t)document.documentElement.setAttribute('data-theme',t);}catch(e){}</script>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Space+Mono:wght@400;700&family=DM+Serif+Display&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="/style.css" />
+</head>
+<body>
+
+<nav>
+  <a class="nav-logo" href="/" style="text-decoration:none;"><strong>Brad</strong> · CS @ TAMU-RELLIS</a>
+  <ul class="nav-links">
+    <li><a href="/#about">About</a></li>
+    <li><a href="/#projects">Projects</a></li>
+    <li><a href="/#skills">Skills</a></li>
+    <li><a href="/#contact">Contact</a></li>
+  </ul>
+</nav>
+
+<div class="wrap">
+
+  <div style="padding: 1.5rem 0 0;">
+    <a href="/" class="contact-link">&larr; Back to portfolio</a>
+  </div>
+
+  <section class="hero" style="padding-top: 2rem;">
+    <span class="card-tag tag-green">PyTorch &middot; Qiskit &middot; ML</span>
+    <h1>Network Intrusion Detection:<br>Classical vs. Quantum ML</h1>
+    <p class="hero-sub">
+      Systematic comparison of PCA+SVM, deep learning (MLP), and quantum ML approaches
+      for network intrusion detection on the NSL-KDD dataset.
+      CSCI 459 — AI Enhanced Security, Texas A&amp;M-RELLIS.
+    </p>
+    <div class="hero-actions">
+      <a href="https://github.com/Bradly187/NIDS_ML_Project" target="_blank" rel="noopener" class="btn-primary">View on GitHub &rarr;</a>
+      <a href="https://github.com/Bradly187/NIDS_ML_Project/tree/main/figures" target="_blank" rel="noopener" class="btn-secondary">View Figures &rarr;</a>
+      <a href="/#nids" class="btn-secondary">View showcase &uarr;</a>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="section-label">// At a glance</div>
+    <div class="stats-row">
+      <div class="stat-item"><span class="stat-number">125,973</span><span class="stat-label">Training Records</span></div>
+      <div class="stat-item"><span class="stat-number">22,544</span><span class="stat-label">Test Records</span></div>
+      <div class="stat-item"><span class="stat-number">41</span><span class="stat-label">Features</span></div>
+      <div class="stat-item"><span class="stat-number">5</span><span class="stat-label">Attack Classes</span></div>
+      <div class="stat-item"><span class="stat-number">3</span><span class="stat-label">Model Types</span></div>
+    </div>
+    <div class="tech-badges" style="margin-top:1rem;">
+      <span class="tech-badge">Python</span>
+      <span class="tech-badge">scikit-learn</span>
+      <span class="tech-badge">PyTorch</span>
+      <span class="tech-badge">Qiskit</span>
+      <span class="tech-badge">Amazon Braket</span>
+      <span class="tech-badge">PennyLane</span>
+      <span class="tech-badge">NumPy</span>
+      <span class="tech-badge">matplotlib</span>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="section-label">// Key findings</div>
+    <div class="arch-cards">
+      <div class="arch-card expanded">
+        <div class="arch-card-name">MLP (PyTorch) — Best Overall</div>
+        <div class="arch-card-desc">94.56% binary accuracy, 95.01% F1. Outperformed both classical SVM and quantum transfer learning across all four metrics. Fastest to train at scale.</div>
+      </div>
+      <div class="arch-card expanded">
+        <div class="arch-card-name">PCA + SVM (RBF) — Strong Classical Baseline</div>
+        <div class="arch-card-desc">92.45% binary accuracy, 93.12% F1. Competitive with significantly less compute. Multi-class performance (78.9% acc) was limited by class imbalance in R2L and U2R.</div>
+      </div>
+      <div class="arch-card expanded">
+        <div class="arch-card-name">Quantum Transfer Learning — Near-Classical on 4 Qubits</div>
+        <div class="arch-card-desc">89.34% binary accuracy, 88.76% F1 after ~874 seconds of training. Demonstrates that quantum approaches can reach near-classical performance at current qubit scale — a meaningful result given hardware constraints. Tested on IBM Quantum Heron R2 and Amazon Braket simulators.</div>
+      </div>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="section-label">// Results</div>
+    <div class="model-table-wrap">
+      <table class="model-table">
+        <thead><tr>
+          <th scope="col">Model</th>
+          <th scope="col">Category</th>
+          <th scope="col">Binary Acc</th>
+          <th scope="col">Binary F1</th>
+          <th scope="col">Multi-Class Acc</th>
+          <th scope="col">Multi-Class F1</th>
+        </tr></thead>
+        <tbody>
+          <tr>
+            <td>MLP (PyTorch)</td><td>Deep Learning</td>
+            <td class="highlight">0.9456</td>
+            <td class="highlight">0.9501</td>
+            <td class="highlight">0.8123</td>
+            <td class="highlight">0.6789</td>
+          </tr>
+          <tr>
+            <td>PCA + SVM (RBF)</td><td>Classical</td>
+            <td>0.9245</td><td>0.9312</td><td>0.7891</td><td>0.6234</td>
+          </tr>
+          <tr>
+            <td>Quantum Transfer</td><td>Quantum</td>
+            <td>0.8934</td><td>0.8876</td><td>0.7234</td><td>0.5612</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <div class="benchmark-chart-wrap">
+      <div class="benchmark-chart">
+        <div class="benchmark-chart-title">Binary F1 Score</div>
+        <div class="chart-row">
+          <span class="chart-label">MLP (PyTorch)</span>
+          <div class="chart-bar-container"><div class="chart-bar" style="width:95.01%;background:var(--blue-mid);"></div></div>
+          <span class="chart-value">0.9501</span>
+        </div>
+        <div class="chart-row">
+          <span class="chart-label">PCA + SVM (RBF)</span>
+          <div class="chart-bar-container"><div class="chart-bar" style="width:93.12%;background:var(--green-text);"></div></div>
+          <span class="chart-value">0.9312</span>
+        </div>
+        <div class="chart-row">
+          <span class="chart-label">Quantum Transfer</span>
+          <div class="chart-bar-container"><div class="chart-bar" style="width:88.76%;background:var(--amber-text);"></div></div>
+          <span class="chart-value">0.8876</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="section-label">// Pipeline</div>
+    <p style="font-family:var(--mono);font-size:12px;color:var(--muted);line-height:2;">
+      Raw NSL-KDD &rarr; One-Hot Encoding &rarr; Standard Scaling &rarr; PCA (30 components) &rarr; SVM / MLP / Quantum Circuit
+    </p>
+  </section>
+
+  <section class="section">
+    <div class="section-label">// Quantum config</div>
+    <dl class="quantum-config">
+      <div class="quantum-config-item"><dt>Qubits</dt><dd>4</dd></div>
+      <div class="quantum-config-item"><dt>Circuit Ansatz</dt><dd>real_amplitudes (reps=2)</dd></div>
+      <div class="quantum-config-item"><dt>Feature Map</dt><dd>zz_feature_map (reps=1)</dd></div>
+      <div class="quantum-config-item"><dt>Training Epochs</dt><dd>20</dd></div>
+      <div class="quantum-config-item"><dt>Training Time</dt><dd>~874s</dd></div>
+      <div class="quantum-config-item"><dt>QPU Backends</dt><dd>IBM Quantum Heron R2, Amazon Braket simulators</dd></div>
+    </dl>
+  </section>
+
+  <section class="section">
+    <div class="section-label">// Dataset</div>
+    <ul class="dataset-classes">
+      <li>Normal</li><li>DoS</li><li>Probe</li><li>R2L</li><li>U2R</li>
+    </ul>
+    <div class="dataset-note">
+      <div class="dataset-note-label">Class Imbalance</div>
+      <p>R2L and U2R classes are severely underrepresented in training data, creating significant class imbalance challenges that suppressed multi-class F1 scores across all models.</p>
+    </div>
+    <div class="dataset-note">
+      <div class="dataset-note-label">Distribution Shift</div>
+      <p>The test set has a different class distribution than training, simulating real-world distribution shift — a deliberate challenge in the NSL-KDD benchmark.</p>
+    </div>
+  </section>
+
+  <footer>
+    <div class="footer-inner">
+      <span>&copy; 2026 Brad &mdash; hosted on EC2 &mdash; East Texas A&amp;M University</span>
+      <a class="footer-badge" href="https://github.com/Bradly187/Personal_Website/actions/workflows/deploy.yml" target="_blank" rel="noopener" title="Deploy status">
+        <img src="https://github.com/Bradly187/Personal_Website/actions/workflows/deploy.yml/badge.svg" alt="Deploy status" />
+      </a>
+    </div>
+  </footer>
+
+</div>
+</body>
+</html>
