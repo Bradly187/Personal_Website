@@ -4,7 +4,7 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Brad Tarver · CS @ TAMU-RELLIS</title>
-  <meta name="description" content="Brad Tarver — Computer Science student at Texas A&M-RELLIS. Projects in machine learning, quantum computing, systems networking, and healthcare software." />
+  <meta name="description" content="Brad Tarver — CS student at Texas A&M-RELLIS building AI-driven adaptive systems for accessibility. Projects in machine learning, quantum computing, systems networking, and healthcare software." />
   <meta name="author" content="Brad Tarver" />
 
   <!-- Open Graph -->
@@ -1063,6 +1063,103 @@
       .showcase-section { padding: 1.5rem 1rem; margin: 0 -0.5rem 2rem; }
     }
 
+    /* ── ABOUT ── */
+    .about-grid {
+      display: grid;
+      grid-template-columns: 176px 1fr;
+      gap: 2rem;
+      align-items: start;
+    }
+
+    .about-photo-wrap {
+      position: relative;
+      width: 176px;
+      height: 176px;
+      border-radius: var(--radius-lg);
+      overflow: hidden;
+      background: var(--surface-2);
+      border: 0.5px solid var(--border);
+      flex-shrink: 0;
+    }
+
+    .about-photo {
+      position: absolute;
+      inset: 0;
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      object-position: center top;
+      display: none;
+    }
+    .about-photo.loaded { display: block; }
+
+    .about-photo-placeholder {
+      position: absolute;
+      inset: 0;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-family: var(--mono);
+      font-size: 48px;
+      font-weight: 700;
+      color: var(--border-md);
+      user-select: none;
+    }
+
+    .about-bio p {
+      font-size: 14px;
+      color: var(--muted);
+      line-height: 1.8;
+      margin-bottom: 1rem;
+    }
+    .about-bio p:last-child { margin-bottom: 0; }
+
+    .experience-list {
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+      margin-top: 1.5rem;
+    }
+
+    .experience-item {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-start;
+      padding: 12px 16px;
+      background: var(--surface);
+      border: 0.5px solid var(--border);
+      border-radius: var(--radius-md);
+      flex-wrap: wrap;
+      gap: 0.5rem;
+    }
+
+    .experience-role {
+      font-size: 14px;
+      font-weight: 500;
+      color: var(--text);
+      line-height: 1.4;
+    }
+
+    .experience-company {
+      font-size: 12px;
+      color: var(--muted);
+      margin-top: 2px;
+    }
+
+    .experience-years {
+      font-family: var(--mono);
+      font-size: 11px;
+      color: var(--hint);
+      white-space: nowrap;
+      flex-shrink: 0;
+      padding-top: 2px;
+    }
+
+    @media (max-width: 600px) {
+      .about-grid { grid-template-columns: 1fr; }
+      .about-photo-wrap { width: 120px; height: 120px; }
+    }
+
     /* ── BACK TO TOP ── */
     .back-to-top {
       position: fixed;
@@ -1240,6 +1337,7 @@
 <nav>
   <div class="nav-logo"><strong>Brad</strong> · CS @ TAMU-RELLIS</div>
   <ul class="nav-links">
+    <li><a href="#about">About</a></li>
     <li><a href="#desktop-agent">Desktop Agent</a></li>
     <li><a href="#nids">NIDS</a></li>
     <li><a href="#identity-pipeline">Identity Pipeline</a></li>
@@ -1270,6 +1368,54 @@
       <div class="currently-building-label">// Currently building</div>
       <p class="currently-building-title">Personal Desktop Agent — iPad Control Plane</p>
       <p class="currently-building-desc">Building the iPad as a multimodal control surface for hands-free Windows operation. Fusing voice, gaze, tilt, gesture, LiDAR depth, head tracking, and touch inputs over WebSocket into a priority-based routing engine with local GPU inference.</p>
+    </div>
+  </section>
+
+  <section class="section" id="about">
+    <div class="section-label">// About</div>
+    <div class="about-grid">
+      <div class="about-photo-wrap">
+        <div class="about-photo-placeholder" aria-hidden="true">BT</div>
+        <img
+          class="about-photo"
+          src="assets/brad.jpg"
+          alt="Brad Tarver"
+          onload="this.classList.add('loaded')"
+          onerror="this.style.display='none'"
+        />
+      </div>
+      <div class="about-bio">
+        <p>I build things — it's always been how I think. Give me a problem and my first instinct is to figure out how to engineer a solution.</p>
+        <p>What drew me to software was a specific problem I care deeply about: making computing genuinely accessible to people who need adaptive tools to use it, informed by my own experience navigating disability. Most interfaces assume a body that works a certain way. I want to help change that — and I think AI is finally at the point where we can.</p>
+        <p>The Desktop Agent is the most direct expression of that conviction. It lets someone control a Windows machine through voice, gaze, gesture, tilt, and touch — fusing ten input modalities into something that doesn't require a keyboard or mouse to operate. Accessibility demands the full stack, so that's where I've gone.</p>
+        <p>My other work — a quantum vs. classical ML comparison for network intrusion detection, a serverless AWS identity pipeline, a full-stack clinic scheduling system — reflects the same pattern: find a real problem, learn what you need to solve it, build it properly.</p>
+        <p>I'm finishing my B.S. in Computer Science at East Texas A&amp;M University in December 2026, looking for roles at the intersection of AI, adaptive systems, and full-stack engineering — somewhere that sees accessibility as a core feature, not a compliance checkbox.</p>
+      </div>
+    </div>
+
+    <div class="section-label" style="margin-top: 2rem;">// Experience</div>
+    <div class="experience-list">
+      <div class="experience-item">
+        <div>
+          <div class="experience-role">Operations Assistant</div>
+          <div class="experience-company">Treece Funeral Services</div>
+        </div>
+        <div class="experience-years">2021 – Present</div>
+      </div>
+      <div class="experience-item">
+        <div>
+          <div class="experience-role">Parts Specialist &amp; Customer Service</div>
+          <div class="experience-company">Tesco Auto Parts</div>
+        </div>
+        <div class="experience-years">2008 – 2013</div>
+      </div>
+      <div class="experience-item">
+        <div>
+          <div class="experience-role">Parts Specialist</div>
+          <div class="experience-company">Miracle Auto Parts</div>
+        </div>
+        <div class="experience-years">2003 – 2004</div>
+      </div>
     </div>
   </section>
 
