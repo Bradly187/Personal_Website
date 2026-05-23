@@ -23,6 +23,7 @@
   <!-- Favicon (inline SVG) -->
   <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><rect width='100' height='100' rx='16' fill='%23185FA5'/><text x='50' y='68' font-family='system-ui' font-size='48' font-weight='700' fill='white' text-anchor='middle'>BT</text></svg>" />
 
+  <script>try{var t=localStorage.getItem('theme');if(t)document.documentElement.setAttribute('data-theme',t);}catch(e){}</script>
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Space+Mono:wght@400;700&family=DM+Serif+Display&display=swap" rel="stylesheet" />
@@ -57,7 +58,7 @@
     }
 
     @media (prefers-color-scheme: dark) {
-      :root {
+      :root:not([data-theme="light"]) {
         --bg:        #1a1a18;
         --surface:   #242422;
         --border:    rgba(255,255,255,0.10);
@@ -76,6 +77,26 @@
         --surface-2: #2a2a28;
         --radius-xl: 16px;
       }
+    }
+
+    :root[data-theme="dark"] {
+      --bg:        #1a1a18;
+      --surface:   #242422;
+      --border:    rgba(255,255,255,0.10);
+      --border-md: rgba(255,255,255,0.20);
+      --text:      #f0ede8;
+      --muted:     #a0a09b;
+      --hint:      #6b6b67;
+      --blue-bg:   #0c447c;
+      --blue-mid:  #85b7eb;
+      --blue-border:#185FA5;
+      --green-bg:  #173404;
+      --green-text:#97C459;
+      --amber-bg:  #412402;
+      --amber-text:#FAC775;
+      --accent-gradient: linear-gradient(135deg, #85b7eb, #97C459);
+      --surface-2: #2a2a28;
+      --radius-xl: 16px;
     }
 
     html { scroll-behavior: smooth; }
@@ -118,6 +139,23 @@
     .nav-links a { font-size: 13px; color: var(--muted); text-decoration: none; transition: color 0.15s; }
     .nav-links a:hover { color: var(--text); }
     .nav-links a.nav-active { color: var(--blue-mid); }
+
+    .theme-toggle {
+      background: none;
+      border: 0.5px solid var(--border);
+      border-radius: var(--radius-md);
+      color: var(--muted);
+      cursor: pointer;
+      width: 32px;
+      height: 32px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+      transition: background 0.15s, color 0.15s, border-color 0.15s;
+      padding: 0;
+    }
+    .theme-toggle:hover { background: var(--surface); color: var(--text); border-color: var(--border-md); }
 
     /* ── HERO ── */
     .hero { padding: 3.5rem 0 2.5rem; }
@@ -1185,6 +1223,76 @@
     .back-to-top:hover { background: var(--blue-bg); color: var(--blue-mid); }
     @media (prefers-reduced-motion: reduce) { .back-to-top { transition: none; } }
 
+    /* ── CONTACT FORM ── */
+    .contact-form { display: flex; flex-direction: column; gap: 12px; margin-bottom: 1.5rem; }
+
+    .form-row {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 12px;
+    }
+
+    .form-field { display: flex; flex-direction: column; gap: 4px; }
+
+    .form-label {
+      font-family: var(--mono);
+      font-size: 11px;
+      font-weight: 700;
+      color: var(--muted);
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+    }
+
+    .form-input,
+    .form-textarea {
+      background: var(--surface);
+      border: 0.5px solid var(--border-md);
+      border-radius: var(--radius-md);
+      padding: 10px 14px;
+      font-size: 14px;
+      font-family: var(--sans);
+      color: var(--text);
+      width: 100%;
+      transition: border-color 0.15s;
+      outline: none;
+      -webkit-appearance: none;
+    }
+
+    .form-input:focus,
+    .form-textarea:focus { border-color: var(--blue-mid); }
+
+    .form-input::placeholder,
+    .form-textarea::placeholder { color: var(--hint); }
+
+    .form-textarea { resize: vertical; min-height: 120px; line-height: 1.6; }
+
+    .btn-primary:disabled { opacity: 0.6; cursor: not-allowed; }
+
+    .form-status {
+      font-family: var(--mono);
+      font-size: 12px;
+      padding: 10px 14px;
+      border-radius: var(--radius-md);
+      display: none;
+      line-height: 1.5;
+    }
+    .form-status.success {
+      display: block;
+      background: var(--green-bg);
+      color: var(--green-text);
+      border: 0.5px solid var(--green-text);
+    }
+    .form-status.error {
+      display: block;
+      background: var(--amber-bg);
+      color: var(--amber-text);
+      border: 0.5px solid var(--amber-text);
+    }
+
+    @media (max-width: 600px) {
+      .form-row { grid-template-columns: 1fr; }
+    }
+
     /* ── SKILLS GROUPS ── */
     .skills-groups { display: grid; gap: 1rem; }
     .skills-group { display: flex; flex-direction: column; gap: 8px; }
@@ -1345,6 +1453,7 @@
 <!-- ══ PAGE ══════════════════════════════════════════════════════════ -->
 <nav>
   <div class="nav-logo"><strong>Brad</strong> · CS @ TAMU-RELLIS</div>
+  <button class="theme-toggle" id="theme-toggle" aria-label="Switch to dark mode"></button>
   <ul class="nav-links">
     <li><a href="#about">About</a></li>
     <li><a href="#desktop-agent">Desktop Agent</a></li>
@@ -1551,6 +1660,34 @@
 
   <section class="section" id="contact">
     <div class="section-label">// Contact</div>
+
+    <form
+      class="contact-form"
+      id="contact-form"
+      action="https://formspree.io/f/YOUR_FORM_ID"
+      method="POST"
+      novalidate
+    >
+      <div class="form-row">
+        <div class="form-field">
+          <label class="form-label" for="contact-name">Name</label>
+          <input class="form-input" id="contact-name" name="name" type="text" placeholder="Your name" required autocomplete="name" />
+        </div>
+        <div class="form-field">
+          <label class="form-label" for="contact-email">Email</label>
+          <input class="form-input" id="contact-email" name="email" type="email" placeholder="you@example.com" required autocomplete="email" />
+        </div>
+      </div>
+      <div class="form-field">
+        <label class="form-label" for="contact-message">Message</label>
+        <textarea class="form-textarea" id="contact-message" name="message" placeholder="What's on your mind?" required></textarea>
+      </div>
+      <div style="display:flex; align-items:center; gap:1rem; flex-wrap:wrap;">
+        <button type="submit" class="btn-primary" id="contact-submit">Send Message &rarr;</button>
+        <div class="form-status" id="form-status"></div>
+      </div>
+    </form>
+
     <div class="contact-row">
       <a class="contact-link" href="https://github.com/Bradly187"      target="_blank">GitHub &rarr;</a>
       <a class="contact-link" href="https://linkedin.com/in/john-tarver-863277358" target="_blank">LinkedIn &rarr;</a>
@@ -2861,6 +2998,93 @@ function createTabPanel(containerId, tabs, defaultTab) {
   } else {
     checkMermaidAndInit();
   }
+})();
+
+/* ── THEME TOGGLE ─────────────────────────────────────────────────── */
+(function initThemeToggle() {
+  var btn = document.getElementById('theme-toggle');
+  if (!btn) return;
+
+  var SUN  = '<svg width="16" height="16" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" aria-hidden="true"><circle cx="8" cy="8" r="3"/><line x1="8" y1="1" x2="8" y2="2.5"/><line x1="8" y1="13.5" x2="8" y2="15"/><line x1="1" y1="8" x2="2.5" y2="8"/><line x1="13.5" y1="8" x2="15" y2="8"/><line x1="3.4" y1="3.4" x2="4.5" y2="4.5"/><line x1="11.5" y1="11.5" x2="12.6" y2="12.6"/><line x1="12.6" y1="3.4" x2="11.5" y2="4.5"/><line x1="4.5" y1="11.5" x2="3.4" y2="12.6"/></svg>';
+  var MOON = '<svg width="16" height="16" viewBox="0 0 16 16" fill="currentColor" aria-hidden="true"><path d="M6 2a6 6 0 1 0 8 8 4.5 4.5 0 0 1-8-8z"/></svg>';
+
+  function isDark() {
+    var t = document.documentElement.getAttribute('data-theme');
+    if (t === 'dark')  return true;
+    if (t === 'light') return false;
+    return window.matchMedia('(prefers-color-scheme: dark)').matches;
+  }
+
+  function applyTheme(dark) {
+    document.documentElement.setAttribute('data-theme', dark ? 'dark' : 'light');
+    btn.innerHTML = dark ? SUN : MOON;
+    btn.setAttribute('aria-label', dark ? 'Switch to light mode' : 'Switch to dark mode');
+    try { localStorage.setItem('theme', dark ? 'dark' : 'light'); } catch(e) {}
+  }
+
+  // Set initial icon
+  applyTheme(isDark());
+
+  btn.addEventListener('click', function() { applyTheme(!isDark()); });
+
+  // Follow system changes only if user hasn't set a manual preference
+  window.matchMedia('(prefers-color-scheme: dark)').addEventListener('change', function(e) {
+    if (!localStorage.getItem('theme')) applyTheme(e.matches);
+  });
+})();
+
+/* ── CONTACT FORM ─────────────────────────────────────────────────── */
+(function initContactForm() {
+  var form   = document.getElementById('contact-form');
+  var status = document.getElementById('form-status');
+  var submit = document.getElementById('contact-submit');
+  if (!form || !status || !submit) return;
+
+  form.addEventListener('submit', function(e) {
+    e.preventDefault();
+
+    // Basic client-side validation
+    var name    = form.querySelector('[name="name"]').value.trim();
+    var email   = form.querySelector('[name="email"]').value.trim();
+    var message = form.querySelector('[name="message"]').value.trim();
+
+    if (!name || !email || !message) {
+      status.className = 'form-status error';
+      status.textContent = 'Please fill in all fields.';
+      return;
+    }
+
+    submit.disabled    = true;
+    submit.textContent = 'Sending…';
+    status.className   = 'form-status';
+    status.textContent = '';
+
+    fetch(form.action, {
+      method:  'POST',
+      body:    new FormData(form),
+      headers: { 'Accept': 'application/json' }
+    })
+    .then(function(res) {
+      if (res.ok) {
+        form.reset();
+        status.className   = 'form-status success';
+        status.textContent = 'Message sent — I\'ll get back to you soon.';
+        submit.disabled    = false;
+        submit.textContent = 'Send Message →';
+      } else {
+        return res.json().then(function(data) {
+          var msg = (data.errors || []).map(function(err) { return err.message; }).join(', ');
+          throw new Error(msg || 'Submission failed.');
+        });
+      }
+    })
+    .catch(function(err) {
+      status.className   = 'form-status error';
+      status.textContent = err.message || 'Could not send — try emailing directly.';
+      submit.disabled    = false;
+      submit.textContent = 'Send Message →';
+    });
+  });
 })();
 
 /* ── ACTIVE NAV HIGHLIGHTING ──────────────────────────────────────── */
