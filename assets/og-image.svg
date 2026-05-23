@@ -1,0 +1,8 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="630" viewBox="0 0 1200 630">
+  <rect width="1200" height="630" fill="#1a1a18"/>
+  <text x="100" y="260" font-family="system-ui, sans-serif" font-size="72" font-weight="700" fill="#f0ede8">Brad Tarver</text>
+  <text x="100" y="340" font-family="monospace" font-size="28" fill="#85b7eb">CS @ Texas A&amp;M-RELLIS</text>
+  <text x="100" y="420" font-family="monospace" font-size="22" fill="#a0a09b">Machine Learning · Quantum Computing · Healthcare Software</text>
+  <rect x="100" y="500" width="60" height="4" rx="2" fill="#185FA5"/>
+  <text x="180" y="510" font-family="monospace" font-size="18" fill="#6b6b67">bradtarver.com</text>
+</svg>

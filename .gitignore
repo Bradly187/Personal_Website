@@ -12,3 +12,9 @@ Thumbs.db
 
 # Archives
 *.zip
+
+# Deployment notes (contains server details)
+DEPLOY.md
+
+# Claude Code worktree data
+.claude/

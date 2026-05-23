@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>404 · Brad Tarver</title>
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><rect width='100' height='100' rx='16' fill='%23185FA5'/><text x='50' y='68' font-family='system-ui' font-size='48' font-weight='700' fill='white' text-anchor='middle'>BT</text></svg>" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Space+Mono:wght@400;700&family=DM+Serif+Display&display=swap" rel="stylesheet" />
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --bg: #f9f8f6;
+      --surface: #ffffff;
+      --border: rgba(0,0,0,0.10);
+      --text: #1a1a18;
+      --muted: #6b6b67;
+      --hint: #a0a09b;
+      --blue-mid: #185FA5;
+      --blue-bg: #E6F1FB;
+      --radius-md: 8px;
+      --mono: 'Space Mono', monospace;
+      --serif: 'DM Serif Display', serif;
+      --sans: system-ui, -apple-system, sans-serif;
+    }
+
+    @media (prefers-color-scheme: dark) {
+      :root {
+        --bg: #1a1a18;
+        --surface: #242422;
+        --border: rgba(255,255,255,0.10);
+        --text: #f0ede8;
+        --muted: #a0a09b;
+        --hint: #6b6b67;
+        --blue-mid: #85b7eb;
+        --blue-bg: #0c447c;
+      }
+    }
+
+    body {
+      background: var(--bg);
+      color: var(--text);
+      font-family: var(--sans);
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 2rem;
+    }
+
+    .container {
+      text-align: center;
+      max-width: 480px;
+    }
+
+    .error-code {
+      font-family: var(--mono);
+      font-size: clamp(80px, 15vw, 140px);
+      font-weight: 700;
+      color: var(--hint);
+      line-height: 1;
+      margin-bottom: 1rem;
+    }
+
+    h1 {
+      font-family: var(--serif);
+      font-size: clamp(24px, 4vw, 32px);
+      font-weight: 400;
+      margin-bottom: 0.75rem;
+    }
+
+    p {
+      font-size: 15px;
+      color: var(--muted);
+      line-height: 1.7;
+      margin-bottom: 2rem;
+    }
+
+    .btn {
+      background: var(--blue-mid);
+      color: var(--blue-bg);
+      border: none;
+      border-radius: var(--radius-md);
+      padding: 12px 28px;
+      font-size: 13px;
+      font-family: var(--mono);
+      text-decoration: none;
+      display: inline-block;
+      transition: opacity 0.15s;
+    }
+    .btn:hover { opacity: 0.85; }
+
+    .footer {
+      margin-top: 3rem;
+      font-family: var(--mono);
+      font-size: 11px;
+      color: var(--hint);
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <div class="error-code">404</div>
+    <h1>Page not found.</h1>
+    <p>The page you're looking for doesn't exist or has been moved. Let's get you back on track.</p>
+    <a href="/" class="btn">Back to Home</a>
+    <div class="footer">bradtarver.com</div>
+  </div>
+</body>
+</html>
