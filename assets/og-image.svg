@@ -1,8 +1,52 @@
 <svg xmlns="http://www.w3.org/2000/svg" width="1200" height="630" viewBox="0 0 1200 630">
+  <defs>
+    <linearGradient id="accent" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#185FA5"/>
+      <stop offset="100%" stop-color="#3B6D11"/>
+    </linearGradient>
+  </defs>
+
+  <!-- Background -->
   <rect width="1200" height="630" fill="#1a1a18"/>
-  <text x="100" y="260" font-family="system-ui, sans-serif" font-size="72" font-weight="700" fill="#f0ede8">Brad Tarver</text>
-  <text x="100" y="340" font-family="monospace" font-size="28" fill="#85b7eb">CS @ Texas A&amp;M-RELLIS</text>
-  <text x="100" y="420" font-family="monospace" font-size="22" fill="#a0a09b">Machine Learning · Quantum Computing · Healthcare Software</text>
-  <rect x="100" y="500" width="60" height="4" rx="2" fill="#185FA5"/>
-  <text x="180" y="510" font-family="monospace" font-size="18" fill="#6b6b67">bradtarver.com</text>
+
+  <!-- Accent bar top-left -->
+  <rect x="0" y="0" width="6" height="630" fill="url(#accent)"/>
+
+  <!-- Subtle grid lines -->
+  <line x1="80" y1="0" x2="80" y2="630" stroke="#ffffff" stroke-opacity="0.03" stroke-width="1"/>
+  <line x1="0" y1="120" x2="1200" y2="120" stroke="#ffffff" stroke-opacity="0.03" stroke-width="1"/>
+  <line x1="0" y1="510" x2="1200" y2="510" stroke="#ffffff" stroke-opacity="0.03" stroke-width="1"/>
+
+  <!-- Badge -->
+  <rect x="80" y="140" width="220" height="30" rx="4" fill="#0c447c"/>
+  <rect x="80" y="140" width="220" height="30" rx="4" fill="none" stroke="#185FA5" stroke-width="0.5"/>
+  <text x="190" y="160" font-family="monospace" font-size="11" fill="#85b7eb" text-anchor="middle" letter-spacing="2">IBM QISKIT ADVOCATE</text>
+
+  <!-- Name -->
+  <text x="80" y="270" font-family="Georgia, serif" font-size="80" font-weight="400" fill="#f0ede8">Brad Tarver</text>
+
+  <!-- Title line -->
+  <text x="82" y="330" font-family="monospace" font-size="22" fill="#85b7eb" letter-spacing="1">CS @ Texas A&amp;M-RELLIS · Dec 2026</text>
+
+  <!-- Divider -->
+  <rect x="80" y="368" width="120" height="2" fill="url(#accent)" rx="1"/>
+
+  <!-- Tagline -->
+  <text x="80" y="420" font-family="Georgia, serif" font-size="26" fill="#a0a09b">Building across AI, cloud, and quantum.</text>
+
+  <!-- Domain -->
+  <text x="80" y="490" font-family="monospace" font-size="16" fill="#6b6b67">bradtarver.com</text>
+
+  <!-- Right-side tech pills -->
+  <rect x="860" y="200" width="260" height="36" rx="18" fill="#242422" stroke="#185FA5" stroke-width="0.5"/>
+  <text x="990" y="223" font-family="monospace" font-size="13" fill="#85b7eb" text-anchor="middle">Desktop Agent · MCP</text>
+
+  <rect x="900" y="256" width="220" height="36" rx="18" fill="#242422" stroke="#3B6D11" stroke-width="0.5"/>
+  <text x="1010" y="279" font-family="monospace" font-size="13" fill="#97C459" text-anchor="middle">PyTorch · Qiskit · ML</text>
+
+  <rect x="880" y="312" width="240" height="36" rx="18" fill="#242422" stroke="#185FA5" stroke-width="0.5"/>
+  <text x="1000" y="335" font-family="monospace" font-size="13" fill="#85b7eb" text-anchor="middle">AWS · Lambda · SAM</text>
+
+  <rect x="920" y="368" width="200" height="36" rx="18" fill="#242422" stroke="#854F0B" stroke-width="0.5"/>
+  <text x="1020" y="391" font-family="monospace" font-size="13" fill="#FAC775" text-anchor="middle">Cisco IOS · Linux</text>
 </svg>
