@@ -127,7 +127,7 @@
   <section class="hero">
     <div class="badge">IBM Qiskit Advocate</div>
     <h1>Building across AI,<br>cloud, and quantum.</h1>
-    <p class="hero-tagline">Flagship project: a multimodal Desktop Agent for hands-free Windows control via voice, gaze, and gesture.</p>
+    <p class="hero-tagline">Flagship project: a personal, local-first agent operating system for adaptive accessibility &mdash; voice, gaze, gesture, and touch on a six-module AIOS kernel.</p>
     <p class="hero-sub">
       Computer Science student at Texas A&amp;M-RELLIS, graduating December 2026.
       Projects spanning machine learning, quantum computing, systems networking,
@@ -146,8 +146,8 @@
 
     <div class="currently-building">
       <div class="currently-building-label">// Currently building</div>
-      <p class="currently-building-title">Personal Desktop Agent — iPad Control Plane</p>
-      <p class="currently-building-desc">Building the iPad as a multimodal control surface for hands-free Windows operation. Fusing voice, gaze, tilt, gesture, LiDAR depth, head tracking, and touch inputs over WebSocket into a priority-based routing engine with local GPU inference.</p>
+      <p class="currently-building-title">Personal Desktop Agent — G5: Gaze Calibration &amp; Measurement</p>
+      <p class="currently-building-desc">Completing voice-triggered gaze-monitor calibration and the paired iPad UI (G5 — final kernel milestone). Then shifting to longitudinal measurement: logging within-subject performance across good-day and flare-day variation, converting projected grounding figures to observed results.</p>
     </div>
   </section>
 
@@ -372,28 +372,37 @@
 /* ── DESKTOP AGENT CONFIG ─────────────────────────────────────────── */
 const DESKTOP_AGENT = {
   name: 'Personal Desktop Agent',
-  description: 'Hands-free Windows control via voice, gaze, gesture, tilt, and touch. Sub-600ms full voice pipeline (Whisper large-v3 + Llama 3.1 on RTX 5090); &lt;100ms touch response; 60Hz sensor fusion across 10 input modalities.',
+  description: 'Personal, local-first agent operating system for adaptive accessibility. A single-user AIOS kernel &mdash; real-time sensor scheduler, behavioral twin, semantic memory, tool manager, and privacy gate &mdash; enabling hands-free Windows control through voice, gaze, gesture, tilt, and touch. Measured: 100% command accuracy; 373ms warm local path; CLICK grounding 42% &rarr; 92%.',
   repoUrl: 'https://github.com/Bradly187/Personal_Desktop_Agent',
   detailUrl: '/projects/desktop-agent.html',
   stats: [
     { value: 10, label: 'Input Modalities' },
-    { value: 14, label: 'MCP Tools' },
-    { value: 100, prefix: '<', suffix: 'ms', label: 'Touch Latency' },
+    { value: 16, label: 'Action Verbs' },
+    { value: 373, suffix: 'ms', label: 'Local Latency (warm)' },
+    { value: 100, suffix: '%', label: 'Command Accuracy' },
     { value: 60, suffix: 'Hz', label: 'Fusion Rate' },
-    { value: 5, label: 'Routing Gates' },
   ],
-  techBadges: ['Python', 'Swift', 'Whisper', 'MediaPipe', 'MCP', 'AWS Bedrock', 'aiosqlite', 'DuckDB', 'WebSocket'],
+  techBadges: ['Python', 'Swift', 'Whisper', 'MediaPipe', 'MCP', 'vLLM', 'ChromaDB', 'Ollama', 'AWS Bedrock', 'aiosqlite', 'DuckDB', 'WebSocket'],
   architecture: [
-    { name: 'MCP Server', desc: 'Exposes 14 desktop control tools (mouse, keyboard, screen, windows) to Claude via stdio transport.' },
+    { name: 'MCP Server', desc: 'Exposes 14 desktop control tools (mouse, keyboard, screen, windows) to Claude via stdio transport. Executes 16 action verbs across all input channels.' },
     { name: 'iPad Bridge', desc: 'WebSocket server handling 13 incoming sensor message types and 4 outgoing reply types, dispatching to processing pipelines.' },
-    { name: 'Fusion Engine', desc: 'Merges 10 input modalities at 60Hz using priority-based routing with confidence gating.' },
+    { name: 'Fusion Engine', desc: 'Merges 10 input modalities at 60Hz using fixed-priority arbitration (10 levels) with conflict detection when multiple cursor sources are active simultaneously.' },
     { name: 'Hybrid Coordinator', desc: '5-gate routing engine (Gate 0 privacy + Gates 1–4) deciding local vs. cloud inference based on confidence, complexity, and GPU load.' },
-    { name: 'Local Inference', desc: 'Whisper large-v3 + Llama 3.1 running on RTX 5090 for sub-600ms voice command processing.' },
-    { name: 'Continuous Trainer', desc: 'Background learning system that adapts routing thresholds and gesture confidence floors; delegates storage to AgentDB.' },
-    { name: 'Gesture + LiDAR', desc: 'MediaPipe hand landmark detection for POINT/PINCH/OPEN_PALM/FIST; LiDAR depth map (256×192) used for 3D pinch distance validation at <30mm threshold.' },
+    { name: 'Local Inference', desc: 'Whisper large-v3 + llama3.1:8b on RTX 5090 (Ollama); vLLM 0.21.0 confirmed working via Ubuntu WSL2, CUDA 12.8 / sm_120. Measured: 100% accuracy; 373ms warm median.' },
+    { name: 'Behavioral Twin', desc: 'Persistent per-user state model (BehavioralTwinState + pain-day engine). On flare days: VAD and logprob floors relax, gesture velocity floors drop to p10 of observed samples (&minus;30%), fusion confidence thresholds loosen across six axes.' },
+    { name: 'Grounding Engine', desc: '4-tier fallback (UIAutomation &rarr; vision API &rarr; OCR &rarr; clarify) raises CLICK resolution from ~42% to ~92%. Resolves ambiguous targets before invoking the model.' },
+    { name: 'Gesture + LiDAR', desc: 'MediaPipe hand landmark detection for POINT/PINCH/OPEN_PALM/FIST; LiDAR depth map (256&times;192) used for 3D pinch distance validation at &lt;30mm threshold.' },
     { name: 'Domain Classifier', desc: 'Keyword-scoring classifier routes commands to the accessibility pipeline or one of 5 dev domains (CODE/MATH/VISION/PLAN/GENERAL).' },
-    { name: 'Dev Agent', desc: 'Plan→execute→reflect agentic loop; selects specialist model per domain via ModelRouter; emits 5 dev verbs (WRITE_FILE, RUN_TERMINAL, EXPLAIN, SEARCH_WEB, READ_SCREEN).' },
-    { name: 'AgentDB / AnalyticsDB', desc: 'aiosqlite 12-table pipeline store + DuckDB benchmark analytics; MiniLM semantic few-shot retrieval for routing decisions.' },
+    { name: 'Dev Agent', desc: 'Plan&rarr;execute&rarr;reflect agentic loop; selects specialist model per domain via ModelRouter; emits 5 dev verbs (WRITE_FILE, RUN_TERMINAL, EXPLAIN, SEARCH_WEB, READ_SCREEN).' },
+    { name: 'AgentDB / AnalyticsDB', desc: 'aiosqlite 27-table pipeline store + DuckDB benchmark analytics; ChromaDB + MiniLM-L6 semantic few-shot retrieval for routing decisions. Jaccard fallback.' },
+  ],
+  aiosKernel: [
+    { module: 'Scheduler', impl: 'fusion_engine.py', note: '60Hz tick loop; 10-level fixed-priority arbitration over physical sensor channels — multimodal, not text-agent, scheduling' },
+    { module: 'Context manager', impl: 'behavioral_twin_state.py + per-command assembly', note: 'User physiological state + few-shot context assembled before each gate decision' },
+    { module: 'Memory manager', impl: 'semantic_memory.py (ChromaDB / MiniLM)', note: 'Semantic few-shot retrieval; Jaccard fallback for routing decisions' },
+    { module: 'Storage manager', impl: 'db.py — AgentDB (27 tables) + DuckDB', note: 'All pipeline writes; analytics and benchmark history' },
+    { module: 'Tool manager', impl: 'mcp_server/ (14 tools) + command_executor.py (16 verbs)', note: 'Standard MCP transport for the Claude-control path' },
+    { module: 'Access manager', impl: 'Gate 0 + approval_hook.py + audit_log.py', note: 'Append-only audit log; voice-confirmed write gate; privacy filter strips raw sensor data before any cloud call' },
   ],
   sensors: [
     { priority: 1, source: 'iPad Touch Command', latency: '<100ms', gate: 'Immediate — bypasses LLM' },
@@ -419,7 +428,7 @@ const DESKTOP_AGENT = {
     fallbackText: 'Input \u2192 Privacy Gate \u2192 Confidence Gate \u2192 Complexity Gate \u2192 VRAM Gate \u2192 Latency Gate \u2192 Local or AgentCore/Bedrock'
   },
   techStack: {
-    pc: ['Python 3.11+', 'faster-whisper', 'silero-vad', 'MediaPipe', 'pyautogui', 'MCP SDK', 'aiohttp', 'aiosqlite', 'DuckDB', 'Ollama'],
+    pc: ['Python 3.11+', 'faster-whisper', 'silero-vad', 'MediaPipe', 'pyautogui', 'MCP SDK', 'aiohttp', 'aiosqlite', 'DuckDB', 'Ollama', 'vLLM', 'ChromaDB', 'MiniLM-L6'],
     ipad: ['Swift/SwiftUI', 'Core Motion', 'ARKit (LiDAR + Face Tracking)', 'Speech Framework', 'AVFoundation'],
     cloud: ['Amazon Bedrock (Claude)', 'AWS AgentCore'],
   },
@@ -563,6 +572,25 @@ const DESKTOP_AGENT = {
           html += '</div></div>';
         });
         html += '</div>';
+        return html;
+      }
+    },
+    {
+      id: 'aios',
+      label: 'AIOS Kernel',
+      render: function() {
+        var html = '<p style="font-size:13px;color:var(--muted);margin-bottom:1rem;">The system maps onto the six-module AIOS kernel (Mei et al., COLM 2025), extended with a multimodal sensor scheduler, a behavioral/physiological user twin, and a privacy-gated hybrid inference path.</p>';
+        html += '<div class="sensor-table-wrap"><table class="sensor-table"><thead><tr>';
+        html += '<th scope="col">Kernel Module</th><th scope="col">Implementation</th><th scope="col">Notable property</th>';
+        html += '</tr></thead><tbody>';
+        DESKTOP_AGENT.aiosKernel.forEach(function(row) {
+          html += '<tr>';
+          html += '<td><strong>' + row.module + '</strong></td>';
+          html += '<td style="font-family:var(--mono);font-size:12px;">' + row.impl + '</td>';
+          html += '<td>' + row.note + '</td>';
+          html += '</tr>';
+        });
+        html += '</tbody></table></div>';
         return html;
       }
     }
@@ -1036,7 +1064,7 @@ const PROJECTS = [
     name: 'Personal Desktop Agent',
     tag: 'Python · Swift · MCP',
     tagClass: 'tag-blue',
-    description: 'Sub-600ms voice pipeline, <100ms touch response, 60Hz sensor fusion across 10 modalities. Hands-free Windows control via voice, gaze, gesture, tilt, and touch on local GPU.',
+    description: 'Personal, local-first AIOS for adaptive accessibility. Six-module kernel: sensor scheduler, behavioral twin, semantic memory, tool manager, and privacy gate. Measured: 100% cmd accuracy; 373ms warm local path; CLICK grounding 42%&rarr;92%.',
     cta: 'View detail page →',
     type: 'DETAIL_PAGE',
     featured: true,

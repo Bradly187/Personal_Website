@@ -4,10 +4,10 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Personal Desktop Agent · Brad Tarver</title>
-  <meta name="description" content="Multimodal accessibility agent enabling hands-free Windows control through voice, gaze, gesture, tilt, and touch. Sub-600ms voice pipeline on local GPU with AWS Bedrock fallback." />
+  <meta name="description" content="Personal, local-first agent operating system for adaptive accessibility. Six-module AIOS kernel: sensor scheduler, behavioral twin, semantic memory, tool manager, and privacy gate. 100% command accuracy, 373ms warm local path." />
   <meta name="author" content="Brad Tarver" />
   <meta property="og:title" content="Personal Desktop Agent · Brad Tarver" />
-  <meta property="og:description" content="Hands-free Windows control via 10 input modalities. Sub-600ms voice pipeline, <100ms touch response, 60Hz sensor fusion." />
+  <meta property="og:description" content="Personal, local-first AIOS for adaptive accessibility. 100% command accuracy, 373ms warm local path, CLICK grounding 42%→92%." />
   <meta property="og:type" content="website" />
   <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><rect width='100' height='100' rx='16' fill='%23185FA5'/><text x='50' y='68' font-family='system-ui' font-size='48' font-weight='700' fill='white' text-anchor='middle'>BT</text></svg>" />
   <script>try{var t=localStorage.getItem('theme');if(t)document.documentElement.setAttribute('data-theme',t);}catch(e){}</script>
@@ -35,12 +35,14 @@
   </div>
 
   <section class="hero" style="padding-top: 2rem;">
-    <span class="card-tag tag-blue">Python &middot; Swift &middot; MCP</span>
+    <span class="card-tag tag-blue">Python &middot; Swift &middot; MCP &middot; AIOS</span>
     <h1>Personal Desktop Agent</h1>
     <p class="hero-sub">
-      Multimodal accessibility agent enabling hands-free Windows control through voice, gaze,
-      gesture, tilt, and touch — powered by local GPU inference with AWS cloud fallback.
-      Built to solve a real problem: computing access for people who can't use a keyboard.
+      Personal, local-first agent operating system for adaptive accessibility. A single-user
+      AIOS kernel &mdash; real-time sensor scheduler, behavioral twin, semantic memory, tool
+      manager, and privacy gate &mdash; enabling hands-free Windows control through voice, gaze,
+      gesture, tilt, and touch. Built to solve a real problem: computing access under
+      non-stationary motor capability.
     </p>
     <div class="hero-actions">
       <a href="https://github.com/Bradly187/Personal_Desktop_Agent" target="_blank" rel="noopener" class="btn-primary">View on GitHub &rarr;</a>
@@ -52,10 +54,10 @@
     <div class="section-label">// At a glance</div>
     <div class="stats-row">
       <div class="stat-item"><span class="stat-number">10</span><span class="stat-label">Input Modalities</span></div>
-      <div class="stat-item"><span class="stat-number">14</span><span class="stat-label">MCP Tools</span></div>
-      <div class="stat-item"><span class="stat-number">&lt;100ms</span><span class="stat-label">Touch Latency</span></div>
+      <div class="stat-item"><span class="stat-number">16</span><span class="stat-label">Action Verbs</span></div>
+      <div class="stat-item"><span class="stat-number">373ms</span><span class="stat-label">Local Latency (warm)</span></div>
+      <div class="stat-item"><span class="stat-number">100%</span><span class="stat-label">Command Accuracy</span></div>
       <div class="stat-item"><span class="stat-number">60Hz</span><span class="stat-label">Fusion Rate</span></div>
-      <div class="stat-item"><span class="stat-number">5</span><span class="stat-label">Routing Gates</span></div>
     </div>
     <div class="tech-badges" style="margin-top:1rem;">
       <span class="tech-badge">Python</span>
@@ -63,6 +65,9 @@
       <span class="tech-badge">Whisper</span>
       <span class="tech-badge">MediaPipe</span>
       <span class="tech-badge">MCP</span>
+      <span class="tech-badge">vLLM</span>
+      <span class="tech-badge">ChromaDB</span>
+      <span class="tech-badge">Ollama</span>
       <span class="tech-badge">AWS Bedrock</span>
       <span class="tech-badge">aiosqlite</span>
       <span class="tech-badge">DuckDB</span>
@@ -73,16 +78,17 @@
   <section class="section">
     <div class="section-label">// Architecture</div>
     <div class="arch-cards">
-      <div class="arch-card expanded"><div class="arch-card-name">MCP Server</div><div class="arch-card-desc">Exposes 14 desktop control tools (mouse, keyboard, screen, windows) to Claude via stdio transport.</div></div>
+      <div class="arch-card expanded"><div class="arch-card-name">MCP Server</div><div class="arch-card-desc">Exposes 14 desktop control tools (mouse, keyboard, screen, windows) to Claude via stdio transport. Executes 16 action verbs across all input channels.</div></div>
       <div class="arch-card expanded"><div class="arch-card-name">iPad Bridge</div><div class="arch-card-desc">WebSocket server handling 13 incoming sensor message types and 4 outgoing reply types, dispatching to processing pipelines.</div></div>
-      <div class="arch-card expanded"><div class="arch-card-name">Fusion Engine</div><div class="arch-card-desc">Merges 10 input modalities at 60Hz using priority-based routing with confidence gating.</div></div>
+      <div class="arch-card expanded"><div class="arch-card-name">Fusion Engine</div><div class="arch-card-desc">Merges 10 input modalities at 60Hz using fixed-priority arbitration (10 levels) with conflict detection when multiple cursor sources are active simultaneously.</div></div>
       <div class="arch-card expanded"><div class="arch-card-name">Hybrid Coordinator</div><div class="arch-card-desc">5-gate routing engine (Gate 0 privacy + Gates 1–4) deciding local vs. cloud inference based on confidence, complexity, and GPU load.</div></div>
-      <div class="arch-card expanded"><div class="arch-card-name">Local Inference</div><div class="arch-card-desc">Whisper large-v3 + Llama 3.1 running on RTX 5090 for sub-600ms voice command processing.</div></div>
-      <div class="arch-card expanded"><div class="arch-card-name">Continuous Trainer</div><div class="arch-card-desc">Background learning system that adapts routing thresholds and gesture confidence floors; delegates storage to AgentDB.</div></div>
-      <div class="arch-card expanded"><div class="arch-card-name">Gesture + LiDAR</div><div class="arch-card-desc">MediaPipe hand landmark detection for POINT/PINCH/OPEN_PALM/FIST; LiDAR depth map (256×192) used for 3D pinch distance validation at &lt;30mm threshold.</div></div>
+      <div class="arch-card expanded"><div class="arch-card-name">Local Inference</div><div class="arch-card-desc">Whisper large-v3 + llama3.1:8b on RTX 5090 (Ollama); vLLM 0.21.0 confirmed working via Ubuntu WSL2, CUDA 12.8 / sm_120. Measured: 100% accuracy; 373ms warm median.</div></div>
+      <div class="arch-card expanded"><div class="arch-card-name">Behavioral Twin</div><div class="arch-card-desc">Persistent per-user state model (BehavioralTwinState + pain-day engine). On flare days: VAD and logprob floors relax, gesture velocity floors drop to p10 of observed samples (&minus;30%), fusion confidence thresholds loosen across six axes.</div></div>
+      <div class="arch-card expanded"><div class="arch-card-name">Grounding Engine</div><div class="arch-card-desc">4-tier fallback (UIAutomation &rarr; vision API &rarr; OCR &rarr; clarify) raises CLICK resolution from ~42% to ~92%. Resolves ambiguous targets before invoking the model.</div></div>
+      <div class="arch-card expanded"><div class="arch-card-name">Gesture + LiDAR</div><div class="arch-card-desc">MediaPipe hand landmark detection for POINT/PINCH/OPEN_PALM/FIST; LiDAR depth map (256&times;192) used for 3D pinch distance validation at &lt;30mm threshold.</div></div>
       <div class="arch-card expanded"><div class="arch-card-name">Domain Classifier</div><div class="arch-card-desc">Keyword-scoring classifier routes commands to the accessibility pipeline or one of 5 dev domains (CODE/MATH/VISION/PLAN/GENERAL).</div></div>
-      <div class="arch-card expanded"><div class="arch-card-name">Dev Agent</div><div class="arch-card-desc">Plan→execute→reflect agentic loop; selects specialist model per domain via ModelRouter; emits 5 dev verbs (WRITE_FILE, RUN_TERMINAL, EXPLAIN, SEARCH_WEB, READ_SCREEN).</div></div>
-      <div class="arch-card expanded"><div class="arch-card-name">AgentDB / AnalyticsDB</div><div class="arch-card-desc">aiosqlite 12-table pipeline store + DuckDB benchmark analytics; MiniLM semantic few-shot retrieval for routing decisions.</div></div>
+      <div class="arch-card expanded"><div class="arch-card-name">Dev Agent</div><div class="arch-card-desc">Plan&rarr;execute&rarr;reflect agentic loop; selects specialist model per domain via ModelRouter; emits 5 dev verbs (WRITE_FILE, RUN_TERMINAL, EXPLAIN, SEARCH_WEB, READ_SCREEN).</div></div>
+      <div class="arch-card expanded"><div class="arch-card-name">AgentDB / AnalyticsDB</div><div class="arch-card-desc">aiosqlite 27-table pipeline store + DuckDB benchmark analytics; ChromaDB + MiniLM-L6 semantic few-shot retrieval for routing decisions. Jaccard fallback.</div></div>
     </div>
   </section>
 
@@ -129,7 +135,7 @@
       <div class="tech-stack-group">
         <div class="tech-stack-label">PC-side (Python)</div>
         <div class="tech-stack-pills">
-          <span class="tech-badge">Python 3.11+</span><span class="tech-badge">faster-whisper</span><span class="tech-badge">silero-vad</span><span class="tech-badge">MediaPipe</span><span class="tech-badge">pyautogui</span><span class="tech-badge">MCP SDK</span><span class="tech-badge">aiohttp</span><span class="tech-badge">aiosqlite</span><span class="tech-badge">DuckDB</span><span class="tech-badge">Ollama</span>
+          <span class="tech-badge">Python 3.11+</span><span class="tech-badge">faster-whisper</span><span class="tech-badge">silero-vad</span><span class="tech-badge">MediaPipe</span><span class="tech-badge">pyautogui</span><span class="tech-badge">MCP SDK</span><span class="tech-badge">aiohttp</span><span class="tech-badge">aiosqlite</span><span class="tech-badge">DuckDB</span><span class="tech-badge">Ollama</span><span class="tech-badge">vLLM</span><span class="tech-badge">ChromaDB</span><span class="tech-badge">MiniLM-L6</span>
         </div>
       </div>
       <div class="tech-stack-group">
