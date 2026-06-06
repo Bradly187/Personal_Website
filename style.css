@@ -1406,3 +1406,253 @@
       transition: background 0.15s;
     }
     a.pill:hover { background: var(--blue-bg); }
+
+    /* ══ DESKTOP AGENT DIAGRAMS ══ */
+
+    /* Diagram heading */
+    .da-diagram-label {
+      font-family: var(--mono);
+      font-size: 10px;
+      font-weight: 700;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--blue-mid);
+      margin-bottom: 4px;
+    }
+    .da-diagram-title {
+      font-family: var(--serif);
+      font-size: clamp(20px, 3vw, 26px);
+      font-weight: 400;
+      margin-bottom: 1.25rem;
+    }
+
+    /* Note box */
+    .da-note {
+      background: var(--surface);
+      border: 0.5px solid var(--border);
+      border-left: 2px solid var(--blue-mid);
+      border-radius: var(--radius-md);
+      padding: 12px 16px;
+      font-size: 13px;
+      color: var(--muted);
+      line-height: 1.65;
+      margin-top: 1.25rem;
+    }
+    .da-note code { font-family: var(--mono); font-size: 12px; color: var(--blue-mid); }
+
+    /* Diagram 1 — Pipeline */
+    .da-pipeline {
+      display: flex;
+      align-items: stretch;
+      gap: 0;
+      overflow-x: auto;
+      -webkit-overflow-scrolling: touch;
+      scrollbar-width: thin;
+      padding-bottom: 8px;
+    }
+    .da-pipeline::-webkit-scrollbar { height: 6px; }
+    .da-pipeline::-webkit-scrollbar-track { background: var(--surface-2); border-radius: 3px; }
+    .da-pipeline::-webkit-scrollbar-thumb { background: var(--border-md); border-radius: 3px; }
+    .da-stage {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 8px;
+      min-width: 150px;
+      flex: 1;
+    }
+    .da-stage-header {
+      font-family: var(--mono);
+      font-size: 10px;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: var(--hint);
+      text-align: center;
+      height: 18px;
+    }
+    .da-stage-box {
+      background: var(--surface);
+      border: 0.5px solid var(--border);
+      border-radius: var(--radius-md);
+      padding: 14px 12px;
+      text-align: center;
+      width: 100%;
+      min-height: 96px;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      gap: 6px;
+    }
+    .da-stage-box.accent  { border: 1px solid var(--blue-border); background: var(--blue-bg); }
+    .da-stage-box.accent2 { border: 1px solid var(--green-text);  background: var(--green-bg); }
+    .da-stage-name { font-family: var(--mono); font-size: 13px; font-weight: 700; color: var(--text); }
+    .da-stage-sub  { font-size: 11px; color: var(--muted); line-height: 1.4; }
+    .da-arrow {
+      display: flex;
+      align-items: center;
+      padding-top: 30px;
+      flex-shrink: 0;
+      width: 26px;
+      justify-content: center;
+      color: var(--blue-mid);
+      opacity: 0.6;
+    }
+    .da-stage-pills { display: flex; flex-direction: column; gap: 4px; width: 100%; margin-top: 4px; }
+    .da-mini-pill {
+      font-family: var(--mono);
+      border-radius: 99px;
+      padding: 3px 8px;
+      font-size: 10px;
+      text-align: center;
+      border: 0.5px solid var(--border-md);
+      color: var(--muted);
+      background: var(--bg);
+    }
+    .da-mini-pill.blue  { color: var(--blue-mid);   background: var(--blue-bg);  border-color: var(--blue-border); }
+    .da-mini-pill.green { color: var(--green-text); background: var(--green-bg); border-color: var(--green-text); }
+    .da-mini-pill.amber { color: var(--amber-text); background: var(--amber-bg); border-color: var(--amber-text); }
+
+    /* Diagram 2 — Modality cards */
+    .da-modality-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+      gap: 10px;
+    }
+    .da-modality-card {
+      background: var(--surface);
+      border: 0.5px solid var(--border);
+      border-radius: var(--radius-lg);
+      padding: 18px;
+      transition: transform 0.15s, border-color 0.15s;
+    }
+    .da-modality-card:hover { transform: translateY(-2px); border-color: var(--blue-mid); }
+    .da-modality-name { font-family: var(--mono); font-size: 14px; font-weight: 700; color: var(--text); margin-bottom: 6px; }
+    .da-modality-desc { font-size: 13px; color: var(--muted); line-height: 1.6; margin-bottom: 12px; }
+    .da-modality-tech { font-family: var(--mono); font-size: 11px; color: var(--hint); border-top: 0.5px solid var(--border); padding-top: 10px; line-height: 1.7; }
+    .da-modality-tech span { color: var(--text); }
+
+    /* Diagram 3 — Priority list */
+    .da-priority-list { display: flex; flex-direction: column; gap: 8px; }
+    .da-priority-row {
+      display: flex;
+      align-items: center;
+      gap: 14px;
+      background: var(--surface);
+      border: 0.5px solid var(--border);
+      border-radius: var(--radius-md);
+      padding: 12px 16px;
+    }
+    .da-priority-num {
+      font-family: var(--mono);
+      font-size: 15px;
+      font-weight: 700;
+      color: var(--blue-mid);
+      width: 22px;
+      text-align: center;
+      flex-shrink: 0;
+    }
+    .da-priority-info { flex: 1; min-width: 0; }
+    .da-priority-name { font-size: 14px; font-weight: 500; color: var(--text); }
+    .da-priority-detail { font-size: 12px; color: var(--muted); margin-top: 2px; line-height: 1.5; }
+    .da-priority-bar-wrap { width: 110px; flex-shrink: 0; }
+    .da-priority-bar-bg { background: var(--surface-2); border-radius: 99px; height: 6px; overflow: hidden; }
+    .da-priority-bar { height: 6px; border-radius: 99px; background: var(--accent-gradient); }
+    .da-latency { font-family: var(--mono); font-size: 11px; color: var(--muted); margin-top: 5px; text-align: right; }
+
+    /* Diagram 4 — Verb chips */
+    .da-vocab-group { margin-bottom: 1.5rem; }
+    .da-vocab-group:last-child { margin-bottom: 0; }
+    .da-vocab-label {
+      font-family: var(--mono);
+      font-size: 11px;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      margin-bottom: 10px;
+    }
+    .da-vocab-label.access { color: var(--blue-mid); }
+    .da-vocab-label.dev    { color: var(--amber-text); }
+    .da-verb-grid { display: flex; flex-wrap: wrap; gap: 6px; }
+    .da-verb-chip {
+      font-family: var(--mono);
+      font-size: 12px;
+      font-weight: 700;
+      border-radius: var(--radius-md);
+      padding: 8px 14px;
+      letter-spacing: 0.03em;
+    }
+    .da-verb-chip.access { color: var(--blue-mid);   background: var(--blue-bg);  border: 0.5px solid var(--blue-border); }
+    .da-verb-chip.dev    { color: var(--amber-text); background: var(--amber-bg); border: 0.5px solid var(--amber-text); }
+
+    /* Diagram 5 — Gate flow */
+    .da-gate-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 1.5rem; }
+    .da-gate-flow { display: flex; flex-direction: column; gap: 8px; }
+    .da-gate-step { display: flex; gap: 14px; align-items: flex-start; }
+    .da-gate-circle {
+      width: 40px;
+      height: 40px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-family: var(--mono);
+      font-size: 13px;
+      font-weight: 700;
+      flex-shrink: 0;
+      background: var(--blue-bg);
+      color: var(--blue-mid);
+      border: 1px solid var(--blue-border);
+    }
+    .da-gate-circle.warn { background: var(--amber-bg); color: var(--amber-text); border-color: var(--amber-text); }
+    .da-gate-content {
+      background: var(--surface);
+      border: 0.5px solid var(--border);
+      border-radius: var(--radius-md);
+      padding: 12px 16px;
+      flex: 1;
+      min-width: 0;
+    }
+    .da-gate-title { font-family: var(--mono); font-size: 13px; font-weight: 700; color: var(--text); margin-bottom: 4px; }
+    .da-gate-desc { font-size: 12px; color: var(--muted); line-height: 1.55; }
+    .da-gate-outcome {
+      display: inline-block;
+      margin-top: 8px;
+      font-family: var(--mono);
+      font-size: 10px;
+      font-weight: 700;
+      padding: 3px 8px;
+      border-radius: 4px;
+      background: var(--green-bg);
+      color: var(--green-text);
+    }
+    .da-gate-outcome.warn { background: var(--amber-bg); color: var(--amber-text); }
+
+    /* Diagram 6 — Tech stack cards */
+    .da-stack-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      gap: 10px;
+    }
+    .da-stack-card {
+      background: var(--surface);
+      border: 0.5px solid var(--border);
+      border-radius: var(--radius-lg);
+      padding: 16px;
+    }
+    .da-stack-label {
+      font-family: var(--mono);
+      font-size: 11px;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      margin-bottom: 10px;
+    }
+    .da-stack-label.blue  { color: var(--blue-mid); }
+    .da-stack-label.green { color: var(--green-text); }
+    .da-stack-label.amber { color: var(--amber-text); }
+    .da-stack-list { font-size: 13px; color: var(--muted); line-height: 1.9; }
+
+    @media (max-width: 600px) {
+      .da-gate-grid { grid-template-columns: 1fr; }
+    }

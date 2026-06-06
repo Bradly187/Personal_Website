@@ -53,7 +53,7 @@
   <section class="section">
     <div class="section-label">// At a glance</div>
     <div class="stats-row">
-      <div class="stat-item"><span class="stat-number">10</span><span class="stat-label">Input Modalities</span></div>
+      <div class="stat-item"><span class="stat-number">4</span><span class="stat-label">Input Modalities</span></div>
       <div class="stat-item"><span class="stat-number">16</span><span class="stat-label">Action Verbs</span></div>
       <div class="stat-item"><span class="stat-number">373ms</span><span class="stat-label">Local Latency (warm)</span></div>
       <div class="stat-item"><span class="stat-number">100%</span><span class="stat-label">Command Accuracy</span></div>
@@ -76,80 +76,326 @@
   </section>
 
   <section class="section">
-    <div class="section-label">// Architecture</div>
-    <div class="arch-cards">
-      <div class="arch-card expanded"><div class="arch-card-name">MCP Server</div><div class="arch-card-desc">Exposes 14 desktop control tools (mouse, keyboard, screen, windows) to Claude via stdio transport. Executes 16 action verbs across all input channels.</div></div>
-      <div class="arch-card expanded"><div class="arch-card-name">iPad Bridge</div><div class="arch-card-desc">WebSocket server handling 13 incoming sensor message types and 4 outgoing reply types, dispatching to processing pipelines.</div></div>
-      <div class="arch-card expanded"><div class="arch-card-name">Fusion Engine</div><div class="arch-card-desc">Merges 10 input modalities at 60Hz using fixed-priority arbitration (10 levels) with conflict detection when multiple cursor sources are active simultaneously.</div></div>
-      <div class="arch-card expanded"><div class="arch-card-name">Hybrid Coordinator</div><div class="arch-card-desc">5-gate routing engine (Gate 0 privacy + Gates 1–4) deciding local vs. cloud inference based on confidence, complexity, and GPU load.</div></div>
-      <div class="arch-card expanded"><div class="arch-card-name">Local Inference</div><div class="arch-card-desc">Whisper large-v3 + llama3.1:8b on RTX 5090 (Ollama); vLLM 0.21.0 confirmed working via Ubuntu WSL2, CUDA 12.8 / sm_120. Measured: 100% accuracy; 373ms warm median.</div></div>
-      <div class="arch-card expanded"><div class="arch-card-name">Behavioral Twin</div><div class="arch-card-desc">Persistent per-user state model (BehavioralTwinState + pain-day engine). On flare days: VAD and logprob floors relax, gesture velocity floors drop to p10 of observed samples (&minus;30%), fusion confidence thresholds loosen across six axes.</div></div>
-      <div class="arch-card expanded"><div class="arch-card-name">Grounding Engine</div><div class="arch-card-desc">4-tier fallback (UIAutomation &rarr; vision API &rarr; OCR &rarr; clarify) raises CLICK resolution from ~42% to ~92%. Resolves ambiguous targets before invoking the model.</div></div>
-      <div class="arch-card expanded"><div class="arch-card-name">Gesture + LiDAR</div><div class="arch-card-desc">MediaPipe hand landmark detection for POINT/PINCH/OPEN_PALM/FIST; LiDAR depth map (256&times;192) used for 3D pinch distance validation at &lt;30mm threshold.</div></div>
-      <div class="arch-card expanded"><div class="arch-card-name">Domain Classifier</div><div class="arch-card-desc">Keyword-scoring classifier routes commands to the accessibility pipeline or one of 5 dev domains (CODE/MATH/VISION/PLAN/GENERAL).</div></div>
-      <div class="arch-card expanded"><div class="arch-card-name">Dev Agent</div><div class="arch-card-desc">Plan&rarr;execute&rarr;reflect agentic loop; selects specialist model per domain via ModelRouter; emits 5 dev verbs (WRITE_FILE, RUN_TERMINAL, EXPLAIN, SEARCH_WEB, READ_SCREEN).</div></div>
-      <div class="arch-card expanded"><div class="arch-card-name">AgentDB / AnalyticsDB</div><div class="arch-card-desc">aiosqlite 27-table pipeline store + DuckDB benchmark analytics; ChromaDB + MiniLM-L6 semantic few-shot retrieval for routing decisions. Jaccard fallback.</div></div>
+    <div class="section-label">// Diagrams</div>
+    <div class="da-diagram-label">Diagram 1</div>
+    <div class="da-diagram-title">System Architecture</div>
+
+    <div class="da-pipeline">
+      <div class="da-stage">
+        <div class="da-stage-header">Sensor Hub</div>
+        <div class="da-stage-box accent">
+          <div class="da-stage-name">iPad Pro</div>
+          <div class="da-stage-pills">
+            <div class="da-mini-pill blue">Tilt · Core Motion</div>
+            <div class="da-mini-pill green">Voice · Speech</div>
+            <div class="da-mini-pill amber">Gesture · Camera</div>
+            <div class="da-mini-pill">Touch / Trackpad</div>
+            <div class="da-mini-pill">LiDAR Depth</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="da-arrow"><svg width="22" height="22" viewBox="0 0 24 24" fill="none"><path d="M5 12h14M13 6l6 6-6 6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
+
+      <div class="da-stage">
+        <div class="da-stage-header">Transport</div>
+        <div class="da-stage-box">
+          <div class="da-stage-name">WebSocket</div>
+          <div class="da-stage-sub">:8765 · mDNS</div>
+          <div class="da-stage-sub">25 msg types</div>
+        </div>
+      </div>
+
+      <div class="da-arrow"><svg width="22" height="22" viewBox="0 0 24 24" fill="none"><path d="M5 12h14M13 6l6 6-6 6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
+
+      <div class="da-stage">
+        <div class="da-stage-header">Sensor Fusion</div>
+        <div class="da-stage-box accent">
+          <div class="da-stage-name">Fusion Engine</div>
+          <div class="da-stage-sub">60 Hz · 6-level priority</div>
+          <div class="da-stage-sub">Cursor gravity · One€ filter</div>
+        </div>
+      </div>
+
+      <div class="da-arrow"><svg width="22" height="22" viewBox="0 0 24 24" fill="none"><path d="M5 12h14M13 6l6 6-6 6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
+
+      <div class="da-stage">
+        <div class="da-stage-header">Routing</div>
+        <div class="da-stage-box">
+          <div class="da-stage-name">Coordinator</div>
+          <div class="da-stage-sub">4-gate routing</div>
+          <div class="da-stage-pills">
+            <div class="da-mini-pill blue">llama3.1:8b</div>
+            <div class="da-mini-pill amber">Anthropic API</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="da-arrow"><svg width="22" height="22" viewBox="0 0 24 24" fill="none"><path d="M5 12h14M13 6l6 6-6 6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
+
+      <div class="da-stage">
+        <div class="da-stage-header">Execution</div>
+        <div class="da-stage-box accent2">
+          <div class="da-stage-name">Command Executor</div>
+          <div class="da-stage-sub">16 verbs</div>
+          <div class="da-stage-pills">
+            <div class="da-mini-pill green">pyautogui</div>
+            <div class="da-mini-pill blue">Win32 API</div>
+            <div class="da-mini-pill amber">UIAutomation</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="da-note">
+      Whisper large-v3 (GPU) handles continuous speech transcription on the PC side. The iPad streams audio over WebSocket; Silero VAD gates transcription to avoid hallucination. All cross-pipeline data is typed as a <code>Command</code> dataclass — no raw dicts.
     </div>
   </section>
 
   <section class="section">
-    <div class="section-label">// Sensor priority</div>
-    <div class="sensor-table-wrap">
-      <table class="sensor-table">
-        <thead><tr>
-          <th scope="col">Priority</th>
-          <th scope="col">Source</th>
-          <th scope="col">Latency</th>
-          <th scope="col">Gate Behavior</th>
-        </tr></thead>
-        <tbody>
-          <tr><td>1</td><td>iPad Touch Command</td><td>&lt;100ms</td><td>Immediate — bypasses LLM</td></tr>
-          <tr><td>2</td><td>Sound Action</td><td>&lt;50ms</td><td>Mapped mouth sounds (cluck, pop, hiss)</td></tr>
-          <tr><td>3</td><td>Gaze Dwell Click</td><td>~300ms</td><td>Resting gaze auto-clicks after dwell duration</td></tr>
-          <tr><td>4</td><td>Gaze + Voice "click"</td><td>&lt;200ms</td><td>Click at gaze coordinates on voice trigger</td></tr>
-          <tr><td>5</td><td>Gaze + Gesture POINT</td><td>&lt;200ms</td><td>Click at gaze coordinates on point gesture</td></tr>
-          <tr><td>6</td><td>Tilt Navigation</td><td>&lt;50ms</td><td>iPad tilt moves cursor via Core Motion</td></tr>
-          <tr><td>7</td><td>Head Tracking</td><td>&lt;100ms</td><td>Head pose moves cursor via ARKit</td></tr>
-          <tr><td>8</td><td>Gesture Alone</td><td>&lt;50ms</td><td>Hand gesture via iPad camera + MediaPipe; LiDAR depth validates 3D pinch/grab</td></tr>
-          <tr><td>9</td><td>On-device Voice Keyword</td><td>&lt;150ms</td><td>Speech Framework fast-path match</td></tr>
-          <tr><td>10</td><td>PC-transcribed Voice</td><td>&lt;600ms</td><td>Full Whisper + LLM pipeline</td></tr>
-        </tbody>
-      </table>
+    <div class="da-diagram-label">Diagram 2</div>
+    <div class="da-diagram-title">Input Modalities</div>
+
+    <div class="da-modality-grid">
+      <div class="da-modality-card">
+        <div class="da-modality-name">Tilt Navigation</div>
+        <div class="da-modality-desc">iPad tilt drives cursor position or velocity. One-Euro adaptive filter smooths tremor. Pain-day mode relaxes thresholds automatically.</div>
+        <div class="da-modality-tech">Stack: <span>Core Motion</span> · <span>One€ filter</span> · <span>Gyro bias calibration</span></div>
+      </div>
+      <div class="da-modality-card">
+        <div class="da-modality-name">Voice Commands</div>
+        <div class="da-modality-desc">Wake phrase "hey agent" arms a 15-second window. Whisper large-v3 on GPU transcribes. Acoustic profiler adapts VAD per user voice condition.</div>
+        <div class="da-modality-tech">Stack: <span>faster-whisper</span> · <span>Silero VAD</span> · <span>Acoustic profiler</span></div>
+      </div>
+      <div class="da-modality-card">
+        <div class="da-modality-name">Hand Gestures</div>
+        <div class="da-modality-desc">Peace-sign base pose detects 13 spatial gestures: swipes, grabs, snaps, monitor moves, push/pull, pinch. LiDAR validates grab depth.</div>
+        <div class="da-modality-tech">Stack: <span>MediaPipe Tasks</span> · <span>LiDAR depth</span> · <span>velocity calibration</span></div>
+      </div>
+      <div class="da-modality-card">
+        <div class="da-modality-name">Touch / Trackpad</div>
+        <div class="da-modality-desc">Full multi-touch trackpad pad on iPad screen. Direct touch commands bypass the LLM entirely for zero-latency control.</div>
+        <div class="da-modality-tech">Stack: <span>SwiftUI TrackpadView</span> · <span>WebSocket bypass</span></div>
+      </div>
     </div>
   </section>
 
   <section class="section">
-    <div class="section-label">// Routing gates</div>
-    <div class="routing-gates">
-      <div class="routing-gate-item"><span class="routing-gate-name">Privacy Gate (0)</span><span class="routing-gate-criteria">Detects sensitive patterns (passwords, tokens, SSNs, card numbers) — forces local silently, no cloud exposure.</span></div>
-      <div class="routing-gate-item"><span class="routing-gate-name">Confidence Gate (1)</span><span class="routing-gate-criteria">Whisper logprob &ge; -1.0 or gesture confidence &ge; 0.60; low-confidence voice triggers re-transcription.</span></div>
-      <div class="routing-gate-item"><span class="routing-gate-name">Complexity Gate (2)</span><span class="routing-gate-criteria">Token count proxy &le; 40 words; complex/multi-step queries routed to specialist models via DevAgent.</span></div>
-      <div class="routing-gate-item"><span class="routing-gate-name">VRAM Gate (3)</span><span class="routing-gate-criteria">&ge; 8 GB free VRAM required (absolute floor) — tuned for RTX 5090 running alongside Whisper.</span></div>
-      <div class="routing-gate-item"><span class="routing-gate-name">Latency Budget Gate (4)</span><span class="routing-gate-criteria">Estimated local inference latency must be within the latency target for that input modality.</span></div>
+    <div class="da-diagram-label">Diagram 3</div>
+    <div class="da-diagram-title">Sensor Priority (60 Hz Fusion Loop)</div>
+
+    <div class="da-priority-list">
+      <div class="da-priority-row">
+        <div class="da-priority-num">1</div>
+        <div class="da-priority-info">
+          <div class="da-priority-name">iPad Touch Command</div>
+          <div class="da-priority-detail">Bypasses LLM entirely — direct pyautogui execution</div>
+        </div>
+        <div class="da-priority-bar-wrap">
+          <div class="da-priority-bar-bg"><div class="da-priority-bar" style="width:100%"></div></div>
+          <div class="da-latency">&lt;5 ms</div>
+        </div>
+      </div>
+      <div class="da-priority-row">
+        <div class="da-priority-num">2</div>
+        <div class="da-priority-info">
+          <div class="da-priority-name">Voice "click" keyword</div>
+          <div class="da-priority-detail">Clicks at current cursor position — bypass path, source: multimodal</div>
+        </div>
+        <div class="da-priority-bar-wrap">
+          <div class="da-priority-bar-bg"><div class="da-priority-bar" style="width:85%"></div></div>
+          <div class="da-latency">&lt;20 ms</div>
+        </div>
+      </div>
+      <div class="da-priority-row">
+        <div class="da-priority-num">3</div>
+        <div class="da-priority-info">
+          <div class="da-priority-name">Tilt Navigation (Core Motion)</div>
+          <div class="da-priority-detail">3a absolute position · 3b legacy velocity · magnetic cursor snap</div>
+        </div>
+        <div class="da-priority-bar-wrap">
+          <div class="da-priority-bar-bg"><div class="da-priority-bar" style="width:70%"></div></div>
+          <div class="da-latency">16 ms frame</div>
+        </div>
+      </div>
+      <div class="da-priority-row">
+        <div class="da-priority-num">4</div>
+        <div class="da-priority-info">
+          <div class="da-priority-name">Hand Gesture (MediaPipe)</div>
+          <div class="da-priority-detail">13-gesture vocabulary · LiDAR depth validation · velocity calibration</div>
+        </div>
+        <div class="da-priority-bar-wrap">
+          <div class="da-priority-bar-bg"><div class="da-priority-bar" style="width:55%"></div></div>
+          <div class="da-latency">~30 ms</div>
+        </div>
+      </div>
+      <div class="da-priority-row">
+        <div class="da-priority-num">5</div>
+        <div class="da-priority-info">
+          <div class="da-priority-name">On-device Voice Keyword</div>
+          <div class="da-priority-detail">iPad Speech Framework · fast local recognition · keyword-only routing</div>
+        </div>
+        <div class="da-priority-bar-wrap">
+          <div class="da-priority-bar-bg"><div class="da-priority-bar" style="width:40%"></div></div>
+          <div class="da-latency">~50 ms</div>
+        </div>
+      </div>
+      <div class="da-priority-row">
+        <div class="da-priority-num">6</div>
+        <div class="da-priority-info">
+          <div class="da-priority-name">PC Voice (Whisper large-v3)</div>
+          <div class="da-priority-detail">GPU-accelerated transcription · Silero VAD · acoustic profiler adaptation</div>
+        </div>
+        <div class="da-priority-bar-wrap">
+          <div class="da-priority-bar-bg"><div class="da-priority-bar" style="width:25%"></div></div>
+          <div class="da-latency">~190 ms</div>
+        </div>
+      </div>
     </div>
   </section>
 
   <section class="section">
-    <div class="section-label">// Tech stack</div>
-    <div class="tech-stack-groups">
-      <div class="tech-stack-group">
-        <div class="tech-stack-label">PC-side (Python)</div>
-        <div class="tech-stack-pills">
-          <span class="tech-badge">Python 3.11+</span><span class="tech-badge">faster-whisper</span><span class="tech-badge">silero-vad</span><span class="tech-badge">MediaPipe</span><span class="tech-badge">pyautogui</span><span class="tech-badge">MCP SDK</span><span class="tech-badge">aiohttp</span><span class="tech-badge">aiosqlite</span><span class="tech-badge">DuckDB</span><span class="tech-badge">Ollama</span><span class="tech-badge">vLLM</span><span class="tech-badge">ChromaDB</span><span class="tech-badge">MiniLM-L6</span>
+    <div class="da-diagram-label">Diagram 4</div>
+    <div class="da-diagram-title">16-Verb Action Vocabulary</div>
+
+    <div class="da-vocab-group">
+      <div class="da-vocab-label access">Accessibility Verbs (11) — Sensor Pipeline &amp; Simple Commands</div>
+      <div class="da-verb-grid">
+        <div class="da-verb-chip access">CLICK</div>
+        <div class="da-verb-chip access">MOUSEDOWN</div>
+        <div class="da-verb-chip access">MOUSEUP</div>
+        <div class="da-verb-chip access">SCROLL</div>
+        <div class="da-verb-chip access">TYPE</div>
+        <div class="da-verb-chip access">OPEN</div>
+        <div class="da-verb-chip access">CLOSE</div>
+        <div class="da-verb-chip access">HOTKEY</div>
+        <div class="da-verb-chip access">DICTATE</div>
+        <div class="da-verb-chip access">CLARIFY</div>
+        <div class="da-verb-chip access">SCREENSHOT</div>
+      </div>
+    </div>
+
+    <div class="da-vocab-group">
+      <div class="da-vocab-label dev">Dev-Agent Verbs (5) — Specialist Model Output</div>
+      <div class="da-verb-grid">
+        <div class="da-verb-chip dev">WRITE_FILE</div>
+        <div class="da-verb-chip dev">RUN_TERMINAL</div>
+        <div class="da-verb-chip dev">EXPLAIN</div>
+        <div class="da-verb-chip dev">SEARCH_WEB</div>
+        <div class="da-verb-chip dev">READ_SCREEN</div>
+      </div>
+    </div>
+
+    <div class="da-note">
+      All 16 verbs flow through <code>CommandExecutor</code>. <code>DomainClassifier</code> gates the pipeline — simple commands go to <code>llama3.1:8b</code> (verb-first); dev-domain queries go to <code>DevAgent</code>, which selects a specialist model. <code>MOUSEDOWN</code>/<code>MOUSEUP</code> execute synchronously for timing-critical drag operations.
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="da-diagram-label">Diagram 5</div>
+    <div class="da-diagram-title">4-Gate Routing Pipeline</div>
+
+    <div class="da-gate-grid">
+      <div class="da-gate-flow">
+        <div class="da-gate-step">
+          <div class="da-gate-circle warn">G0</div>
+          <div class="da-gate-content">
+            <div class="da-gate-title">Gate 0 — Privacy Screen</div>
+            <div class="da-gate-desc">Blocks commands containing sensitive patterns (passwords, API keys). No LLM call made — command is rejected before any model sees it.</div>
+            <span class="da-gate-outcome warn">&rarr; REJECT or pass</span>
+          </div>
+        </div>
+        <div class="da-gate-step">
+          <div class="da-gate-circle">G1</div>
+          <div class="da-gate-content">
+            <div class="da-gate-title">Gate 1 — Domain Classification</div>
+            <div class="da-gate-desc">Keyword scoring classifies intent into COMMAND, CODE, MATH, VISION, PLAN, or GENERAL. Routes to the appropriate inference path.</div>
+            <span class="da-gate-outcome">&rarr; domain label</span>
+          </div>
+        </div>
+        <div class="da-gate-step">
+          <div class="da-gate-circle">G2</div>
+          <div class="da-gate-content">
+            <div class="da-gate-title">Gate 2 — Local Inference</div>
+            <div class="da-gate-desc">Command domain: llama3.1:8b (verb-first, 190ms warm). Dev domains: specialist model via ModelRouter (qwen3-coder, deepseek-r1, etc.). 15s circuit-breaker &rarr; CLARIFY.</div>
+            <span class="da-gate-outcome">&rarr; Command or fallthrough</span>
+          </div>
         </div>
       </div>
-      <div class="tech-stack-group">
-        <div class="tech-stack-label">iPad-side (Swift)</div>
-        <div class="tech-stack-pills">
-          <span class="tech-badge">Swift/SwiftUI</span><span class="tech-badge">Core Motion</span><span class="tech-badge">ARKit (LiDAR + Face Tracking)</span><span class="tech-badge">Speech Framework</span><span class="tech-badge">AVFoundation</span>
+
+      <div class="da-gate-flow">
+        <div class="da-gate-step">
+          <div class="da-gate-circle">G3</div>
+          <div class="da-gate-content">
+            <div class="da-gate-title">Gate 3 — Cloud Fallback</div>
+            <div class="da-gate-desc">When local inference times out or scores low confidence. Command domain &rarr; claude-haiku-4-5. Dev domain &rarr; claude-opus-4-8. 10s timeout circuit-breaker.</div>
+            <span class="da-gate-outcome">&rarr; Command or CLARIFY</span>
+          </div>
+        </div>
+        <div class="da-gate-step">
+          <div class="da-gate-circle">G4</div>
+          <div class="da-gate-content">
+            <div class="da-gate-title">Gate 4 — Execution &amp; Verification</div>
+            <div class="da-gate-desc">CommandExecutor maps verb &rarr; MCP tool call. ActionVerifier does perceptual diff (pre/post screenshot) for CLICK, OPEN, CLOSE, SCROLL. UIAutomation finds targets by fuzzy name.</div>
+            <span class="da-gate-outcome">&rarr; ack + status reply to iPad</span>
+          </div>
         </div>
       </div>
-      <div class="tech-stack-group">
-        <div class="tech-stack-label">Cloud (AWS)</div>
-        <div class="tech-stack-pills">
-          <span class="tech-badge">Amazon Bedrock (Claude)</span><span class="tech-badge">AWS AgentCore</span>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="da-diagram-label">Diagram 6</div>
+    <div class="da-diagram-title">Tech Stack</div>
+
+    <div class="da-stack-grid">
+      <div class="da-stack-card">
+        <div class="da-stack-label blue">Sensor Hub</div>
+        <div class="da-stack-list">
+          iPad Pro (home-button)<br>
+          SwiftUI · 41 Swift files<br>
+          Core Motion · Speech<br>
+          ARWorldTracking (LiDAR)<br>
+          MediaPipe (gesture)<br>
+          WebSocket client (mDNS)
         </div>
       </div>
+      <div class="da-stack-card">
+        <div class="da-stack-label green">Inference</div>
+        <div class="da-stack-list">
+          RTX 5090 (32 GB VRAM)<br>
+          Ollama 0.30.6<br>
+          llama3.1:8b (command)<br>
+          qwen3-coder:30b (code)<br>
+          qwen3-vl:30b (vision)<br>
+          Whisper large-v3 (GPU)
+        </div>
+      </div>
+      <div class="da-stack-card">
+        <div class="da-stack-label amber">Cloud</div>
+        <div class="da-stack-list">
+          claude-haiku-4-5 (command)<br>
+          claude-opus-4-8 (dev agent)<br>
+          claude-sonnet-4-6 (vision)<br>
+          Amazon Polly (Danielle TTS)<br>
+          Anthropic SDK
+        </div>
+      </div>
+      <div class="da-stack-card">
+        <div class="da-stack-label blue">Desktop Control</div>
+        <div class="da-stack-list">
+          Python (asyncio)<br>
+          pyautogui · Win32 API<br>
+          UIAutomation BFS<br>
+          MCP server (stdio)<br>
+          aiosqlite · DuckDB<br>
+          ChromaDB (semantic memory)
+        </div>
+      </div>
+    </div>
+
+    <div class="da-note">
+      682 passing tests · Python + Swift · Windows 11 + iPad Pro.
     </div>
   </section>
 
