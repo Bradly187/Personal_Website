@@ -4,10 +4,10 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>ClinicScheduler · Brad Tarver</title>
-  <meta name="description" content="Full-stack pain-management clinic scheduler built with ASP.NET Core, Blazor, and EF Core on PostgreSQL — role-based access, conflict-aware scheduling, and a request-approval workflow. Deployed on AWS with Terraform (ECS Fargate, RDS, ALB) and a CI/CD pipeline." />
+  <meta name="description" content="Full-stack pain-management clinic scheduler built with ASP.NET Core, Blazor, and EF Core on PostgreSQL — role-based access with TOTP MFA, configurable conflict-aware scheduling, recurring treatment-plan booking, an automated waitlist, and consent-gated SMS/email reminders. Deployed on AWS with Terraform (ECS Fargate, RDS, ALB) and a CI/CD pipeline." />
   <meta name="author" content="Brad Tarver" />
   <meta property="og:title" content="ClinicScheduler · Brad Tarver" />
-  <meta property="og:description" content="Full-stack pain-management clinic scheduler in ASP.NET Core, Blazor, and PostgreSQL — provisioned on AWS with Terraform (ECS Fargate, RDS, ALB) and an OIDC-secured CI/CD pipeline. Live demo available." />
+  <meta property="og:description" content="Full-stack pain-management clinic scheduler in ASP.NET Core, Blazor, and PostgreSQL — MFA, automated waitlist, recurring scheduling, and HIPAA-style audit logging, provisioned on AWS with Terraform (ECS Fargate, RDS, ALB) and an OIDC-secured CI/CD pipeline. Live demo available." />
   <meta property="og:type" content="website" />
   <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><rect width='100' height='100' rx='16' fill='%23185FA5'/><text x='50' y='68' font-family='system-ui' font-size='48' font-weight='700' fill='white' text-anchor='middle'>BT</text></svg>" />
   <script>try{var t=localStorage.getItem('theme');if(t)document.documentElement.setAttribute('data-theme',t);}catch(e){}</script>
@@ -103,10 +103,13 @@
     <h1>ClinicScheduler</h1>
     <p class="hero-sub">
       Full-stack scheduling system for a pain-management clinic — ASP.NET Core, Blazor, and
-      Entity Framework Core over PostgreSQL on a clean, layered architecture. Role-based access,
-      conflict-aware booking across therapists, rooms, and patients, and a patient
-      request-and-approval workflow. Built as a Systems Analysis &amp; Design capstone and
-      codified for AWS with Terraform and a CI/CD pipeline.
+      Entity Framework Core over PostgreSQL on a clean, layered architecture. Role-based access
+      with TOTP two-factor auth, conflict-aware booking across therapists, rooms, and patients,
+      recurring treatment-plan scheduling, and an automated waitlist that re-fills canceled slots.
+      Built as a Systems Analysis &amp; Design capstone, then hardened toward production —
+      HIPAA-style audit logging, structured logging and health checks, optimistic concurrency,
+      and 199 unit tests plus an integration suite against real PostgreSQL — and codified for
+      AWS with Terraform and a CI/CD pipeline.
     </p>
     <div class="hero-actions">
       <a href="https://clinic.bradtarver.com" target="_blank" rel="noopener" class="btn-primary">Launch App &rarr;</a>
@@ -136,28 +139,44 @@
     <div class="section-label">// Features</div>
     <div class="feature-grid">
       <div class="feature-item">
-        <strong>Role-Based Access Control</strong>
-        Five roles — Admin, Clinic Manager, Therapist, Staff, Patient — enforced with ASP.NET Core Identity.
+        <strong>Role-Based Access + MFA</strong>
+        Five roles — Admin, Clinic Manager, Therapist, Staff, Patient — enforced with ASP.NET Core Identity, plus opt-in TOTP two-factor auth with QR enrollment and recovery codes.
       </div>
       <div class="feature-item">
         <strong>Conflict-Aware Scheduling</strong>
-        Prevents double-booking across therapist, room, and patient; weekdays 8am–5pm in 30-minute slots.
+        Prevents double-booking across therapist, room, and patient — with per-location operating hours, slot durations, and daily capacity, all configurable.
+      </div>
+      <div class="feature-item">
+        <strong>Recurring Treatment Plans</strong>
+        One click books a plan&rsquo;s full series — 2&ndash;4 sessions a week at the preferred day and time, falling back to the nearest open slot.
+      </div>
+      <div class="feature-item">
+        <strong>Automated Waitlist</strong>
+        Canceled slots are offered to the oldest matching waitlist entry instantly; a background sweep fills the rest and notifies patients.
       </div>
       <div class="feature-item">
         <strong>Request &amp; Approval Workflow</strong>
         Patients request appointments; staff approve or deny; missed visits auto-reschedule to the next open slot.
       </div>
       <div class="feature-item">
-        <strong>Notifications &amp; Audit Logging</strong>
-        In-app notifications plus an append-only audit trail over every change.
+        <strong>Multi-Channel Reminders</strong>
+        24-hour appointment reminders in-app, by email, and by SMS — texts strictly gated on documented patient consent.
+      </div>
+      <div class="feature-item">
+        <strong>Audit &amp; Access Logging</strong>
+        Append-only audit trail attributing every change to its user, plus HIPAA-style read-access logging on patient records.
       </div>
       <div class="feature-item">
         <strong>REST API &amp; Integrations</strong>
-        Documented OpenAPI surface; ingests verified patient and therapist records from the serverless identity pipeline.
+        Documented OpenAPI surface with pagination and optimistic concurrency; ingests verified records from the serverless identity pipeline.
       </div>
       <div class="feature-item">
         <strong>Cross-Platform Client</strong>
         Blazor web (Server + WebAssembly) with a .NET MAUI shell — one codebase, multiple targets.
+      </div>
+      <div class="feature-item">
+        <strong>Production Observability</strong>
+        Serilog structured logging (JSON in production), load-balancer health checks, rate-limited login, and security headers throughout.
       </div>
       <div class="feature-item">
         <strong>Infrastructure as Code</strong>
@@ -165,7 +184,7 @@
       </div>
       <div class="feature-item">
         <strong>CI/CD Pipeline</strong>
-        GitHub Actions builds, tests, and deploys on every push, authenticating to AWS via OIDC — no stored credentials.
+        GitHub Actions builds and tests every push and PR, authenticating to AWS via OIDC — deploys are an explicit one-click action, never automatic.
       </div>
     </div>
   </section>
@@ -205,6 +224,8 @@
           <span class="tech-badge">EF Core</span>
           <span class="tech-badge">PostgreSQL</span>
           <span class="tech-badge">ASP.NET Identity</span>
+          <span class="tech-badge">Serilog</span>
+          <span class="tech-badge">xUnit + Testcontainers</span>
         </div>
       </div>
       <div class="tech-stack-group">
