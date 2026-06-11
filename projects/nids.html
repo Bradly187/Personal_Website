@@ -4,10 +4,10 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Network Intrusion Detection · Brad Tarver</title>
-  <meta name="description" content="Classical vs. quantum ML on 148K NSL-KDD records. MLP: 94.6% binary accuracy, 95.0% F1. Quantum transfer learning: 89.3% on 4 qubits. CSCI 459 — AI Enhanced Security, Texas A&M." />
+  <meta name="description" content="Classical vs. quantum ML on the NSL-KDD benchmark under distribution shift. MLP: 79.9% binary accuracy, 0.791 F1. 6-qubit variational quantum classifier: 77.5%. CSCI 459 — AI Enhanced Security, Texas A&M." />
   <meta name="author" content="Brad Tarver" />
   <meta property="og:title" content="Network Intrusion Detection · Brad Tarver" />
-  <meta property="og:description" content="Benchmarked PCA+SVM, MLP, and quantum transfer learning on 148K NSL-KDD records. MLP led at 94.6% binary accuracy and 95.0% F1." />
+  <meta property="og:description" content="Benchmarked PCA+SVM, MLP, and quantum classifiers on the NSL-KDD benchmark. MLP led at 79.9% binary accuracy and 0.791 F1 under deliberate distribution shift." />
   <meta property="og:type" content="website" />
   <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><rect width='100' height='100' rx='16' fill='%23185FA5'/><text x='50' y='68' font-family='system-ui' font-size='48' font-weight='700' fill='white' text-anchor='middle'>BT</text></svg>" />
   <script>try{var t=localStorage.getItem('theme');if(t)document.documentElement.setAttribute('data-theme',t);}catch(e){}</script>
@@ -43,7 +43,8 @@
       CSCI 459 — AI Enhanced Security, Texas A&amp;M-RELLIS.
     </p>
     <div class="hero-actions">
-      <a href="https://github.com/Bradly187/NIDS_ML_Project" target="_blank" rel="noopener" class="btn-primary">View on GitHub &rarr;</a>
+      <a href="/nids-dashboard/" target="_blank" rel="noopener" class="btn-primary">Interactive Dashboard &rarr;</a>
+      <a href="https://github.com/Bradly187/NIDS_ML_Project" target="_blank" rel="noopener" class="btn-secondary">View on GitHub &rarr;</a>
       <a href="https://github.com/Bradly187/NIDS_ML_Project/tree/main/figures" target="_blank" rel="noopener" class="btn-secondary">View Figures &rarr;</a>
       <a href="/#nids" class="btn-secondary">View showcase &uarr;</a>
     </div>
@@ -56,7 +57,7 @@
       <div class="stat-item"><span class="stat-number">22,544</span><span class="stat-label">Test Records</span></div>
       <div class="stat-item"><span class="stat-number">41</span><span class="stat-label">Features</span></div>
       <div class="stat-item"><span class="stat-number">5</span><span class="stat-label">Attack Classes</span></div>
-      <div class="stat-item"><span class="stat-number">3</span><span class="stat-label">Model Types</span></div>
+      <div class="stat-item"><span class="stat-number">5</span><span class="stat-label">Model Types</span></div>
     </div>
     <div class="tech-badges" style="margin-top:1rem;">
       <span class="tech-badge">Python</span>
@@ -75,15 +76,19 @@
     <div class="arch-cards">
       <div class="arch-card expanded">
         <div class="arch-card-name">MLP (PyTorch) — Best Overall</div>
-        <div class="arch-card-desc">94.56% binary accuracy, 95.01% F1. Outperformed both classical SVM and quantum transfer learning across all four metrics. Fastest to train at scale.</div>
+        <div class="arch-card-desc">79.9% binary accuracy, 0.791 F1 on the full 22,544-record KDDTest+ set — against a 43.1% dummy baseline under NSL-KDD's deliberate train/test distribution shift. Led every metric, including 5-class (78.2% acc, 0.746 weighted F1).</div>
       </div>
       <div class="arch-card expanded">
         <div class="arch-card-name">PCA + SVM (RBF) — Strong Classical Baseline</div>
-        <div class="arch-card-desc">92.45% binary accuracy, 93.12% F1. Competitive with significantly less compute. Multi-class performance (78.9% acc) was limited by class imbalance in R2L and U2R.</div>
+        <div class="arch-card-desc">77.6% binary accuracy, 0.761 F1 with GridSearchCV-tuned hyperparameters (C=100, RBF) — competitive with far less compute. Multi-class performance (74.0% acc) was limited by class imbalance in R2L and U2R.</div>
       </div>
       <div class="arch-card expanded">
-        <div class="arch-card-name">Quantum Transfer Learning — Near-Classical on 4 Qubits</div>
-        <div class="arch-card-desc">89.34% binary accuracy, 88.76% F1 after ~874 seconds of training. Demonstrates that quantum approaches can reach near-classical performance at current qubit scale — a meaningful result given hardware constraints. Tested on IBM Quantum Heron R2 and Amazon Braket simulators.</div>
+        <div class="arch-card-name">Variational Quantum Classifier — Near-Classical on 6 Qubits</div>
+        <div class="arch-card-desc">77.5% binary accuracy, 0.759 F1 with AngleEmbedding + StronglyEntanglingLayers on a PennyLane/Braket simulator (500/200 train/test subset) — within ~2 points of the full classical models at current qubit scale. A quantum-kernel QSVC was also run on IBM Quantum Heron R2 (ibm_fez).</div>
+      </div>
+      <div class="arch-card expanded">
+        <div class="arch-card-name">Quantum Transfer Learning — Honest Negative Result</div>
+        <div class="arch-card-desc">A 4-qubit transfer-learning head (real_amplitudes, reps=2) failed to learn a decision boundary — 43% accuracy, F1 = 0 after ~874s of training. Reported as-is: documenting what doesn't work at current qubit counts is part of the comparison.</div>
       </div>
     </div>
   </section>
@@ -103,18 +108,18 @@
         <tbody>
           <tr>
             <td>MLP (PyTorch)</td><td>Deep Learning</td>
-            <td class="highlight">0.9456</td>
-            <td class="highlight">0.9501</td>
-            <td class="highlight">0.8123</td>
-            <td class="highlight">0.6789</td>
+            <td class="highlight">0.7991</td>
+            <td class="highlight">0.7905</td>
+            <td class="highlight">0.7817</td>
+            <td class="highlight">0.7456</td>
           </tr>
           <tr>
             <td>PCA + SVM (RBF)</td><td>Classical</td>
-            <td>0.9245</td><td>0.9312</td><td>0.7891</td><td>0.6234</td>
+            <td>0.7756</td><td>0.7614</td><td>0.7402</td><td>0.6942</td>
           </tr>
           <tr>
-            <td>Quantum Transfer</td><td>Quantum</td>
-            <td>0.8934</td><td>0.8876</td><td>0.7234</td><td>0.5612</td>
+            <td>Braket VQC (6 qubits)</td><td>Quantum</td>
+            <td>0.7750</td><td>0.7594</td><td>&mdash;</td><td>&mdash;</td>
           </tr>
         </tbody>
       </table>
@@ -125,18 +130,18 @@
         <div class="benchmark-chart-title">Binary F1 Score</div>
         <div class="chart-row">
           <span class="chart-label">MLP (PyTorch)</span>
-          <div class="chart-bar-container"><div class="chart-bar" style="width:95.01%;background:var(--blue-mid);"></div></div>
-          <span class="chart-value">0.9501</span>
+          <div class="chart-bar-container"><div class="chart-bar" style="width:79.05%;background:var(--blue-mid);"></div></div>
+          <span class="chart-value">0.7905</span>
         </div>
         <div class="chart-row">
           <span class="chart-label">PCA + SVM (RBF)</span>
-          <div class="chart-bar-container"><div class="chart-bar" style="width:93.12%;background:var(--green-text);"></div></div>
-          <span class="chart-value">0.9312</span>
+          <div class="chart-bar-container"><div class="chart-bar" style="width:76.14%;background:var(--green-text);"></div></div>
+          <span class="chart-value">0.7614</span>
         </div>
         <div class="chart-row">
-          <span class="chart-label">Quantum Transfer</span>
-          <div class="chart-bar-container"><div class="chart-bar" style="width:88.76%;background:var(--amber-text);"></div></div>
-          <span class="chart-value">0.8876</span>
+          <span class="chart-label">Braket VQC (6 qubits)</span>
+          <div class="chart-bar-container"><div class="chart-bar" style="width:75.94%;background:var(--amber-text);"></div></div>
+          <span class="chart-value">0.7594</span>
         </div>
       </div>
     </div>
@@ -145,19 +150,19 @@
   <section class="section">
     <div class="section-label">// Pipeline</div>
     <p style="font-family:var(--mono);font-size:12px;color:var(--muted);line-height:2;">
-      Raw NSL-KDD &rarr; One-Hot Encoding &rarr; Standard Scaling &rarr; PCA (30 components) &rarr; SVM / MLP / Quantum Circuit
+      Raw NSL-KDD &rarr; One-Hot Encoding &rarr; Standard Scaling &rarr; PCA (24 components, &ge;95% variance) &rarr; SVM / MLP / Quantum Circuit
     </p>
   </section>
 
   <section class="section">
     <div class="section-label">// Quantum config</div>
     <dl class="quantum-config">
-      <div class="quantum-config-item"><dt>Qubits</dt><dd>4</dd></div>
-      <div class="quantum-config-item"><dt>Circuit Ansatz</dt><dd>real_amplitudes (reps=2)</dd></div>
-      <div class="quantum-config-item"><dt>Feature Map</dt><dd>zz_feature_map (reps=1)</dd></div>
-      <div class="quantum-config-item"><dt>Training Epochs</dt><dd>20</dd></div>
-      <div class="quantum-config-item"><dt>Training Time</dt><dd>~874s</dd></div>
-      <div class="quantum-config-item"><dt>QPU Backends</dt><dd>IBM Quantum Heron R2, Amazon Braket simulators</dd></div>
+      <div class="quantum-config-item"><dt>Qubits (VQC)</dt><dd>6</dd></div>
+      <div class="quantum-config-item"><dt>Circuit Ansatz</dt><dd>StronglyEntanglingLayers (3 layers)</dd></div>
+      <div class="quantum-config-item"><dt>Encoding</dt><dd>AngleEmbedding (RY)</dd></div>
+      <div class="quantum-config-item"><dt>Training Epochs</dt><dd>30</dd></div>
+      <div class="quantum-config-item"><dt>Training Time</dt><dd>~1,542s (500/200 subset)</dd></div>
+      <div class="quantum-config-item"><dt>Backends</dt><dd>Amazon Braket simulator (PennyLane), IBM Quantum Heron R2 (ibm_fez) for QSVC</dd></div>
     </dl>
   </section>
 

@@ -4,10 +4,10 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Personal Desktop Agent · Brad Tarver</title>
-  <meta name="description" content="Personal, local-first agent operating system for adaptive accessibility. Six-module AIOS kernel: sensor scheduler, behavioral twin, semantic memory, tool manager, and privacy gate. 100% command accuracy, 373ms warm local path." />
+  <meta name="description" content="Personal, local-first agent operating system for adaptive accessibility. Six-module AIOS kernel: sensor scheduler, behavioral twin, semantic memory, tool manager, and privacy gate. 100% command accuracy, ~190ms warm local path." />
   <meta name="author" content="Brad Tarver" />
   <meta property="og:title" content="Personal Desktop Agent · Brad Tarver" />
-  <meta property="og:description" content="Personal, local-first AIOS for adaptive accessibility. 100% command accuracy, 373ms warm local path, CLICK grounding 42%→92%." />
+  <meta property="og:description" content="Personal, local-first AIOS for adaptive accessibility. 100% command accuracy, ~190ms warm local path, CLICK grounding 42%→92%." />
   <meta property="og:type" content="website" />
   <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><rect width='100' height='100' rx='16' fill='%23185FA5'/><text x='50' y='68' font-family='system-ui' font-size='48' font-weight='700' fill='white' text-anchor='middle'>BT</text></svg>" />
   <script>try{var t=localStorage.getItem('theme');if(t)document.documentElement.setAttribute('data-theme',t);}catch(e){}</script>
@@ -40,12 +40,12 @@
     <p class="hero-sub">
       Personal, local-first agent operating system for adaptive accessibility. A single-user
       AIOS kernel &mdash; real-time sensor scheduler, behavioral twin, semantic memory, tool
-      manager, and privacy gate &mdash; enabling hands-free Windows control through voice, gaze,
+      manager, and privacy gate &mdash; enabling hands-free Windows control through voice,
       gesture, tilt, and touch. Built to solve a real problem: computing access under
       non-stationary motor capability.
     </p>
     <div class="hero-actions">
-      <a href="https://github.com/Bradly187/Personal_Desktop_Agent" target="_blank" rel="noopener" class="btn-primary">View on GitHub &rarr;</a>
+      <a href="https://github.com/Bradly187/Personal-Desktop-Agent" target="_blank" rel="noopener" class="btn-primary">View on GitHub &rarr;</a>
       <a href="/#desktop-agent" class="btn-secondary">View showcase &uarr;</a>
     </div>
   </section>
@@ -55,7 +55,7 @@
     <div class="stats-row">
       <div class="stat-item"><span class="stat-number">4</span><span class="stat-label">Input Modalities</span></div>
       <div class="stat-item"><span class="stat-number">16</span><span class="stat-label">Action Verbs</span></div>
-      <div class="stat-item"><span class="stat-number">373ms</span><span class="stat-label">Local Latency (warm)</span></div>
+      <div class="stat-item"><span class="stat-number">190ms</span><span class="stat-label">Local Latency (warm)</span></div>
       <div class="stat-item"><span class="stat-number">100%</span><span class="stat-label">Command Accuracy</span></div>
       <div class="stat-item"><span class="stat-number">60Hz</span><span class="stat-label">Fusion Rate</span></div>
     </div>
@@ -68,7 +68,7 @@
       <span class="tech-badge">vLLM</span>
       <span class="tech-badge">ChromaDB</span>
       <span class="tech-badge">Ollama</span>
-      <span class="tech-badge">AWS Bedrock</span>
+      <span class="tech-badge">Anthropic API</span>
       <span class="tech-badge">aiosqlite</span>
       <span class="tech-badge">DuckDB</span>
       <span class="tech-badge">WebSocket</span>
@@ -102,7 +102,7 @@
         <div class="da-stage-box">
           <div class="da-stage-name">WebSocket</div>
           <div class="da-stage-sub">:8765 · mDNS</div>
-          <div class="da-stage-sub">25 msg types</div>
+          <div class="da-stage-sub">29 msg types (23 in / 6 out)</div>
         </div>
       </div>
 
@@ -123,7 +123,7 @@
         <div class="da-stage-header">Routing</div>
         <div class="da-stage-box">
           <div class="da-stage-name">Coordinator</div>
-          <div class="da-stage-sub">4-gate routing</div>
+          <div class="da-stage-sub">5-gate routing</div>
           <div class="da-stage-pills">
             <div class="da-mini-pill blue">llama3.1:8b</div>
             <div class="da-mini-pill amber">Anthropic API</div>
@@ -293,7 +293,7 @@
 
   <section class="section">
     <div class="da-diagram-label">Diagram 5</div>
-    <div class="da-diagram-title">4-Gate Routing Pipeline</div>
+    <div class="da-diagram-title">5-Gate Routing Pipeline (Gate 0 + Gates 1&ndash;4)</div>
 
     <div class="da-gate-grid">
       <div class="da-gate-flow">
@@ -301,24 +301,24 @@
           <div class="da-gate-circle warn">G0</div>
           <div class="da-gate-content">
             <div class="da-gate-title">Gate 0 — Privacy Screen</div>
-            <div class="da-gate-desc">Blocks commands containing sensitive patterns (passwords, API keys). No LLM call made — command is rejected before any model sees it.</div>
-            <span class="da-gate-outcome warn">&rarr; REJECT or pass</span>
+            <div class="da-gate-desc">Detects sensitive patterns (passwords, API keys, SSNs, card numbers) and forces local inference silently — nothing sensitive ever leaves the machine.</div>
+            <span class="da-gate-outcome warn">&rarr; force local or pass</span>
           </div>
         </div>
         <div class="da-gate-step">
           <div class="da-gate-circle">G1</div>
           <div class="da-gate-content">
-            <div class="da-gate-title">Gate 1 — Domain Classification</div>
-            <div class="da-gate-desc">Keyword scoring classifies intent into COMMAND, CODE, MATH, VISION, PLAN, or GENERAL. Routes to the appropriate inference path.</div>
-            <span class="da-gate-outcome">&rarr; domain label</span>
+            <div class="da-gate-title">Gate 1 — Confidence</div>
+            <div class="da-gate-desc">Whisper logprob &ge; &minus;1.0 or gesture confidence &ge; 0.60. Low-confidence voice triggers re-transcription rather than guessing.</div>
+            <span class="da-gate-outcome">&rarr; pass or cloud fallback</span>
           </div>
         </div>
         <div class="da-gate-step">
           <div class="da-gate-circle">G2</div>
           <div class="da-gate-content">
-            <div class="da-gate-title">Gate 2 — Local Inference</div>
-            <div class="da-gate-desc">Command domain: llama3.1:8b (verb-first, 190ms warm). Dev domains: specialist model via ModelRouter (qwen3-coder, deepseek-r1, etc.). 15s circuit-breaker &rarr; CLARIFY.</div>
-            <span class="da-gate-outcome">&rarr; Command or fallthrough</span>
+            <div class="da-gate-title">Gate 2 — Complexity</div>
+            <div class="da-gate-desc">Token-count proxy &le; 40 words for the fast local path. DomainClassifier routes dev-domain queries (CODE/MATH/VISION/PLAN) to a specialist model via ModelRouter.</div>
+            <span class="da-gate-outcome">&rarr; local candidate or specialist</span>
           </div>
         </div>
       </div>
@@ -327,20 +327,24 @@
         <div class="da-gate-step">
           <div class="da-gate-circle">G3</div>
           <div class="da-gate-content">
-            <div class="da-gate-title">Gate 3 — Cloud Fallback</div>
-            <div class="da-gate-desc">When local inference times out or scores low confidence. Command domain &rarr; claude-haiku-4-5. Dev domain &rarr; claude-opus-4-8. 10s timeout circuit-breaker.</div>
-            <span class="da-gate-outcome">&rarr; Command or CLARIFY</span>
+            <div class="da-gate-title">Gate 3 — VRAM</div>
+            <div class="da-gate-desc">&ge; 8 GB free VRAM required (absolute floor, not a percentage) — tuned for an RTX 5090 running Whisper large-v3 alongside the resident LLM.</div>
+            <span class="da-gate-outcome">&rarr; local or cloud fallback</span>
           </div>
         </div>
         <div class="da-gate-step">
           <div class="da-gate-circle">G4</div>
           <div class="da-gate-content">
-            <div class="da-gate-title">Gate 4 — Execution &amp; Verification</div>
-            <div class="da-gate-desc">CommandExecutor maps verb &rarr; MCP tool call. ActionVerifier does perceptual diff (pre/post screenshot) for CLICK, OPEN, CLOSE, SCROLL. UIAutomation finds targets by fuzzy name.</div>
-            <span class="da-gate-outcome">&rarr; ack + status reply to iPad</span>
+            <div class="da-gate-title">Gate 4 — Latency Budget</div>
+            <div class="da-gate-desc">Estimated local latency must beat the source modality&rsquo;s target. Local: llama3.1:8b, verb-first, ~190ms warm; 15s circuit-breaker &rarr; CLARIFY. Cloud: claude-haiku-4-5 (command) / claude-opus-4-8 (dev), 10s timeout.</div>
+            <span class="da-gate-outcome">&rarr; local execution or Anthropic API</span>
           </div>
         </div>
       </div>
+    </div>
+
+    <div class="da-note">
+      After routing, <code>CommandExecutor</code> maps each verb to an MCP tool call. <code>ActionVerifier</code> does a perceptual diff (pre/post screenshot) for CLICK, OPEN, CLOSE, and SCROLL; UIAutomation finds targets by fuzzy name. An ack + status reply streams back to the iPad.
     </div>
   </section>
 
@@ -353,7 +357,7 @@
         <div class="da-stack-label blue">Sensor Hub</div>
         <div class="da-stack-list">
           iPad Pro (home-button)<br>
-          SwiftUI · 41 Swift files<br>
+          SwiftUI · 57 Swift files<br>
           Core Motion · Speech<br>
           ARWorldTracking (LiDAR)<br>
           MediaPipe (gesture)<br>
@@ -395,7 +399,7 @@
     </div>
 
     <div class="da-note">
-      682 passing tests · Python + Swift · Windows 11 + iPad Pro.
+      761 passing tests (714 test functions across 62 files) · Python + Swift · Windows 11 + iPad Pro.
     </div>
   </section>
 

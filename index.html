@@ -12,13 +12,13 @@
   <meta property="og:description" content="Portfolio — machine learning, quantum computing, systems networking, and healthcare software." />
   <meta property="og:type" content="website" />
   <meta property="og:url" content="https://bradtarver.com" />
-  <meta property="og:image" content="https://bradtarver.com/assets/og-image.svg" />
+  <meta property="og:image" content="https://bradtarver.com/assets/og-image.png" />
 
   <!-- Twitter Card -->
   <meta name="twitter:card" content="summary_large_image" />
   <meta name="twitter:title" content="Brad Tarver · CS @ TAMU-RELLIS" />
   <meta name="twitter:description" content="Portfolio — machine learning, quantum computing, systems networking, and healthcare software." />
-  <meta name="twitter:image" content="https://bradtarver.com/assets/og-image.svg" />
+  <meta name="twitter:image" content="https://bradtarver.com/assets/og-image.png" />
 
   <!-- Favicon (inline SVG) -->
   <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><rect width='100' height='100' rx='16' fill='%23185FA5'/><text x='50' y='68' font-family='system-ui' font-size='48' font-weight='700' fill='white' text-anchor='middle'>BT</text></svg>" />
@@ -127,7 +127,7 @@
   <section class="hero">
     <div class="badge">IBM Qiskit Advocate</div>
     <h1>Building across AI,<br>cloud, and quantum.</h1>
-    <p class="hero-tagline">Flagship project: a personal, local-first agent operating system for adaptive accessibility &mdash; voice, gaze, gesture, and touch on a six-module AIOS kernel.</p>
+    <p class="hero-tagline">Flagship project: a personal, local-first agent operating system for adaptive accessibility &mdash; voice, gesture, tilt, and touch on a six-module AIOS kernel.</p>
     <p class="hero-sub">
       Computer Science student at Texas A&amp;M-RELLIS, graduating December 2026.
       Projects spanning machine learning, quantum computing, systems networking,
@@ -146,8 +146,8 @@
 
     <div class="currently-building">
       <div class="currently-building-label">// Currently building</div>
-      <p class="currently-building-title">Personal Desktop Agent — G5: Gaze Calibration &amp; Measurement</p>
-      <p class="currently-building-desc">Completing voice-triggered gaze-monitor calibration and the paired iPad UI (G5 — final kernel milestone). Then shifting to longitudinal measurement: logging within-subject performance across good-day and flare-day variation, converting projected grounding figures to observed results.</p>
+      <p class="currently-building-title">Personal Desktop Agent — Continuous Learning &amp; Soak Testing</p>
+      <p class="currently-building-desc">Hardening the continuous-learning loop &mdash; counterexample-poisoning guards, circuit-breaker and rate-limiter fixes on the cloud egress path &mdash; while running a multi-day soak test ahead of a recorded demo. Next: longitudinal measurement, logging within-subject performance across good-day and flare-day variation.</p>
     </div>
   </section>
 
@@ -167,7 +167,7 @@
       <div class="about-bio">
         <p>I build things, it's always been how I think. Give me a problem and my first instinct is to figure out how to engineer a solution.</p>
         <p>What drew me to software was a specific problem I care deeply about: making computing genuinely accessible to people who need adaptive tools to use it, informed by my own experience navigating disability. Most interfaces assume a body that works a certain way. I want to help change that, and I think AI is finally at the point where we can.</p>
-        <p>The Desktop Agent is the most direct expression of that conviction. It lets someone control a Windows machine through voice, gaze, gesture, tilt, and touch, fusing ten input modalities into something that doesn't require a keyboard or mouse to operate. Accessibility demands the full stack, so that's where I've gone.</p>
+        <p>The Desktop Agent is the most direct expression of that conviction. It lets someone control a Windows machine through voice, gesture, tilt, and touch, fusing six prioritized sensor channels into something that doesn't require a keyboard or mouse to operate. Accessibility demands the full stack, so that's where I've gone.</p>
         <p>My other work, a quantum vs. classical ML comparison for network intrusion detection, a serverless AWS identity pipeline, a full-stack clinic scheduling system, reflects the same pattern: find a real problem, learn what you need to solve it, build it properly.</p>
         <p>I'm finishing my B.S. in Computer Science at East Texas A&amp;M University in December 2026, looking for roles at the intersection of AI, adaptive systems, and full-stack engineering, somewhere that sees accessibility as a core feature, not a compliance checkbox.</p>
       </div>
@@ -247,7 +247,6 @@
         <div class="skills-group-label">Frameworks &amp; Libraries</div>
         <div class="skills-row">
           <span class="pill">Django</span>
-          <span class="pill">.NET MAUI</span>
           <span class="pill">Blazor</span>
           <span class="pill">PyTorch</span>
           <span class="pill">Qiskit</span>
@@ -372,52 +371,48 @@
 /* ── DESKTOP AGENT CONFIG ─────────────────────────────────────────── */
 const DESKTOP_AGENT = {
   name: 'Personal Desktop Agent',
-  description: 'Personal, local-first agent operating system for adaptive accessibility. A single-user AIOS kernel &mdash; real-time sensor scheduler, behavioral twin, semantic memory, tool manager, and privacy gate &mdash; enabling hands-free Windows control through voice, gaze, gesture, tilt, and touch. Measured: 100% command accuracy; 373ms warm local path; CLICK grounding 42% &rarr; 92%.',
-  repoUrl: 'https://github.com/Bradly187/Personal_Desktop_Agent',
+  description: 'Personal, local-first agent operating system for adaptive accessibility. A single-user AIOS kernel &mdash; real-time sensor scheduler, behavioral twin, semantic memory, tool manager, and privacy gate &mdash; enabling hands-free Windows control through voice, gesture, tilt, and touch. Measured: 100% command accuracy; ~190ms warm local path; CLICK grounding 42% &rarr; 92%.',
+  repoUrl: 'https://github.com/Bradly187/Personal-Desktop-Agent',
   detailUrl: '/projects/desktop-agent.html',
   stats: [
-    { value: 10, label: 'Input Modalities' },
+    { value: 6, label: 'Sensor Channels' },
     { value: 16, label: 'Action Verbs' },
-    { value: 373, suffix: 'ms', label: 'Local Latency (warm)' },
+    { value: 190, suffix: 'ms', label: 'Local Latency (warm)' },
     { value: 100, suffix: '%', label: 'Command Accuracy' },
     { value: 60, suffix: 'Hz', label: 'Fusion Rate' },
   ],
-  techBadges: ['Python', 'Swift', 'Whisper', 'MediaPipe', 'MCP', 'vLLM', 'ChromaDB', 'Ollama', 'AWS Bedrock', 'aiosqlite', 'DuckDB', 'WebSocket'],
+  techBadges: ['Python', 'Swift', 'Whisper', 'MediaPipe', 'MCP', 'vLLM', 'ChromaDB', 'Ollama', 'Anthropic API', 'aiosqlite', 'DuckDB', 'WebSocket'],
   architecture: [
-    { name: 'MCP Server', desc: 'Exposes 14 desktop control tools (mouse, keyboard, screen, windows) to Claude via stdio transport. Executes 16 action verbs across all input channels.' },
-    { name: 'iPad Bridge', desc: 'WebSocket server handling 13 incoming sensor message types and 4 outgoing reply types, dispatching to processing pipelines.' },
-    { name: 'Fusion Engine', desc: 'Merges 10 input modalities at 60Hz using fixed-priority arbitration (10 levels) with conflict detection when multiple cursor sources are active simultaneously.' },
+    { name: 'MCP Server', desc: 'Exposes 15 desktop control tools (mouse, keyboard, screen, windows) to Claude via stdio transport. Executes 16 action verbs across all input channels.' },
+    { name: 'iPad Bridge', desc: 'WebSocket server handling 23 incoming sensor message types and 6 outgoing reply types, dispatching to processing pipelines.' },
+    { name: 'Fusion Engine', desc: 'Merges sensor input at 60Hz using fixed-priority arbitration (6 levels) with conflict detection when multiple cursor sources are active simultaneously.' },
     { name: 'Hybrid Coordinator', desc: '5-gate routing engine (Gate 0 privacy + Gates 1–4) deciding local vs. cloud inference based on confidence, complexity, and GPU load.' },
-    { name: 'Local Inference', desc: 'Whisper large-v3 + llama3.1:8b on RTX 5090 (Ollama); vLLM 0.21.0 confirmed working via Ubuntu WSL2, CUDA 12.8 / sm_120. Measured: 100% accuracy; 373ms warm median.' },
+    { name: 'Local Inference', desc: 'Whisper large-v3 + llama3.1:8b on RTX 5090 (Ollama); vLLM 0.21.0 confirmed working via Ubuntu WSL2, CUDA 12.8 / sm_120. Measured: 100% accuracy; ~190ms warm p50.' },
     { name: 'Behavioral Twin', desc: 'Persistent per-user state model (BehavioralTwinState + pain-day engine). On flare days: VAD and logprob floors relax, gesture velocity floors drop to p10 of observed samples (&minus;30%), fusion confidence thresholds loosen across six axes.' },
     { name: 'Grounding Engine', desc: '4-tier fallback (UIAutomation &rarr; vision API &rarr; OCR &rarr; clarify) raises CLICK resolution from ~42% to ~92%. Resolves ambiguous targets before invoking the model.' },
     { name: 'Gesture + LiDAR', desc: 'MediaPipe hand landmark detection for POINT/PINCH/OPEN_PALM/FIST; LiDAR depth map (256&times;192) used for 3D pinch distance validation at &lt;30mm threshold.' },
     { name: 'Domain Classifier', desc: 'Keyword-scoring classifier routes commands to the accessibility pipeline or one of 5 dev domains (CODE/MATH/VISION/PLAN/GENERAL).' },
     { name: 'Dev Agent', desc: 'Plan&rarr;execute&rarr;reflect agentic loop; selects specialist model per domain via ModelRouter; emits 5 dev verbs (WRITE_FILE, RUN_TERMINAL, EXPLAIN, SEARCH_WEB, READ_SCREEN).' },
-    { name: 'AgentDB / AnalyticsDB', desc: 'aiosqlite 27-table pipeline store + DuckDB benchmark analytics; ChromaDB + MiniLM-L6 semantic few-shot retrieval for routing decisions. Jaccard fallback.' },
+    { name: 'AgentDB / AnalyticsDB', desc: 'aiosqlite 43-table pipeline store + DuckDB benchmark analytics; ChromaDB + MiniLM-L6 semantic few-shot retrieval for routing decisions. Jaccard fallback.' },
   ],
   aiosKernel: [
-    { module: 'Scheduler', impl: 'fusion_engine.py', note: '60Hz tick loop; 10-level fixed-priority arbitration over physical sensor channels — multimodal, not text-agent, scheduling' },
+    { module: 'Scheduler', impl: 'fusion_engine.py', note: '60Hz tick loop; 6-level fixed-priority arbitration over physical sensor channels — multimodal, not text-agent, scheduling' },
     { module: 'Context manager', impl: 'behavioral_twin_state.py + per-command assembly', note: 'User physiological state + few-shot context assembled before each gate decision' },
     { module: 'Memory manager', impl: 'semantic_memory.py (ChromaDB / MiniLM)', note: 'Semantic few-shot retrieval; Jaccard fallback for routing decisions' },
-    { module: 'Storage manager', impl: 'db.py — AgentDB (27 tables) + DuckDB', note: 'All pipeline writes; analytics and benchmark history' },
-    { module: 'Tool manager', impl: 'mcp_server/ (14 tools) + command_executor.py (16 verbs)', note: 'Standard MCP transport for the Claude-control path' },
+    { module: 'Storage manager', impl: 'db.py — AgentDB (43 tables) + DuckDB', note: 'All pipeline writes; analytics and benchmark history' },
+    { module: 'Tool manager', impl: 'mcp_server/ (15 tools) + command_executor.py (16 verbs)', note: 'Standard MCP transport for the Claude-control path' },
     { module: 'Access manager', impl: 'Gate 0 + approval_hook.py + audit_log.py', note: 'Append-only audit log; voice-confirmed write gate; privacy filter strips raw sensor data before any cloud call' },
   ],
   sensors: [
-    { priority: 1, source: 'iPad Touch Command', latency: '<100ms', gate: 'Immediate — bypasses LLM' },
-    { priority: 2, source: 'Sound Action', latency: '<50ms', gate: 'Mapped mouth sounds (cluck, pop, hiss)' },
-    { priority: 3, source: 'Gaze Dwell Click', latency: '~300ms', gate: 'Resting gaze auto-clicks after dwell duration' },
-    { priority: 4, source: 'Gaze + Voice "click"', latency: '<200ms', gate: 'Click at gaze coordinates on voice trigger' },
-    { priority: 5, source: 'Gaze + Gesture POINT', latency: '<200ms', gate: 'Click at gaze coordinates on point gesture' },
-    { priority: 6, source: 'Tilt Navigation', latency: '<50ms', gate: 'iPad tilt moves cursor via Core Motion' },
-    { priority: 7, source: 'Head Tracking', latency: '<100ms', gate: 'Head pose moves cursor via ARKit' },
-    { priority: 8, source: 'Gesture Alone', latency: '<50ms', gate: 'Hand gesture via iPad camera + MediaPipe; LiDAR depth validates 3D pinch/grab' },
-    { priority: 9, source: 'On-device Voice Keyword', latency: '<150ms', gate: 'Speech Framework fast-path match' },
-    { priority: 10, source: 'PC-transcribed Voice', latency: '<600ms', gate: 'Full Whisper + LLM pipeline' },
+    { priority: 1, source: 'iPad Touch Command', latency: '<5ms', gate: 'Immediate — bypasses LLM entirely' },
+    { priority: 2, source: 'Voice "click" keyword', latency: '<20ms', gate: 'Clicks at current cursor position — bypass path' },
+    { priority: 3, source: 'Tilt Navigation', latency: '16ms frame', gate: 'iPad tilt moves cursor via Core Motion; magnetic cursor snap' },
+    { priority: 4, source: 'Hand Gesture', latency: '~30ms', gate: '13-gesture vocabulary via iPad camera + MediaPipe; LiDAR depth validates 3D pinch/grab' },
+    { priority: 5, source: 'On-device Voice Keyword', latency: '~50ms', gate: 'iPad Speech Framework fast-path match' },
+    { priority: 6, source: 'PC-transcribed Voice', latency: '~190ms', gate: 'Full Whisper large-v3 + LLM pipeline; Silero VAD gating' },
   ],
   routing: {
-    mermaidDef: 'graph TD\n    A[Input Received] --> G0{Gate 0: Privacy}\n    G0 -->|Sensitive pattern detected| LOC[Force Local]\n    G0 -->|Clean| B{Gate 1: Confidence}\n    B -->|Whisper logprob ≥ -1.0 / gesture ≥ 0.60| C{Gate 2: Complexity}\n    B -->|Below threshold| F[AgentCore / Bedrock Fallback]\n    C -->|Token count ≤ 40| D{Gate 3: VRAM}\n    C -->|Complex / multi-step| F\n    D -->|≥ 8 GB free| E{Gate 4: Latency Budget}\n    D -->|GPU saturated| F\n    E -->|Within budget| G[Local Execution]\n    E -->|Over budget| F',
+    mermaidDef: 'graph TD\n    A[Input Received] --> G0{Gate 0: Privacy}\n    G0 -->|Sensitive pattern detected| LOC[Force Local]\n    G0 -->|Clean| B{Gate 1: Confidence}\n    B -->|Whisper logprob ≥ -1.0 / gesture ≥ 0.60| C{Gate 2: Complexity}\n    B -->|Below threshold| F[Cloud Fallback - Anthropic API]\n    C -->|Token count ≤ 40| D{Gate 3: VRAM}\n    C -->|Complex / multi-step| F\n    D -->|≥ 8 GB free| E{Gate 4: Latency Budget}\n    D -->|GPU saturated| F\n    E -->|Within budget| G[Local Execution]\n    E -->|Over budget| F',
     gates: [
       { name: 'Privacy Gate (0)', criteria: 'Detects sensitive patterns (passwords, tokens, SSNs, card numbers) \u2014 forces local silently, no cloud exposure' },
       { name: 'Confidence Gate (1)', criteria: 'Whisper logprob \u2265 -1.0 or gesture confidence \u2265 0.60; low-confidence voice triggers re-transcription' },
@@ -425,12 +420,12 @@ const DESKTOP_AGENT = {
       { name: 'VRAM Gate (3)', criteria: '\u2265 8 GB free VRAM required (absolute floor, not percentage) \u2014 tuned for RTX 5090 alongside Whisper' },
       { name: 'Latency Budget Gate (4)', criteria: 'Estimated local inference latency < source latency target for that input modality' },
     ],
-    fallbackText: 'Input \u2192 Privacy Gate \u2192 Confidence Gate \u2192 Complexity Gate \u2192 VRAM Gate \u2192 Latency Gate \u2192 Local or AgentCore/Bedrock'
+    fallbackText: 'Input \u2192 Privacy Gate \u2192 Confidence Gate \u2192 Complexity Gate \u2192 VRAM Gate \u2192 Latency Gate \u2192 Local or Anthropic API cloud fallback'
   },
   techStack: {
     pc: ['Python 3.11+', 'faster-whisper', 'silero-vad', 'MediaPipe', 'pyautogui', 'MCP SDK', 'aiohttp', 'aiosqlite', 'DuckDB', 'Ollama', 'vLLM', 'ChromaDB', 'MiniLM-L6'],
-    ipad: ['Swift/SwiftUI', 'Core Motion', 'ARKit (LiDAR + Face Tracking)', 'Speech Framework', 'AVFoundation'],
-    cloud: ['Amazon Bedrock (Claude)', 'AWS AgentCore'],
+    ipad: ['Swift/SwiftUI', 'Core Motion', 'ARKit (LiDAR)', 'Speech Framework', 'AVFoundation'],
+    cloud: ['Anthropic API (claude-haiku-4-5 / opus-4-8 / sonnet-4-6)', 'Amazon Polly (TTS)'],
   },
 };
 
@@ -615,34 +610,35 @@ const DESKTOP_AGENT = {
 /* ── NIDS PROJECT CONFIG ───────────────────────────────────────────── */
 const NIDS_PROJECT = {
   name: 'Network Intrusion Detection: Classical vs. Quantum ML',
-  description: 'Benchmarked classical and quantum ML on 148K NSL-KDD records. MLP led at 94.6% binary accuracy and 95.0% F1; quantum transfer learning reached 89.3% accuracy on 4 qubits — near-classical performance at current qubit scale. CSCI 459 — AI Enhanced Security, Texas A&M.',
+  description: 'Benchmarked classical, deep learning, and quantum ML on NSL-KDD (125,973 train / 22,544 test records under deliberate distribution shift). MLP led at 79.9% binary accuracy and 0.791 F1 against a 43.1% dummy baseline; a 6-qubit variational quantum classifier reached 77.5% accuracy — near-classical performance at current qubit scale. Includes an honestly reported negative result: 4-qubit quantum transfer learning failed to converge (F1 = 0). CSCI 459 — AI Enhanced Security, Texas A&M.',
   repoUrl: 'https://github.com/Bradly187/NIDS_ML_Project',
   figuresUrl: 'https://github.com/Bradly187/NIDS_ML_Project/tree/main/figures',
+  dashboardUrl: '/nids-dashboard/',
   detailUrl: '/projects/nids.html',
   stats: [
     { value: 125973, label: 'Training Records' },
     { value: 22544, label: 'Test Records' },
     { value: 41, label: 'Features' },
     { value: 5, label: 'Attack Classes' },
-    { value: 3, label: 'Model Types' },
+    { value: 5, label: 'Model Types' },
   ],
   techBadges: ['Python', 'scikit-learn', 'PyTorch', 'Qiskit', 'Amazon Braket', 'PennyLane', 'NumPy', 'matplotlib'],
   models: [
-    { name: 'PCA + SVM (RBF)', category: 'Classical', binaryAcc: 0.9245, binaryF1: 0.9312, multiAcc: 0.7891, multiF1: 0.6234 },
-    { name: 'MLP (PyTorch)', category: 'Deep Learning', binaryAcc: 0.9456, binaryF1: 0.9501, multiAcc: 0.8123, multiF1: 0.6789 },
-    { name: 'Quantum Transfer', category: 'Quantum', binaryAcc: 0.8934, binaryF1: 0.8876, multiAcc: 0.7234, multiF1: 0.5612 },
+    { name: 'MLP (PyTorch)', category: 'Deep Learning', binaryAcc: 0.7991, binaryF1: 0.7905, multiAcc: 0.7817, multiF1: 0.7456 },
+    { name: 'PCA + SVM (RBF)', category: 'Classical', binaryAcc: 0.7756, binaryF1: 0.7614, multiAcc: 0.7402, multiF1: 0.6942 },
+    { name: 'Braket VQC (6 qubits)', category: 'Quantum', binaryAcc: 0.7750, binaryF1: 0.7594, multiAcc: null, multiF1: null },
   ],
   pipeline: {
-    mermaidDef: 'graph LR\n    A[Raw NSL-KDD] --> B[One-Hot Encoding]\n    B --> C[Standard Scaling]\n    C --> D[PCA - 30 components]\n    D --> E1[SVM Training]\n    D --> E2[MLP Training]\n    D --> E3[Quantum Circuit]',
-    fallbackText: 'Raw NSL-KDD \u2192 One-Hot Encoding \u2192 Standard Scaling \u2192 PCA (30 components) \u2192 SVM / MLP / Quantum'
+    mermaidDef: 'graph LR\n    A[Raw NSL-KDD] --> B[One-Hot Encoding]\n    B --> C[Standard Scaling]\n    C --> D[PCA - 24 components]\n    D --> E1[SVM Training]\n    D --> E2[MLP Training]\n    D --> E3[Quantum Circuit]',
+    fallbackText: 'Raw NSL-KDD \u2192 One-Hot Encoding \u2192 Standard Scaling \u2192 PCA (24 components, \u226595% variance) \u2192 SVM / MLP / Quantum'
   },
   quantum: {
-    qubits: 4,
-    ansatz: 'real_amplitudes (reps=2)',
-    featureMap: 'zz_feature_map (reps=1)',
-    epochs: 20,
-    trainingTime: '~874s',
-    backends: ['IBM Quantum Heron R2', 'Amazon Braket simulators'],
+    qubits: 6,
+    ansatz: 'StronglyEntanglingLayers (3 layers)',
+    featureMap: 'AngleEmbedding (RY)',
+    epochs: 30,
+    trainingTime: '~1542s (500/200 subset)',
+    backends: ['Amazon Braket simulator (PennyLane)', 'IBM Quantum Heron R2 (ibm_fez) \u2014 QSVC'],
   },
   dataset: {
     classes: ['Normal', 'DoS', 'Probe', 'R2L', 'U2R'],
@@ -661,6 +657,7 @@ const NIDS_PROJECT = {
       '<p>' + NIDS_PROJECT.description + '</p>' +
       '<span class="badge" style="margin-bottom: 1rem;">CSCI 459 — AI Enhanced Security, Texas A&amp;M</span><br>' +
       '<a class="github-link" href="' + NIDS_PROJECT.detailUrl + '" style="margin-right:1rem;">Full detail page &rarr;</a>' +
+      '<a class="github-link" href="' + NIDS_PROJECT.dashboardUrl + '" target="_blank" rel="noopener" style="margin-right:1rem;">Interactive dashboard &rarr;</a>' +
       '<a class="github-link" href="' + NIDS_PROJECT.repoUrl + '" target="_blank" rel="noopener">View on GitHub &rarr;</a> ' +
       '<a class="github-link" href="' + NIDS_PROJECT.figuresUrl + '" target="_blank" rel="noopener" style="margin-left: 1rem;">View Figures &rarr;</a>';
   }
@@ -724,12 +721,12 @@ const NIDS_PROJECT = {
         var columns = ['binaryAcc', 'binaryF1', 'multiAcc', 'multiF1'];
         var columnLabels = ['Binary Acc', 'Binary F1', 'Multi-Class Acc', 'Multi-Class F1'];
 
-        // Find max value per numeric column
+        // Find max value per numeric column (ignore null — not all models report every metric)
         var maxValues = {};
         columns.forEach(function(col) {
           var max = -Infinity;
           models.forEach(function(m) {
-            if (m[col] > max) max = m[col];
+            if (m[col] != null && m[col] > max) max = m[col];
           });
           maxValues[col] = max;
         });
@@ -750,6 +747,10 @@ const NIDS_PROJECT = {
           html += '<td>' + m.name + '</td>';
           html += '<td>' + m.category + '</td>';
           columns.forEach(function(col) {
+            if (m[col] == null) {
+              html += '<td>&mdash;</td>';
+              return;
+            }
             var isMax = m[col] === maxValues[col];
             html += '<td' + (isMax ? ' class="highlight"' : '') + '>' + m[col].toFixed(4) + '</td>';
           });
@@ -1064,7 +1065,7 @@ const PROJECTS = [
     name: 'Personal Desktop Agent',
     tag: 'Python · Swift · MCP',
     tagClass: 'tag-blue',
-    description: 'Personal, local-first AIOS for adaptive accessibility. Six-module kernel: sensor scheduler, behavioral twin, semantic memory, tool manager, and privacy gate. Measured: 100% cmd accuracy; 373ms warm local path; CLICK grounding 42%&rarr;92%.',
+    description: 'Personal, local-first AIOS for adaptive accessibility. Six-module kernel: sensor scheduler, behavioral twin, semantic memory, tool manager, and privacy gate. Measured: 100% cmd accuracy; ~190ms warm local path; CLICK grounding 42%&rarr;92%.',
     cta: 'View detail page →',
     type: 'DETAIL_PAGE',
     featured: true,
@@ -1075,7 +1076,7 @@ const PROJECTS = [
     name: 'Network Intrusion Detection',
     tag: 'PyTorch · Qiskit · ML',
     tagClass: 'tag-green',
-    description: 'MLP hit 94.6% binary accuracy and 95.0% F1 on 148K NSL-KDD records. Quantum transfer learning reached 89.3% on 4 qubits — near-classical performance at current qubit scale.',
+    description: 'MLP led at 79.9% binary accuracy and 0.791 F1 on the NSL-KDD test set under distribution shift (43.1% dummy baseline). A 6-qubit variational quantum classifier reached 77.5% — near-classical performance at current qubit scale.',
     cta: 'View detail page →',
     type: 'DETAIL_PAGE',
     featured: false,

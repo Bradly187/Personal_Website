@@ -167,12 +167,12 @@
         Append-only audit trail attributing every change to its user, plus HIPAA-style read-access logging on patient records.
       </div>
       <div class="feature-item">
-        <strong>REST API &amp; Integrations</strong>
-        Documented OpenAPI surface with pagination and optimistic concurrency; ingests verified records from the serverless identity pipeline.
+        <strong>REST API</strong>
+        Documented OpenAPI surface with pagination and optimistic concurrency via PostgreSQL xmin row versioning.
       </div>
       <div class="feature-item">
-        <strong>Cross-Platform Client</strong>
-        Blazor web (Server + WebAssembly) with a .NET MAUI shell — one codebase, multiple targets.
+        <strong>Hybrid Blazor Client</strong>
+        Interactive Server and WebAssembly render modes from a single shared UI project — per-page render-mode selection.
       </div>
       <div class="feature-item">
         <strong>Production Observability</strong>
@@ -211,8 +211,7 @@
       <div class="tech-stack-group">
         <div class="tech-stack-label">Frontend</div>
         <div class="tech-stack-pills">
-          <span class="tech-badge">Blazor</span>
-          <span class="tech-badge">.NET MAUI</span>
+          <span class="tech-badge">Blazor (Server + WASM)</span>
           <span class="tech-badge">MudBlazor</span>
           <span class="tech-badge">C#</span>
         </div>
