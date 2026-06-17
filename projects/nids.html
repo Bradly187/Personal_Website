@@ -40,7 +40,7 @@
     <p class="hero-sub">
       Systematic comparison of PCA+SVM, deep learning (MLP), and quantum ML approaches
       for network intrusion detection on the NSL-KDD dataset.
-      CSCI 459 — AI Enhanced Security, Texas A&amp;M-RELLIS.
+      CSCI 459 | AI Enhanced Security, Texas A&amp;M-RELLIS.
     </p>
     <div class="hero-actions">
       <a href="/nids-dashboard/" target="_blank" rel="noopener" class="btn-primary">Interactive Dashboard &rarr;</a>
@@ -76,19 +76,19 @@
     <div class="arch-cards">
       <div class="arch-card expanded">
         <div class="arch-card-name">MLP (PyTorch) — Best Overall</div>
-        <div class="arch-card-desc">79.9% binary accuracy, 0.791 F1 on the full 22,544-record KDDTest+ set — against a 43.1% dummy baseline under NSL-KDD's deliberate train/test distribution shift. Led every metric, including 5-class (78.2% acc, 0.746 weighted F1).</div>
+        <div class="arch-card-desc">79.9% binary accuracy, 0.791 F1 on the full 22,544-record KDDTest+ set, against a 43.1% dummy baseline under NSL-KDD's deliberate train/test distribution shift. Led every metric, including 5-class (78.2% acc, 0.746 weighted F1).</div>
       </div>
       <div class="arch-card expanded">
         <div class="arch-card-name">PCA + SVM (RBF) — Strong Classical Baseline</div>
-        <div class="arch-card-desc">77.6% binary accuracy, 0.761 F1 with GridSearchCV-tuned hyperparameters (C=100, RBF) — competitive with far less compute. Multi-class performance (74.0% acc) was limited by class imbalance in R2L and U2R.</div>
+        <div class="arch-card-desc">77.6% binary accuracy, 0.761 F1 with GridSearchCV-tuned hyperparameters (C=100, RBF), competitive with far less compute. Multi-class performance (74.0% acc) was limited by class imbalance in R2L and U2R.</div>
       </div>
       <div class="arch-card expanded">
         <div class="arch-card-name">Variational Quantum Classifier — Near-Classical on 6 Qubits</div>
-        <div class="arch-card-desc">77.5% binary accuracy, 0.759 F1 with AngleEmbedding + StronglyEntanglingLayers on a PennyLane/Braket simulator (500/200 train/test subset) — within ~2 points of the full classical models at current qubit scale. A quantum-kernel QSVC was also run on IBM Quantum Heron R2 (ibm_fez).</div>
+        <div class="arch-card-desc">77.5% binary accuracy, 0.759 F1 with AngleEmbedding + StronglyEntanglingLayers on a PennyLane/Braket simulator (500/200 train/test subset) | within ~2 points of the full classical models at current qubit scale. A quantum-kernel QSVC was also run on IBM Quantum Heron R2 (ibm_fez).</div>
       </div>
       <div class="arch-card expanded">
-        <div class="arch-card-name">Quantum Transfer Learning — Honest Negative Result</div>
-        <div class="arch-card-desc">A 4-qubit transfer-learning head (real_amplitudes, reps=2) failed to learn a decision boundary — 43% accuracy, F1 = 0 after ~874s of training. Reported as-is: documenting what doesn't work at current qubit counts is part of the comparison.</div>
+        <div class="arch-card-name">Quantum Transfer Learning | Honest Negative Result</div>
+        <div class="arch-card-desc">A 4-qubit transfer-learning head (real_amplitudes, reps=2) failed to learn a decision boundary | 43% accuracy, F1 = 0 after ~874s of training. Reported as-is: documenting what doesn't work at current qubit counts is part of the comparison.</div>
       </div>
     </div>
   </section>
@@ -177,7 +177,7 @@
     </div>
     <div class="dataset-note">
       <div class="dataset-note-label">Distribution Shift</div>
-      <p>The test set has a different class distribution than training, simulating real-world distribution shift — a deliberate challenge in the NSL-KDD benchmark.</p>
+      <p>The test set has a different class distribution than training, simulating real-world distribution shift posing a deliberate challenge in the NSL-KDD benchmark.</p>
     </div>
   </section>
 

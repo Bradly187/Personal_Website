@@ -39,8 +39,8 @@
     <h1>Identity Verification Pipeline</h1>
     <p class="hero-sub">
       Serverless patient and therapist onboarding system replacing manual identity checks
-      with a fully automated parallel workflow. Three Step Functions branches run simultaneously —
-      face match, license OCR, and insurance extraction — with results merged and stored in seconds.
+      with a fully automated parallel workflow. Three Step Functions branches run simultaneously:
+      face match, license OCR, and insurance extraction with results merged and stored in seconds.
     </p>
     <div class="hero-actions">
       <a href="https://github.com/Bradly187/Patient_Onboard_SAM" target="_blank" rel="noopener" class="btn-primary">View on GitHub &rarr;</a>
@@ -76,12 +76,12 @@
     <div class="section-label">// Architecture</div>
     <div class="arch-cards">
       <div class="arch-card expanded"><div class="arch-card-name">S3 Document Bucket</div><div class="arch-card-desc">Encrypted, private bucket storing patient/therapist images. EventBridge triggers workflow on selfie upload.</div></div>
-      <div class="arch-card expanded"><div class="arch-card-name">EventBridge Rules</div><div class="arch-card-desc">Decoupled event routing — detects _selfie.png or _therapist_selfie.png uploads and starts the correct state machine.</div></div>
+      <div class="arch-card expanded"><div class="arch-card-name">EventBridge Rules</div><div class="arch-card-desc">Decoupled event routing: detects _selfie.png or _therapist_selfie.png uploads and starts the correct state machine.</div></div>
       <div class="arch-card expanded"><div class="arch-card-name">Step Functions (Patient)</div><div class="arch-card-desc">Orchestrates 3 parallel branches: face comparison, license OCR, and insurance extraction. Merges results and stores verification.</div></div>
       <div class="arch-card expanded"><div class="arch-card-name">Step Functions (Therapist)</div><div class="arch-card-desc">Parallel branches: face comparison, medical license verification, and medical license OCR. Same merge-and-store pattern.</div></div>
       <div class="arch-card expanded"><div class="arch-card-name">CompareFaces Lambda</div><div class="arch-card-desc">Rekognition face match between selfie and driver's license photo. Returns similarity score and match boolean.</div></div>
-      <div class="arch-card expanded"><div class="arch-card-name">ExtractLicense Lambda</div><div class="arch-card-desc">Textract analyze_id to OCR driver's license — extracts name, DOB, address as structured data.</div></div>
-      <div class="arch-card expanded"><div class="arch-card-name">ExtractInsurance Lambda</div><div class="arch-card-desc">Textract analyze_document with Queries to read insurance card — carrier, policy number, group ID.</div></div>
+      <div class="arch-card expanded"><div class="arch-card-name">ExtractLicense Lambda</div><div class="arch-card-desc">Textract analyze_id to OCR driver's license: extracts name, DOB, address as structured data.</div></div>
+      <div class="arch-card expanded"><div class="arch-card-name">ExtractInsurance Lambda</div><div class="arch-card-desc">Textract analyze_document with Queries to read insurance card: carrier, policy number, group ID.</div></div>
       <div class="arch-card expanded"><div class="arch-card-name">VerifyMedicalLicense Lambda</div><div class="arch-card-desc">Calls an external medical board registry to validate therapist license number and status.</div></div>
       <div class="arch-card expanded"><div class="arch-card-name">StoreVerification Lambda</div><div class="arch-card-desc">Aggregates parallel results, writes to DynamoDB, and POSTs verification to the ClinicScheduler API.</div></div>
       <div class="arch-card expanded"><div class="arch-card-name">DynamoDB + SNS</div><div class="arch-card-desc">Patient/Therapist verification tables with auto-scaling. SNS alerts staff on failures or manual review needed.</div></div>
@@ -103,7 +103,7 @@
     <div class="arch-cards">
       <div class="arch-card expanded"><div class="arch-card-name">Encrypted Storage</div><div class="arch-card-desc">S3 bucket uses AES-256 server-side encryption for all patient images.</div></div>
       <div class="arch-card expanded"><div class="arch-card-name">HTTPS-Only Policy</div><div class="arch-card-desc">Bucket policy denies any request not using secure transport (aws:SecureTransport).</div></div>
-      <div class="arch-card expanded"><div class="arch-card-name">90-Day Lifecycle</div><div class="arch-card-desc">Raw images auto-expire after 90 days — processed data lives in DynamoDB.</div></div>
+      <div class="arch-card expanded"><div class="arch-card-name">90-Day Lifecycle</div><div class="arch-card-desc">Raw images auto-expire after 90 days | processed data lives in DynamoDB.</div></div>
       <div class="arch-card expanded"><div class="arch-card-name">Auto-Scaling DynamoDB</div><div class="arch-card-desc">Read/write capacity scales 2–20 units based on 70% utilization target.</div></div>
       <div class="arch-card expanded"><div class="arch-card-name">X-Ray Tracing</div><div class="arch-card-desc">Active tracing on all Lambda functions and state machines for observability.</div></div>
       <div class="arch-card expanded"><div class="arch-card-name">Point-in-Time Recovery</div><div class="arch-card-desc">DynamoDB tables have PITR enabled for data protection and recovery.</div></div>
