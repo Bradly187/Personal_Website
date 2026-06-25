@@ -146,8 +146,8 @@
 
     <div class="currently-building">
       <div class="currently-building-label">// Currently building</div>
-      <p class="currently-building-title">Personal Desktop Agent — Continuous Learning &amp; Soak Testing</p>
-      <p class="currently-building-desc">Hardening the continuous-learning loop &mdash; counterexample-poisoning guards, circuit-breaker and rate-limiter fixes on the cloud egress path &mdash; while running a multi-day soak test ahead of a recorded demo. Next: longitudinal measurement, logging within-subject performance across good-day and flare-day variation.</p>
+      <p class="currently-building-title">Personal Desktop Agent — Head Tilt Cursor Tracking (L515)</p>
+      <p class="currently-building-desc">Replacing tilt navigation and hand gesture with Intel RealSense L515 head tilt cursor tracking &mdash; depth camera mounted on the PC, head pose angle drives cursor at 60Hz through the existing fusion pipeline. Integrating pyrealsense2 stream into FusionEngine priority slot 3.</p>
     </div>
   </section>
 
@@ -167,7 +167,7 @@
       <div class="about-bio">
         <p>I build things, it's always been how I think. Give me a problem and my first instinct is to figure out how to engineer a solution.</p>
         <p>What drew me to software was a specific problem I care deeply about: making computing genuinely accessible to people who need adaptive tools to use it, informed by my own experience navigating disability. Most interfaces assume a body that works a certain way. I want to help change that, and I think AI is finally at the point where we can.</p>
-        <p>The Desktop Agent is the most direct expression of that conviction. It lets someone control a Windows machine through voice, gesture, tilt, and touch, fusing six prioritized sensor channels into something that doesn't require a keyboard or mouse to operate. Accessibility demands the full stack, so that's where I've gone.</p>
+        <p>The Desktop Agent is the most direct expression of that conviction. It lets someone control a Windows machine through voice, head tilt, and touch, fusing five prioritized sensor channels into something that doesn't require a keyboard or mouse to operate. Accessibility demands the full stack, so that's where I've gone.</p>
         <p>My other work, a quantum vs. classical ML comparison for network intrusion detection, a serverless AWS identity pipeline, a full-stack clinic scheduling system, reflects the same pattern: find a real problem, learn what you need to solve it, build it properly.</p>
         <p>I'm finishing my B.S. in Computer Science at East Texas A&amp;M University in December 2026, looking for roles at the intersection of AI, adaptive systems, and full-stack engineering, somewhere that sees accessibility as a core feature, not a compliance checkbox.</p>
       </div>
@@ -371,51 +371,50 @@
 /* ── DESKTOP AGENT CONFIG ─────────────────────────────────────────── */
 const DESKTOP_AGENT = {
   name: 'Personal Desktop Agent',
-  description: 'Personal, local-first agent operating system for adaptive accessibility. A single-user AIOS kernel &mdash; real-time sensor scheduler, behavioral twin, semantic memory, tool manager, and privacy gate &mdash; enabling hands-free Windows control through voice, gesture, tilt, and touch. Measured: 100% command accuracy; ~190ms warm local path; CLICK grounding 42% &rarr; 92%.',
+  description: 'Personal, local-first agent operating system for adaptive accessibility. A single-user AIOS kernel &mdash; real-time sensor scheduler, behavioral twin, semantic memory, tool manager, and privacy gate &mdash; enabling hands-free Windows control through voice, head tilt, and touch. Measured: 100% command accuracy; ~190ms warm local path; CLICK grounding 42% &rarr; 92%.',
   repoUrl: 'https://github.com/Bradly187/Personal-Desktop-Agent',
   detailUrl: '/projects/desktop-agent.html',
   stats: [
-    { value: 6, label: 'Sensor Channels' },
+    { value: 5, label: 'Sensor Channels' },
     { value: 16, label: 'Action Verbs' },
     { value: 190, suffix: 'ms', label: 'Local Latency (warm)' },
     { value: 100, suffix: '%', label: 'Command Accuracy' },
     { value: 60, suffix: 'Hz', label: 'Fusion Rate' },
   ],
-  techBadges: ['Python', 'Swift', 'Whisper', 'MediaPipe', 'MCP', 'vLLM', 'ChromaDB', 'Ollama', 'Anthropic API', 'aiosqlite', 'DuckDB', 'WebSocket'],
+  techBadges: ['Python', 'Swift', 'Whisper', 'RealSense', 'MCP', 'vLLM', 'ChromaDB', 'Ollama', 'Anthropic API', 'aiosqlite', 'DuckDB', 'WebSocket'],
   architecture: [
     { name: 'MCP Server', desc: 'Exposes 15 desktop control tools (mouse, keyboard, screen, windows) to Claude via stdio transport. Executes 16 action verbs across all input channels.' },
-    { name: 'iPad Bridge', desc: 'WebSocket server handling 23 incoming sensor message types and 6 outgoing reply types, dispatching to processing pipelines.' },
-    { name: 'Fusion Engine', desc: 'Merges sensor input at 60Hz using fixed-priority arbitration (6 levels) with conflict detection when multiple cursor sources are active simultaneously.' },
+    { name: 'iPad Bridge', desc: 'WebSocket server handling 26 incoming sensor message types and 12 outgoing reply types, dispatching to processing pipelines.' },
+    { name: 'Fusion Engine', desc: 'Merges sensor input at 60Hz using fixed-priority arbitration (5 levels) with conflict detection when multiple cursor sources are active simultaneously.' },
     { name: 'Hybrid Coordinator', desc: '5-gate routing engine (Gate 0 privacy + Gates 1–4) deciding local vs. cloud inference based on confidence, complexity, and GPU load.' },
     { name: 'Local Inference', desc: 'Whisper large-v3 + llama3.1:8b on RTX 5090 (Ollama); vLLM 0.21.0 confirmed working via Ubuntu WSL2, CUDA 12.8 / sm_120. Measured: 100% accuracy; ~190ms warm p50.' },
-    { name: 'Behavioral Twin', desc: 'Persistent per-user state model (BehavioralTwinState + pain-day engine). On flare days: VAD and logprob floors relax, gesture velocity floors drop to p10 of observed samples (&minus;30%), fusion confidence thresholds loosen across six axes.' },
+    { name: 'Behavioral Twin', desc: 'Persistent per-user state model (BehavioralTwinState + pain-day engine). On flare days: VAD and logprob floors relax, head tilt speed thresholds drop to p10 of observed samples (&minus;30%), fusion confidence thresholds loosen across five axes.' },
     { name: 'Grounding Engine', desc: '4-tier fallback (UIAutomation &rarr; vision API &rarr; OCR &rarr; clarify) raises CLICK resolution from ~42% to ~92%. Resolves ambiguous targets before invoking the model.' },
-    { name: 'Gesture + LiDAR', desc: 'MediaPipe hand landmark detection for POINT/PINCH/OPEN_PALM/FIST; LiDAR depth map (256&times;192) used for 3D pinch distance validation at &lt;30mm threshold.' },
+    { name: 'Head Tilt (L515)', desc: 'Intel RealSense L515 depth camera tracks head tilt angle at 60Hz for cursor positioning. Depth-to-angle mapping drives smooth cursor movement via the fusion pipeline; One-Euro filter suppresses tremor.' },
     { name: 'Domain Classifier', desc: 'Keyword-scoring classifier routes commands to the accessibility pipeline or one of 5 dev domains (CODE/MATH/VISION/PLAN/GENERAL).' },
-    { name: 'Dev Agent', desc: 'Plan&rarr;execute&rarr;reflect agentic loop; selects specialist model per domain via ModelRouter; emits 5 dev verbs (WRITE_FILE, RUN_TERMINAL, EXPLAIN, SEARCH_WEB, READ_SCREEN).' },
-    { name: 'AgentDB / AnalyticsDB', desc: 'aiosqlite 43-table pipeline store + DuckDB benchmark analytics; ChromaDB + MiniLM-L6 semantic few-shot retrieval for routing decisions. Jaccard fallback.' },
+    { name: 'Dev Agent', desc: 'Plan&rarr;execute&rarr;reflect agentic loop; selects specialist model per domain via ModelRouter; emits 5 dev verbs (WRITE_FILE, RUN_TERMINAL, EXPLAIN, SEARCH_WEB, READ_SCREEN). Independent Critic reviews each diff; Tester generates and runs a focused pytest after every .py write.' },
+    { name: 'AgentDB / AnalyticsDB', desc: 'aiosqlite 48-table pipeline store + DuckDB benchmark analytics; ChromaDB + MiniLM-L6 semantic few-shot retrieval for routing decisions. Jaccard fallback.' },
   ],
   aiosKernel: [
-    { module: 'Scheduler', impl: 'fusion_engine.py', note: '60Hz tick loop; 6-level fixed-priority arbitration over physical sensor channels — multimodal, not text-agent, scheduling' },
+    { module: 'Scheduler', impl: 'fusion_engine.py', note: '60Hz tick loop; 5-level fixed-priority arbitration over physical sensor channels — multimodal, not text-agent, scheduling' },
     { module: 'Context manager', impl: 'behavioral_twin_state.py + per-command assembly', note: 'User physiological state + few-shot context assembled before each gate decision' },
     { module: 'Memory manager', impl: 'semantic_memory.py (ChromaDB / MiniLM)', note: 'Semantic few-shot retrieval; Jaccard fallback for routing decisions' },
-    { module: 'Storage manager', impl: 'db.py — AgentDB (43 tables) + DuckDB', note: 'All pipeline writes; analytics and benchmark history' },
+    { module: 'Storage manager', impl: 'db.py — AgentDB (48 tables) + DuckDB', note: 'All pipeline writes; analytics and benchmark history' },
     { module: 'Tool manager', impl: 'mcp_server/ (15 tools) + command_executor.py (16 verbs)', note: 'Standard MCP transport for the Claude-control path' },
     { module: 'Access manager', impl: 'Gate 0 + approval_hook.py + audit_log.py', note: 'Append-only audit log; voice-confirmed write gate; privacy filter strips raw sensor data before any cloud call' },
   ],
   sensors: [
     { priority: 1, source: 'iPad Touch Command', latency: '<5ms', gate: 'Immediate — bypasses LLM entirely' },
     { priority: 2, source: 'Voice "click" keyword', latency: '<20ms', gate: 'Clicks at current cursor position — bypass path' },
-    { priority: 3, source: 'Tilt Navigation', latency: '16ms frame', gate: 'iPad tilt moves cursor via Core Motion; magnetic cursor snap' },
-    { priority: 4, source: 'Hand Gesture', latency: '~30ms', gate: '13-gesture vocabulary via iPad camera + MediaPipe; LiDAR depth validates 3D pinch/grab' },
-    { priority: 5, source: 'On-device Voice Keyword', latency: '~50ms', gate: 'iPad Speech Framework fast-path match' },
-    { priority: 6, source: 'PC-transcribed Voice', latency: '~190ms', gate: 'Full Whisper large-v3 + LLM pipeline; Silero VAD gating' },
+    { priority: 3, source: 'Head Tilt (L515)', latency: '~16ms', gate: 'Intel RealSense L515 depth camera; head tilt angle drives cursor via One-Euro filtered fusion' },
+    { priority: 4, source: 'On-device Voice Keyword', latency: '~50ms', gate: 'iPad Speech Framework fast-path match' },
+    { priority: 5, source: 'PC-transcribed Voice', latency: '~190ms', gate: 'Full Whisper large-v3 + LLM pipeline; Silero VAD gating' },
   ],
   routing: {
-    mermaidDef: 'graph TD\n    A[Input Received] --> G0{Gate 0: Privacy}\n    G0 -->|Sensitive pattern detected| LOC[Force Local]\n    G0 -->|Clean| B{Gate 1: Confidence}\n    B -->|Whisper logprob ≥ -1.0 / gesture ≥ 0.60| C{Gate 2: Complexity}\n    B -->|Below threshold| F[Cloud Fallback - Anthropic API]\n    C -->|Token count ≤ 40| D{Gate 3: VRAM}\n    C -->|Complex / multi-step| F\n    D -->|≥ 8 GB free| E{Gate 4: Latency Budget}\n    D -->|GPU saturated| F\n    E -->|Within budget| G[Local Execution]\n    E -->|Over budget| F',
+    mermaidDef: 'graph TD\n    A[Input Received] --> G0{Gate 0: Privacy}\n    G0 -->|Sensitive pattern detected| LOC[Force Local]\n    G0 -->|Clean| B{Gate 1: Confidence}\n    B -->|Whisper logprob ≥ -1.0 / head tilt confidence ≥ 0.60| C{Gate 2: Complexity}\n    B -->|Below threshold| F[Cloud Fallback - Anthropic API]\n    C -->|Token count ≤ 40| D{Gate 3: VRAM}\n    C -->|Complex / multi-step| F\n    D -->|≥ 8 GB free| E{Gate 4: Latency Budget}\n    D -->|GPU saturated| F\n    E -->|Within budget| G[Local Execution]\n    E -->|Over budget| F',
     gates: [
       { name: 'Privacy Gate (0)', criteria: 'Detects sensitive patterns (passwords, tokens, SSNs, card numbers) \u2014 forces local silently, no cloud exposure' },
-      { name: 'Confidence Gate (1)', criteria: 'Whisper logprob \u2265 -1.0 or gesture confidence \u2265 0.60; low-confidence voice triggers re-transcription' },
+      { name: 'Confidence Gate (1)', criteria: 'Whisper logprob \u2265 -1.0 or head tilt confidence \u2265 0.60; low-confidence voice triggers re-transcription' },
       { name: 'Complexity Gate (2)', criteria: 'Token count proxy \u2264 40 words; complex/multi-step queries routed to specialist models via DevAgent' },
       { name: 'VRAM Gate (3)', criteria: '\u2265 8 GB free VRAM required (absolute floor, not percentage) \u2014 tuned for RTX 5090 alongside Whisper' },
       { name: 'Latency Budget Gate (4)', criteria: 'Estimated local inference latency < source latency target for that input modality' },
@@ -423,9 +422,9 @@ const DESKTOP_AGENT = {
     fallbackText: 'Input \u2192 Privacy Gate \u2192 Confidence Gate \u2192 Complexity Gate \u2192 VRAM Gate \u2192 Latency Gate \u2192 Local or Anthropic API cloud fallback'
   },
   techStack: {
-    pc: ['Python 3.11+', 'faster-whisper', 'silero-vad', 'MediaPipe', 'pyautogui', 'MCP SDK', 'aiohttp', 'aiosqlite', 'DuckDB', 'Ollama', 'vLLM', 'ChromaDB', 'MiniLM-L6'],
-    ipad: ['Swift/SwiftUI', 'Core Motion', 'ARKit (LiDAR)', 'Speech Framework', 'AVFoundation'],
-    cloud: ['Anthropic API (claude-haiku-4-5 / opus-4-8 / sonnet-4-6)', 'Amazon Polly (TTS)'],
+    pc: ['Python 3.11+', 'faster-whisper', 'silero-vad', 'pyrealsense2', 'pyautogui', 'MCP SDK', 'aiohttp', 'aiosqlite', 'DuckDB', 'Ollama', 'vLLM', 'ChromaDB', 'MiniLM-L6', 'Kokoro TTS'],
+    ipad: ['Swift/SwiftUI', 'Speech Framework', 'AVFoundation'],
+    cloud: ['Anthropic API (claude-haiku-4-5 / opus-4-8 / sonnet-4-6)', 'Amazon Polly (approval gate)'],
   },
 };
 

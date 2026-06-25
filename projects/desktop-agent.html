@@ -41,7 +41,7 @@
       Personal, local-first agent operating system for adaptive accessibility. A single-user
       AIOS kernel &mdash; real-time sensor scheduler, behavioral twin, semantic memory, tool
       manager, and privacy gate &mdash; enabling hands-free Windows control through voice,
-      gesture, tilt, and touch. Built to solve a real problem: computing access under
+      head tilt, and touch. Built to solve a real problem: computing access under
       non-stationary motor capability.
     </p>
     <div class="hero-actions">
@@ -53,7 +53,7 @@
   <section class="section">
     <div class="section-label">// At a glance</div>
     <div class="stats-row">
-      <div class="stat-item"><span class="stat-number">4</span><span class="stat-label">Input Modalities</span></div>
+      <div class="stat-item"><span class="stat-number">3</span><span class="stat-label">Input Modalities</span></div>
       <div class="stat-item"><span class="stat-number">16</span><span class="stat-label">Action Verbs</span></div>
       <div class="stat-item"><span class="stat-number">190ms</span><span class="stat-label">Local Latency (warm)</span></div>
       <div class="stat-item"><span class="stat-number">100%</span><span class="stat-label">Command Accuracy</span></div>
@@ -63,7 +63,7 @@
       <span class="tech-badge">Python</span>
       <span class="tech-badge">Swift</span>
       <span class="tech-badge">Whisper</span>
-      <span class="tech-badge">MediaPipe</span>
+      <span class="tech-badge">RealSense</span>
       <span class="tech-badge">MCP</span>
       <span class="tech-badge">vLLM</span>
       <span class="tech-badge">ChromaDB</span>
@@ -84,13 +84,11 @@
       <div class="da-stage">
         <div class="da-stage-header">Sensor Hub</div>
         <div class="da-stage-box accent">
-          <div class="da-stage-name">iPad Pro</div>
+          <div class="da-stage-name">iPad + L515</div>
           <div class="da-stage-pills">
-            <div class="da-mini-pill blue">Tilt · Core Motion</div>
             <div class="da-mini-pill green">Voice · Speech</div>
-            <div class="da-mini-pill amber">Gesture · Camera</div>
             <div class="da-mini-pill">Touch / Trackpad</div>
-            <div class="da-mini-pill">LiDAR Depth</div>
+            <div class="da-mini-pill amber">Head Tilt · L515</div>
           </div>
         </div>
       </div>
@@ -102,7 +100,7 @@
         <div class="da-stage-box">
           <div class="da-stage-name">WebSocket</div>
           <div class="da-stage-sub">:8765 · mDNS</div>
-          <div class="da-stage-sub">29 msg types (23 in / 6 out)</div>
+          <div class="da-stage-sub">38 msg types (26 in / 12 out)</div>
         </div>
       </div>
 
@@ -112,7 +110,7 @@
         <div class="da-stage-header">Sensor Fusion</div>
         <div class="da-stage-box accent">
           <div class="da-stage-name">Fusion Engine</div>
-          <div class="da-stage-sub">60 Hz · 6-level priority</div>
+          <div class="da-stage-sub">60 Hz · 5-level priority</div>
           <div class="da-stage-sub">Cursor gravity · One€ filter</div>
         </div>
       </div>
@@ -158,9 +156,9 @@
 
     <div class="da-modality-grid">
       <div class="da-modality-card">
-        <div class="da-modality-name">Tilt Navigation</div>
-        <div class="da-modality-desc">iPad tilt drives cursor position or velocity. One-Euro adaptive filter smooths tremor. Pain-day mode relaxes thresholds automatically.</div>
-        <div class="da-modality-tech">Stack: <span>Core Motion</span> · <span>One€ filter</span> · <span>Gyro bias calibration</span></div>
+        <div class="da-modality-name">Head Tilt (L515)</div>
+        <div class="da-modality-desc">Intel RealSense L515 depth camera tracks head tilt angle at 60Hz to drive cursor position. One-Euro adaptive filter suppresses tremor. Pain-day mode relaxes speed thresholds automatically.</div>
+        <div class="da-modality-tech">Stack: <span>pyrealsense2</span> · <span>One€ filter</span> · <span>depth-to-angle mapping</span></div>
       </div>
       <div class="da-modality-card">
         <div class="da-modality-name">Voice Commands</div>
@@ -168,13 +166,8 @@
         <div class="da-modality-tech">Stack: <span>faster-whisper</span> · <span>Silero VAD</span> · <span>Acoustic profiler</span></div>
       </div>
       <div class="da-modality-card">
-        <div class="da-modality-name">Hand Gestures</div>
-        <div class="da-modality-desc">Peace-sign base pose detects 13 spatial gestures: swipes, grabs, snaps, monitor moves, push/pull, pinch. LiDAR validates grab depth.</div>
-        <div class="da-modality-tech">Stack: <span>MediaPipe Tasks</span> · <span>LiDAR depth</span> · <span>velocity calibration</span></div>
-      </div>
-      <div class="da-modality-card">
         <div class="da-modality-name">Touch / Trackpad</div>
-        <div class="da-modality-desc">Full multi-touch trackpad pad on iPad screen. Direct touch commands bypass the LLM entirely for zero-latency control.</div>
+        <div class="da-modality-desc">Full multi-touch trackpad on iPad screen. Direct touch commands bypass the LLM entirely for zero-latency control.</div>
         <div class="da-modality-tech">Stack: <span>SwiftUI TrackpadView</span> · <span>WebSocket bypass</span></div>
       </div>
     </div>
@@ -210,38 +203,27 @@
       <div class="da-priority-row">
         <div class="da-priority-num">3</div>
         <div class="da-priority-info">
-          <div class="da-priority-name">Tilt Navigation (Core Motion)</div>
-          <div class="da-priority-detail">3a absolute position · 3b legacy velocity · magnetic cursor snap</div>
+          <div class="da-priority-name">Head Tilt (Intel RealSense L515)</div>
+          <div class="da-priority-detail">Depth camera tracks head tilt angle · One-Euro filter suppresses tremor · depth-to-angle cursor mapping</div>
         </div>
         <div class="da-priority-bar-wrap">
           <div class="da-priority-bar-bg"><div class="da-priority-bar" style="width:70%"></div></div>
-          <div class="da-latency">16 ms frame</div>
+          <div class="da-latency">~16 ms</div>
         </div>
       </div>
       <div class="da-priority-row">
         <div class="da-priority-num">4</div>
         <div class="da-priority-info">
-          <div class="da-priority-name">Hand Gesture (MediaPipe)</div>
-          <div class="da-priority-detail">13-gesture vocabulary · LiDAR depth validation · velocity calibration</div>
-        </div>
-        <div class="da-priority-bar-wrap">
-          <div class="da-priority-bar-bg"><div class="da-priority-bar" style="width:55%"></div></div>
-          <div class="da-latency">~30 ms</div>
-        </div>
-      </div>
-      <div class="da-priority-row">
-        <div class="da-priority-num">5</div>
-        <div class="da-priority-info">
           <div class="da-priority-name">On-device Voice Keyword</div>
           <div class="da-priority-detail">iPad Speech Framework · fast local recognition · keyword-only routing</div>
         </div>
         <div class="da-priority-bar-wrap">
-          <div class="da-priority-bar-bg"><div class="da-priority-bar" style="width:40%"></div></div>
+          <div class="da-priority-bar-bg"><div class="da-priority-bar" style="width:50%"></div></div>
           <div class="da-latency">~50 ms</div>
         </div>
       </div>
       <div class="da-priority-row">
-        <div class="da-priority-num">6</div>
+        <div class="da-priority-num">5</div>
         <div class="da-priority-info">
           <div class="da-priority-name">PC Voice (Whisper large-v3)</div>
           <div class="da-priority-detail">GPU-accelerated transcription · Silero VAD · acoustic profiler adaptation</div>
@@ -309,7 +291,7 @@
           <div class="da-gate-circle">G1</div>
           <div class="da-gate-content">
             <div class="da-gate-title">Gate 1 — Confidence</div>
-            <div class="da-gate-desc">Whisper logprob &ge; &minus;1.0 or gesture confidence &ge; 0.60. Low-confidence voice triggers re-transcription rather than guessing.</div>
+            <div class="da-gate-desc">Whisper logprob &ge; &minus;1.0 or head tilt confidence &ge; 0.60. Low-confidence voice triggers re-transcription rather than guessing.</div>
             <span class="da-gate-outcome">&rarr; pass or cloud fallback</span>
           </div>
         </div>
@@ -357,10 +339,8 @@
         <div class="da-stack-label blue">Sensor Hub</div>
         <div class="da-stack-list">
           iPad Pro (home-button)<br>
-          SwiftUI · 57 Swift files<br>
-          Core Motion · Speech<br>
-          ARWorldTracking (LiDAR)<br>
-          MediaPipe (gesture)<br>
+          SwiftUI · Swift<br>
+          Speech Framework<br>
           WebSocket client (mDNS)
         </div>
       </div>
@@ -368,10 +348,12 @@
         <div class="da-stack-label green">Inference</div>
         <div class="da-stack-list">
           RTX 5090 (32 GB VRAM)<br>
-          Ollama 0.30.6<br>
+          Ollama · vLLM<br>
           llama3.1:8b (command)<br>
-          qwen3-coder:30b (code)<br>
+          qwen3-coder:30b (code+plan)<br>
+          deepseek-r1:8b (math)<br>
           qwen3-vl:30b (vision)<br>
+          gemma4:12b (general)<br>
           Whisper large-v3 (GPU)
         </div>
       </div>
@@ -381,7 +363,7 @@
           claude-haiku-4-5 (command)<br>
           claude-opus-4-8 (dev agent)<br>
           claude-sonnet-4-6 (vision)<br>
-          Amazon Polly (Danielle TTS)<br>
+          Amazon Polly (approval gate)<br>
           Anthropic SDK
         </div>
       </div>
@@ -392,8 +374,11 @@
           pyautogui · Win32 API<br>
           UIAutomation BFS<br>
           MCP server (stdio)<br>
+          Intel RealSense L515<br>
+          pyrealsense2<br>
           aiosqlite · DuckDB<br>
-          ChromaDB (semantic memory)
+          ChromaDB (semantic memory)<br>
+          Kokoro TTS (local ONNX)
         </div>
       </div>
     </div>
