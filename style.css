@@ -1,5 +1,124 @@
 ﻿    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
+    /* ── FEATURES GRID (product pages) ── */
+    .features-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+      gap: 14px;
+    }
+    .feature-card {
+      background: var(--surface);
+      border: 0.5px solid var(--border);
+      border-radius: var(--radius-lg);
+      padding: 1.5rem;
+      display: flex;
+      flex-direction: column;
+      gap: 0.5rem;
+    }
+    .feature-icon {
+      width: 32px;
+      height: 32px;
+      color: var(--blue-mid);
+      margin-bottom: 0.25rem;
+    }
+    .feature-card-name { font-weight: 600; font-size: 15px; color: var(--text); }
+    .feature-card-desc { font-size: 13px; color: var(--muted); line-height: 1.65; }
+
+    /* ── DEMO CALLOUT ── */
+    .demo-callout {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 1rem;
+      background: var(--blue-bg);
+      border: 0.5px solid var(--blue-border);
+      border-radius: var(--radius-lg);
+      padding: 1.25rem 1.5rem;
+      flex-wrap: wrap;
+      text-decoration: none;
+    }
+    .demo-callout-label {
+      font-family: var(--mono);
+      font-size: 10px;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--blue-mid);
+      margin-bottom: 4px;
+    }
+    .demo-callout-text { font-size: 14px; color: var(--text); }
+    .demo-callout-cta { font-family: var(--mono); font-size: 12px; color: var(--blue-mid); white-space: nowrap; }
+
+    /* ── INTEGRATION CARDS ── */
+    .integration-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+      gap: 14px;
+    }
+    .integration-card {
+      background: var(--surface);
+      border: 0.5px solid var(--border);
+      border-radius: var(--radius-lg);
+      padding: 1.25rem;
+    }
+    .integration-card-tag {
+      font-family: var(--mono);
+      font-size: 10px;
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+      color: var(--muted);
+      margin-bottom: 0.5rem;
+    }
+    .integration-card-name { font-weight: 600; font-size: 15px; margin-bottom: 0.5rem; }
+    .integration-card-desc { font-size: 13px; color: var(--muted); line-height: 1.65; }
+
+    /* ── CTA SECTION ── */
+    .cta-section { text-align: center; padding: 3rem 0 1rem; }
+    .cta-section h2 { font-family: var(--serif); font-size: clamp(24px, 4vw, 36px); font-weight: 400; margin-bottom: 1rem; }
+    .cta-section p { font-size: 15px; color: var(--muted); max-width: 500px; margin: 0 auto 1.5rem; }
+    .cta-actions { display: flex; gap: 10px; justify-content: center; flex-wrap: wrap; }
+
+    /* ── FOUNDER GRID (about page) ── */
+    .founder-grid {
+      display: grid;
+      grid-template-columns: 160px 1fr;
+      gap: 2rem;
+      align-items: start;
+    }
+    @media (max-width: 600px) {
+      .founder-grid { grid-template-columns: 1fr; }
+      .features-grid { grid-template-columns: 1fr; }
+      .integration-grid { grid-template-columns: 1fr; }
+    }
+
+    /* ── DOCS STUB ── */
+    .docs-coming {
+      background: var(--surface);
+      border: 0.5px solid var(--border);
+      border-radius: var(--radius-lg);
+      padding: 2.5rem;
+      text-align: center;
+    }
+    .docs-coming h2 { font-family: var(--serif); font-size: 28px; font-weight: 400; margin-bottom: 0.75rem; }
+    .docs-coming p { font-size: 14px; color: var(--muted); max-width: 480px; margin: 0 auto 1.5rem; }
+    .docs-endpoints-list {
+      list-style: none;
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+      text-align: left;
+      max-width: 400px;
+      margin: 0 auto 2rem;
+    }
+    .docs-endpoints-list li {
+      font-family: var(--mono);
+      font-size: 12px;
+      color: var(--muted);
+      padding: 8px 12px;
+      background: var(--surface-2);
+      border-radius: var(--radius-md);
+      border: 0.5px solid var(--border);
+    }
+
     :root {
       --bg:         #f9f8f6;
       --surface:    #ffffff;

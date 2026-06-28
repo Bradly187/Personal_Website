@@ -1,360 +1,182 @@
-﻿<!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Brad Tarver · CS @ TAMU-RELLIS</title>
-  <meta name="description" content="Brad Tarver — CS student at Texas A&M-RELLIS building AI-driven adaptive systems for accessibility. Projects in machine learning, quantum computing, systems networking, and healthcare software." />
+  <title>ClinicAgent — AI Scheduling &amp; Triage for Small Clinics</title>
+  <meta name="description" content="ClinicAgent: AI-powered patient scheduling, intake triage, and appointment management for small clinics. Accessible via MCP server and REST API." />
   <meta name="author" content="Brad Tarver" />
 
   <!-- Open Graph -->
-  <meta property="og:title" content="Brad Tarver · CS @ TAMU-RELLIS" />
-  <meta property="og:description" content="Portfolio — machine learning, quantum computing, systems networking, and healthcare software." />
+  <meta property="og:title" content="ClinicAgent — AI Scheduling &amp; Triage for Small Clinics" />
+  <meta property="og:description" content="AI-powered scheduling, intake triage, and appointment management. Accessible via MCP server and REST API." />
   <meta property="og:type" content="website" />
   <meta property="og:url" content="https://bradtarver.com" />
   <meta property="og:image" content="https://bradtarver.com/assets/og-image.png" />
 
   <!-- Twitter Card -->
   <meta name="twitter:card" content="summary_large_image" />
-  <meta name="twitter:title" content="Brad Tarver · CS @ TAMU-RELLIS" />
-  <meta name="twitter:description" content="Portfolio — machine learning, quantum computing, systems networking, and healthcare software." />
+  <meta name="twitter:title" content="ClinicAgent — AI Scheduling &amp; Triage for Small Clinics" />
+  <meta name="twitter:description" content="AI-powered scheduling, intake triage, and appointment management. Accessible via MCP server and REST API." />
   <meta name="twitter:image" content="https://bradtarver.com/assets/og-image.png" />
 
-  <!-- Favicon (inline SVG) -->
-  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><rect width='100' height='100' rx='16' fill='%23185FA5'/><text x='50' y='68' font-family='system-ui' font-size='48' font-weight='700' fill='white' text-anchor='middle'>BT</text></svg>" />
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><rect width='100' height='100' rx='16' fill='%23185FA5'/><text x='50' y='68' font-family='system-ui' font-size='44' font-weight='700' fill='white' text-anchor='middle'>CA</text></svg>" />
+
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "SoftwareApplication",
+    "name": "ClinicAgent",
+    "url": "https://bradtarver.com",
+    "applicationCategory": "HealthApplication",
+    "description": "AI-powered patient scheduling, intake triage, and appointment management for small clinics. Accessible via MCP server and REST API.",
+    "offers": { "@type": "Offer", "price": "0", "priceCurrency": "USD", "availability": "https://schema.org/PreOrder" },
+    "author": {
+      "@type": "Person",
+      "name": "Brad Tarver",
+      "email": "brad@bradtarver.com",
+      "url": "https://bradtarver.com/about.html"
+    }
+  }
+  </script>
 
   <script>try{var t=localStorage.getItem('theme');if(t)document.documentElement.setAttribute('data-theme',t);}catch(e){}</script>
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Space+Mono:wght@400;700&family=DM+Serif+Display&display=swap" rel="stylesheet" />
-  <script type="application/ld+json">
-  [
-    {
-      "@context": "https://schema.org",
-      "@type": "Person",
-      "name": "Brad Tarver",
-      "url": "https://bradtarver.com",
-      "image": "https://bradtarver.com/assets/brad.png",
-      "email": "bradtarber477@gmail.com",
-      "jobTitle": "Computer Science Student",
-      "description": "CS student at Texas A&M-RELLIS building AI-driven adaptive systems for accessibility. Projects in machine learning, quantum computing, systems networking, and healthcare software.",
-      "alumniOf": {
-        "@type": "CollegeOrUniversity",
-        "name": "East Texas A&M University"
-      },
-      "knowsAbout": ["Machine Learning", "Quantum Computing", "AWS", "Python", "C#", "Full-Stack Development", "Accessibility Technology", "Network Security"],
-      "sameAs": [
-        "https://github.com/Bradly187",
-        "https://linkedin.com/in/john-tarver-863277358"
-      ]
-    },
-    {
-      "@context": "https://schema.org",
-      "@type": "WebSite",
-      "name": "Brad Tarver",
-      "url": "https://bradtarver.com"
-    }
-  ]
-  </script>
-  <script defer src="https://cdn.jsdelivr.net/npm/mermaid@10/dist/mermaid.min.js"></script>
-  <noscript><style>.reveal { opacity: 1 !important; transform: none !important; }</style></noscript>
   <link rel="stylesheet" href="/style.css" />
+  <noscript><style>.reveal { opacity: 1 !important; transform: none !important; }</style></noscript>
 </head>
 <body>
 
-<!-- ══ SCROLL PROGRESS ═══════════════════════════════════════════════ -->
 <div class="scroll-progress" id="scroll-progress" aria-hidden="true"></div>
-
-<!-- ══ BACK TO TOP ════════════════════════════════════════════════════ -->
 <button class="back-to-top" id="back-to-top" aria-label="Back to top" title="Back to top">↑</button>
 
-<!-- ══ MODAL ══════════════════════════════════════════════════════════ -->
-<div class="overlay" id="overlay" role="dialog" aria-modal="true" aria-labelledby="modal-title">
-  <div class="modal" id="modal">
-    <div class="modal-header">
-      <div>
-        <div class="card-tag" id="modal-tag"></div>
-        <div class="modal-title" id="modal-title"></div>
-      </div>
-      <button class="modal-close" id="modal-close" aria-label="Close">&times;</button>
-    </div>
-
-    <div class="modal-screenshot">
-      <img id="modal-img" alt="App screenshot" loading="lazy" />
-      <div class="screenshot-placeholder" id="modal-placeholder">
-        <svg width="36" height="36" viewBox="0 0 36 36" fill="none">
-          <rect x="2" y="7" width="32" height="22" rx="3" stroke="currentColor" stroke-width="1.5"/>
-          <path d="M9 14h18M9 20h11" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/>
-        </svg>
-        <span>app screenshot · place image here</span>
-      </div>
-    </div>
-
-    <p class="modal-desc" id="modal-desc"></p>
-
-    <div class="modal-credentials" id="modal-credentials">
-      <div class="modal-credentials-label">Demo login</div>
-      <div class="modal-credentials-row">
-        <span><span class="cred-label">Email </span><span id="cred-email"></span></span>
-        <span><span class="cred-label">Password </span><span id="cred-pass"></span></span>
-      </div>
-    </div>
-
-    <div class="modal-actions">
-      <a class="btn-primary"   id="modal-launch" href="#" target="_blank" rel="noopener">Launch App &rarr;</a>
-      <a class="btn-secondary" id="modal-repo"   href="#" target="_blank" rel="noopener">View on GitHub &rarr;</a>
-    </div>
-  </div>
-</div>
-
-<!-- ══ PAGE ══════════════════════════════════════════════════════════ -->
 <nav>
-  <div class="nav-logo"><strong>Brad</strong> · CS @ TAMU-RELLIS</div>
-  <button class="theme-toggle" id="theme-toggle" aria-label="Switch to dark mode"></button>
-  <ul class="nav-links">
-    <li><a href="#about">About</a></li>
-    <li><a href="#desktop-agent">Desktop Agent</a></li>
-    <li><a href="#nids">NIDS</a></li>
-    <li><a href="#identity-pipeline">Identity Pipeline</a></li>
-    <li><a href="#projects">Projects</a></li>
-    <li><a href="#skills">Skills</a></li>
-    <li><a href="#contact">Contact</a></li>
-  </ul>
+  <a class="nav-logo" href="/" style="text-decoration:none;"><strong>ClinicAgent</strong></a>
+  <div style="display:flex;align-items:center;gap:1.5rem;">
+    <ul class="nav-links">
+      <li><a href="/product.html">Product</a></li>
+      <li><a href="/docs.html">Docs</a></li>
+      <li><a href="/about.html">About</a></li>
+    </ul>
+    <button class="theme-toggle" id="theme-toggle" aria-label="Switch to dark mode"></button>
+    <a href="mailto:brad@bradtarver.com?subject=ClinicAgent API Access Request" class="btn-primary" style="font-size:11px;padding:8px 16px;white-space:nowrap;">Request Access</a>
+  </div>
 </nav>
 
 <div class="wrap">
 
   <section class="hero">
-    <div class="badge">IBM Qiskit Advocate</div>
-    <h1>Building across AI,<br>cloud, and quantum.</h1>
-    <p class="hero-tagline">Flagship project: a personal, local-first agent operating system for adaptive accessibility &mdash; voice, gesture, tilt, and touch on a six-module AIOS kernel.</p>
+    <div class="badge">Early Access</div>
+    <h1>AI scheduling and triage<br>for small clinics.</h1>
+    <p class="hero-tagline">Conversational AI &middot; MCP Server &middot; REST API</p>
     <p class="hero-sub">
-      Computer Science student at Texas A&amp;M-RELLIS, graduating December 2026.
-      Projects spanning machine learning, quantum computing, systems networking,
-      and deployed healthcare software.
+      ClinicAgent handles patient scheduling, intake triage, and appointment management through a conversational AI interface.
+      Built for clinic operators and healthcare SaaS platforms looking to embed intelligent scheduling without building from scratch.
     </p>
     <div class="hero-actions">
-      <a href="#projects" class="btn-primary">View Projects</a>
-      <a href="/resume.pdf" class="btn-secondary" target="_blank">Download Résumé</a>
-      <a href="#desktop-agent" class="btn-accent">Featured Project</a>
-    </div>
-
-    <div class="availability">
-      <span class="availability-dot" aria-hidden="true"></span>
-      <span class="availability-text">Open to opportunities &middot; graduating Dec 2026</span>
-    </div>
-
-    <div class="currently-building">
-      <div class="currently-building-label">// Currently building</div>
-      <p class="currently-building-title">Personal Desktop Agent — Head Tilt Cursor Tracking (L515)</p>
-      <p class="currently-building-desc">Replacing tilt navigation and hand gesture with Intel RealSense L515 head tilt cursor tracking &mdash; depth camera mounted on the PC, head pose angle drives cursor at 60Hz through the existing fusion pipeline. Integrating pyrealsense2 stream into FusionEngine priority slot 3.</p>
+      <a href="mailto:brad@bradtarver.com?subject=ClinicAgent API Access Request" class="btn-primary">Request API Access</a>
+      <a href="https://clinic.bradtarver.com" class="btn-secondary" target="_blank" rel="noopener">View Demo &rarr;</a>
+      <a href="/product.html" class="btn-accent">Product Details &rarr;</a>
     </div>
   </section>
 
-  <section class="section" id="about">
-    <div class="section-label">// About</div>
-    <div class="about-grid">
-      <div class="about-photo-wrap">
-        <div class="about-photo-placeholder" aria-hidden="true">BT</div>
-        <img
-          class="about-photo"
-          src="assets/brad.png"
-          alt="Brad Tarver"
-          onload="this.classList.add('loaded')"
-          onerror="this.style.display='none'"
-        />
-      </div>
-      <div class="about-bio">
-        <p>I build things, it's always been how I think. Give me a problem and my first instinct is to figure out how to engineer a solution.</p>
-        <p>What drew me to software was a specific problem I care deeply about: making computing genuinely accessible to people who need adaptive tools to use it, informed by my own experience navigating disability. Most interfaces assume a body that works a certain way. I want to help change that, and I think AI is finally at the point where we can.</p>
-        <p>The Desktop Agent is the most direct expression of that conviction. It lets someone control a Windows machine through voice, head tilt, and touch, fusing five prioritized sensor channels into something that doesn't require a keyboard or mouse to operate. Accessibility demands the full stack, so that's where I've gone.</p>
-        <p>My other work, a quantum vs. classical ML comparison for network intrusion detection, a serverless AWS identity pipeline, a full-stack clinic scheduling system, reflects the same pattern: find a real problem, learn what you need to solve it, build it properly.</p>
-        <p>I'm finishing my B.S. in Computer Science at East Texas A&amp;M University in December 2026, looking for roles at the intersection of AI, adaptive systems, and full-stack engineering, somewhere that sees accessibility as a core feature, not a compliance checkbox.</p>
-      </div>
-    </div>
-
-    <div class="section-label" style="margin-top: 2rem;">// Experience</div>
-    <div class="experience-list">
-      <div class="experience-item">
-        <div>
-          <div class="experience-role">Operations Assistant</div>
-          <div class="experience-company">Treece Funeral Services</div>
+  <section class="section">
+    <div class="section-label">// Core capabilities</div>
+    <div class="features-grid">
+      <div class="feature-card">
+        <div class="feature-icon">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+            <rect x="2" y="3" width="20" height="14" rx="2"/>
+            <path d="M8 21h8M12 17v4"/>
+            <path d="M7 8h10M7 12h6"/>
+          </svg>
         </div>
-        <div class="experience-years">2021 – Present</div>
+        <div class="feature-card-name">MCP Server</div>
+        <div class="feature-card-desc">Drop-in model context protocol server for LLM integrations. Connect any MCP-compatible client directly to clinic workflows and structured data.</div>
       </div>
-    </div>
-  </section>
-
-  <section class="section" id="desktop-agent">
-    <div class="showcase-section">
-      <div class="showcase-header" id="desktop-agent-header"></div>
-      <div class="stats-row" id="desktop-agent-stats"></div>
-      <div class="tech-badges" id="desktop-agent-badges"></div>
-      <div id="desktop-agent-tabs"></div>
-    </div>
-  </section>
-
-  <section class="section" id="nids">
-    <div class="showcase-section">
-      <div class="showcase-header" id="nids-header"></div>
-      <div class="stats-row" id="nids-stats"></div>
-      <div class="tech-badges" id="nids-badges"></div>
-      <div id="nids-tabs"></div>
-    </div>
-  </section>
-
-  <section class="section" id="identity-pipeline">
-    <div class="showcase-section">
-      <div class="showcase-header" id="identity-pipeline-header"></div>
-      <div class="stats-row" id="identity-pipeline-stats"></div>
-      <div class="tech-badges" id="identity-pipeline-badges"></div>
-      <div id="identity-pipeline-tabs"></div>
-    </div>
-  </section>
-
-  <section class="section" id="projects">
-    <div class="section-label">// Projects</div>
-    <div class="projects-grid" id="projects-grid"></div>
-  </section>
-
-  <section class="section" id="skills">
-    <div class="section-label">// Skills</div>
-    <div class="skills-groups">
-      <div class="skills-group">
-        <div class="skills-group-label">Languages</div>
-        <div class="skills-row">
-          <span class="pill">Python</span>
-          <span class="pill">C#</span>
-          <span class="pill">SQL</span>
-          <span class="pill">JavaScript</span>
+      <div class="feature-card">
+        <div class="feature-icon">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+            <polyline points="16 18 22 12 16 6"/>
+            <polyline points="8 6 2 12 8 18"/>
+          </svg>
         </div>
+        <div class="feature-card-name">REST API</div>
+        <div class="feature-card-desc">Standard JSON API for any stack. Nine controller endpoints, JWT auth, and structured responses — works with any HTTP client in any language.</div>
       </div>
-      <div class="skills-group">
-        <div class="skills-group-label">Frameworks &amp; Libraries</div>
-        <div class="skills-row">
-          <span class="pill">Django</span>
-          <span class="pill">Blazor</span>
-          <span class="pill">PyTorch</span>
-          <span class="pill">Qiskit</span>
-          <span class="pill">scikit-learn</span>
+      <div class="feature-card">
+        <div class="feature-icon">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+            <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/>
+            <polyline points="9 12 11 14 15 10"/>
+          </svg>
         </div>
-      </div>
-      <div class="skills-group">
-        <div class="skills-group-label">Cloud &amp; DevOps</div>
-        <div class="skills-row">
-          <span class="pill">AWS Lambda</span>
-          <span class="pill">DynamoDB</span>
-          <span class="pill">Rekognition</span>
-          <span class="pill">EC2</span>
-          <span class="pill">S3</span>
-          <span class="pill">SAM</span>
-          <span class="pill">boto3</span>
-          <span class="pill">Docker</span>
-          <span class="pill">Git</span>
-          <span class="pill">Nginx</span>
-        </div>
-      </div>
-      <div class="skills-group">
-        <div class="skills-group-label">Networking &amp; OS</div>
-        <div class="skills-row">
-          <span class="pill">Cisco IOS</span>
-          <span class="pill">VLANs / OSPF / STP</span>
-          <span class="pill">Linux</span>
-        </div>
+        <div class="feature-card-name">RBAC &amp; Audit</div>
+        <div class="feature-card-desc">Role-based access with five permission levels and built-in audit logging. Production-ready access control and compliance infrastructure from day one.</div>
       </div>
     </div>
+  </section>
 
-    <div class="section-label skills-certs-label">// Certifications</div>
+  <section class="section">
+    <div class="section-label">// Live demo</div>
+    <a href="https://clinic.bradtarver.com" target="_blank" rel="noopener" class="demo-callout">
+      <div>
+        <div class="demo-callout-label">Production deployment &middot; clinic.bradtarver.com</div>
+        <div class="demo-callout-text">Scheduling, intake triage, and appointment management — live and accessible now.</div>
+      </div>
+      <div class="demo-callout-cta">Open demo &rarr;</div>
+    </a>
+  </section>
+
+  <section class="section">
+    <div class="section-label">// Production-ready</div>
+    <p style="font-size:14px;color:var(--muted);margin-bottom:1rem;">Built on a clean architecture stack with 220+ automated tests and AWS infrastructure-as-code.</p>
     <div class="skills-row">
-      <a class="pill pill-blue" href="https://www.credly.com/badges/25b7d80d-d33f-41df-905f-9b9f271daf85/public_url" target="_blank" rel="noopener">AWS Cloud Practitioner ✓</a>
-      <a class="pill pill-blue" href="https://www.credly.com/badges/47cd603a-9028-4557-87fc-d042ceffc676/public_url" target="_blank" rel="noopener">AWS AI Practitioner ✓</a>
-      <span class="pill pill-blue">IBM Qiskit Advocate ✓</span>
-      <span class="pill pill-amber">AWS Cloud Institute · Jun 2026</span>
-      <span class="pill pill-amber">AWS Developer Associate · Jul 2026</span>
+      <span class="pill">ASP.NET Core 10</span>
+      <span class="pill">Blazor Server + WASM</span>
+      <span class="pill">PostgreSQL 17</span>
+      <span class="pill">EF Core 10</span>
+      <span class="pill">Clean Architecture</span>
+      <span class="pill">AWS ECS Fargate</span>
+      <span class="pill">AWS RDS</span>
+      <span class="pill">Terraform IaC</span>
+      <span class="pill">GitHub Actions</span>
+      <span class="pill">TOTP MFA</span>
     </div>
   </section>
 
-  <section class="section" id="education">
-    <div class="section-label">// Education</div>
-    <div class="education-card">
-      <div class="education-card-header">
-        <div>
-          <span class="education-degree">B.S. Computer Science</span>
-          <span class="education-school"> &middot; East Texas A&amp;M University</span>
-        </div>
-        <span class="pill pill-amber">Spring 2025 – Dec 2026</span>
+  <section class="section">
+    <div class="section-label">// Built for</div>
+    <div class="features-grid">
+      <div class="feature-card">
+        <div class="feature-card-name">Clinic operators</div>
+        <div class="feature-card-desc">Replace manual phone scheduling with a conversational AI that handles intake, triage urgency signals, and appointment CRUD — all in plain English.</div>
       </div>
-      <p class="education-card-desc">Texas A&amp;M-RELLIS campus, Bryan — a 2,300-acre applied research and testing facility shared with A&amp;M engineering institutes, federal partners, and industry. Not a typical undergraduate environment.</p>
-      <div class="skills-row">
-        <span class="pill">AI Enhanced Security</span>
-        <span class="pill">Systems Analysis &amp; Design</span>
-        <span class="pill">Machine Learning</span>
-        <span class="pill">Computer Networks</span>
+      <div class="feature-card">
+        <div class="feature-card-name">Healthcare SaaS platforms</div>
+        <div class="feature-card-desc">Embed intelligent scheduling via REST API or MCP server without building the scheduling engine, role model, or audit infrastructure from scratch.</div>
       </div>
-    </div>
-    <div class="education-card">
-      <div class="education-card-header">
-        <div>
-          <span class="education-degree">Computer Science Track</span>
-          <span class="education-school"> &middot; Blinn College</span>
-        </div>
-        <span class="pill">2023 – 2024</span>
+      <div class="feature-card">
+        <div class="feature-card-name">LLM workflow builders</div>
+        <div class="feature-card-desc">Connect structured clinic data and workflows to any MCP-compatible LLM client. The MCP server exposes four tool endpoints for direct agent integration.</div>
       </div>
-      <p class="education-card-desc">Computer-science transfer coursework on the Texas A&amp;M-RELLIS campus &mdash; shared with East Texas A&amp;M, where the B.S. continued in Spring 2025.</p>
     </div>
   </section>
 
-  <section class="section" id="writing">
-    <div class="section-label">// Writing & Research</div>
-    <div style="display: flex; flex-direction: column; gap: 12px;">
-      <a href="/multi-agent-orchestration-on-aws.pdf" target="_blank" class="writing-card">
-        <span class="card-tag tag-blue">PDF · Research</span>
-        <h3 class="writing-card-title">Multi-Agent Orchestration on AWS</h3>
-        <p class="writing-card-desc">Exploration of multi-agent architectures using AWS Bedrock, covering orchestration patterns, agent communication, and practical deployment strategies.</p>
-      </a>
-    </div>
-  </section>
-
-  <section class="section" id="contact">
-    <div class="section-label">// Contact</div>
-
-    <form
-      class="contact-form"
-      id="contact-form"
-      action="https://formspree.io/f/mpqnlrgj"
-      method="POST"
-      novalidate
-    >
-      <div class="form-row">
-        <div class="form-field">
-          <label class="form-label" for="contact-name">Name</label>
-          <input class="form-input" id="contact-name" name="name" type="text" placeholder="Your name" required autocomplete="name" />
-        </div>
-        <div class="form-field">
-          <label class="form-label" for="contact-email">Email</label>
-          <input class="form-input" id="contact-email" name="email" type="email" placeholder="you@example.com" required autocomplete="email" />
-        </div>
-      </div>
-      <div class="form-field">
-        <label class="form-label" for="contact-message">Message</label>
-        <textarea class="form-textarea" id="contact-message" name="message" placeholder="What's on your mind?" required></textarea>
-      </div>
-      <div style="display:flex; align-items:center; gap:1rem; flex-wrap:wrap;">
-        <button type="submit" class="btn-primary" id="contact-submit">Send Message &rarr;</button>
-        <div class="form-status" id="form-status"></div>
-      </div>
-    </form>
-
+  <section class="section">
     <div class="contact-row">
-      <a class="contact-link" href="https://github.com/Bradly187"      target="_blank">GitHub &rarr;</a>
-      <a class="contact-link" href="https://linkedin.com/in/john-tarver-863277358" target="_blank">LinkedIn &rarr;</a>
-      <a class="contact-link" href="mailto:bradtarber477@gmail.com">Email &rarr;</a>
+      <a class="contact-link" href="mailto:brad@bradtarver.com">Email &rarr;</a>
+      <a class="contact-link" href="https://github.com/Bradly187" target="_blank" rel="noopener">GitHub &rarr;</a>
+      <a class="contact-link" href="https://linkedin.com/in/john-tarver-863277358" target="_blank" rel="noopener">LinkedIn &rarr;</a>
+      <a class="contact-link" href="/about.html">About the builder &rarr;</a>
     </div>
   </section>
 
   <footer>
     <div class="footer-inner">
-      <span>&copy; 2026 Brad &mdash; hosted on EC2 &mdash; East Texas A&amp;M University</span>
+      <span>&copy; 2026 ClinicAgent &mdash; hosted on AWS EC2</span>
       <a class="footer-badge" href="https://github.com/Bradly187/Personal_Website/actions/workflows/deploy.yml" target="_blank" rel="noopener" title="Deploy status">
         <img src="https://github.com/Bradly187/Personal_Website/actions/workflows/deploy.yml/badge.svg" alt="Deploy status" />
       </a>
@@ -364,1488 +186,47 @@
 </div>
 
 <script>
-/* ── DESKTOP AGENT CONFIG ─────────────────────────────────────────── */
-const DESKTOP_AGENT = {
-  name: 'Personal Desktop Agent',
-  description: 'Personal, local-first agent operating system for adaptive accessibility. A single-user AIOS kernel &mdash; real-time sensor scheduler, behavioral twin, semantic memory, tool manager, and privacy gate &mdash; enabling hands-free Windows control through voice, head tilt, and touch. Measured: 100% command accuracy; ~190ms warm local path; CLICK grounding 42% &rarr; 92%.',
-  repoUrl: 'https://github.com/Bradly187/Personal-Desktop-Agent',
-  detailUrl: '/projects/desktop-agent.html',
-  stats: [
-    { value: 5, label: 'Sensor Channels' },
-    { value: 16, label: 'Action Verbs' },
-    { value: 190, suffix: 'ms', label: 'Local Latency (warm)' },
-    { value: 100, suffix: '%', label: 'Command Accuracy' },
-    { value: 60, suffix: 'Hz', label: 'Fusion Rate' },
-  ],
-  techBadges: ['Python', 'Swift', 'Whisper', 'RealSense', 'MCP', 'vLLM', 'ChromaDB', 'Ollama', 'Anthropic API', 'aiosqlite', 'DuckDB', 'WebSocket'],
-  architecture: [
-    { name: 'MCP Server', desc: 'Exposes 15 desktop control tools (mouse, keyboard, screen, windows) to Claude via stdio transport. Executes 16 action verbs across all input channels.' },
-    { name: 'iPad Bridge', desc: 'WebSocket server handling 26 incoming sensor message types and 12 outgoing reply types, dispatching to processing pipelines.' },
-    { name: 'Fusion Engine', desc: 'Merges sensor input at 60Hz using fixed-priority arbitration (5 levels) with conflict detection when multiple cursor sources are active simultaneously.' },
-    { name: 'Hybrid Coordinator', desc: '5-gate routing engine (Gate 0 privacy + Gates 1–4) deciding local vs. cloud inference based on confidence, complexity, and GPU load.' },
-    { name: 'Local Inference', desc: 'Whisper large-v3 + llama3.1:8b on RTX 5090 (Ollama); vLLM 0.21.0 confirmed working via Ubuntu WSL2, CUDA 12.8 / sm_120. Measured: 100% accuracy; ~190ms warm p50.' },
-    { name: 'Behavioral Twin', desc: 'Persistent per-user state model (BehavioralTwinState + pain-day engine). On flare days: VAD and logprob floors relax, head tilt speed thresholds drop to p10 of observed samples (&minus;30%), fusion confidence thresholds loosen across five axes.' },
-    { name: 'Grounding Engine', desc: '4-tier fallback (UIAutomation &rarr; vision API &rarr; OCR &rarr; clarify) raises CLICK resolution from ~42% to ~92%. Resolves ambiguous targets before invoking the model.' },
-    { name: 'Head Tilt (L515)', desc: 'Intel RealSense L515 depth camera tracks head tilt angle at 60Hz for cursor positioning. Depth-to-angle mapping drives smooth cursor movement via the fusion pipeline; One-Euro filter suppresses tremor.' },
-    { name: 'Domain Classifier', desc: 'Keyword-scoring classifier routes commands to the accessibility pipeline or one of 5 dev domains (CODE/MATH/VISION/PLAN/GENERAL).' },
-    { name: 'Dev Agent', desc: 'Plan&rarr;execute&rarr;reflect agentic loop; selects specialist model per domain via ModelRouter; emits 5 dev verbs (WRITE_FILE, RUN_TERMINAL, EXPLAIN, SEARCH_WEB, READ_SCREEN). Independent Critic reviews each diff; Tester generates and runs a focused pytest after every .py write.' },
-    { name: 'AgentDB / AnalyticsDB', desc: 'aiosqlite 48-table pipeline store + DuckDB benchmark analytics; ChromaDB + MiniLM-L6 semantic few-shot retrieval for routing decisions. Jaccard fallback.' },
-  ],
-  aiosKernel: [
-    { module: 'Scheduler', impl: 'fusion_engine.py', note: '60Hz tick loop; 5-level fixed-priority arbitration over physical sensor channels — multimodal, not text-agent, scheduling' },
-    { module: 'Context manager', impl: 'behavioral_twin_state.py + per-command assembly', note: 'User physiological state + few-shot context assembled before each gate decision' },
-    { module: 'Memory manager', impl: 'semantic_memory.py (ChromaDB / MiniLM)', note: 'Semantic few-shot retrieval; Jaccard fallback for routing decisions' },
-    { module: 'Storage manager', impl: 'db.py — AgentDB (48 tables) + DuckDB', note: 'All pipeline writes; analytics and benchmark history' },
-    { module: 'Tool manager', impl: 'mcp_server/ (15 tools) + command_executor.py (16 verbs)', note: 'Standard MCP transport for the Claude-control path' },
-    { module: 'Access manager', impl: 'Gate 0 + approval_hook.py + audit_log.py', note: 'Append-only audit log; voice-confirmed write gate; privacy filter strips raw sensor data before any cloud call' },
-  ],
-  sensors: [
-    { priority: 1, source: 'iPad Touch Command', latency: '<5ms', gate: 'Immediate — bypasses LLM entirely' },
-    { priority: 2, source: 'Voice "click" keyword', latency: '<20ms', gate: 'Clicks at current cursor position — bypass path' },
-    { priority: 3, source: 'Head Tilt (L515)', latency: '~16ms', gate: 'Intel RealSense L515 depth camera; head tilt angle drives cursor via One-Euro filtered fusion' },
-    { priority: 4, source: 'On-device Voice Keyword', latency: '~50ms', gate: 'iPad Speech Framework fast-path match' },
-    { priority: 5, source: 'PC-transcribed Voice', latency: '~190ms', gate: 'Full Whisper large-v3 + LLM pipeline; Silero VAD gating' },
-  ],
-  routing: {
-    mermaidDef: 'graph TD\n    A[Input Received] --> G0{Gate 0: Privacy}\n    G0 -->|Sensitive pattern detected| LOC[Force Local]\n    G0 -->|Clean| B{Gate 1: Confidence}\n    B -->|Whisper logprob ≥ -1.0 / head tilt confidence ≥ 0.60| C{Gate 2: Complexity}\n    B -->|Below threshold| F[Cloud Fallback - Anthropic API]\n    C -->|Token count ≤ 40| D{Gate 3: VRAM}\n    C -->|Complex / multi-step| F\n    D -->|≥ 8 GB free| E{Gate 4: Latency Budget}\n    D -->|GPU saturated| F\n    E -->|Within budget| G[Local Execution]\n    E -->|Over budget| F',
-    gates: [
-      { name: 'Privacy Gate (0)', criteria: 'Detects sensitive patterns (passwords, tokens, SSNs, card numbers) \u2014 forces local silently, no cloud exposure' },
-      { name: 'Confidence Gate (1)', criteria: 'Whisper logprob \u2265 -1.0 or head tilt confidence \u2265 0.60; low-confidence voice triggers re-transcription' },
-      { name: 'Complexity Gate (2)', criteria: 'Token count proxy \u2264 40 words; complex/multi-step queries routed to specialist models via DevAgent' },
-      { name: 'VRAM Gate (3)', criteria: '\u2265 8 GB free VRAM required (absolute floor, not percentage) \u2014 tuned for RTX 5090 alongside Whisper' },
-      { name: 'Latency Budget Gate (4)', criteria: 'Estimated local inference latency < source latency target for that input modality' },
-    ],
-    fallbackText: 'Input \u2192 Privacy Gate \u2192 Confidence Gate \u2192 Complexity Gate \u2192 VRAM Gate \u2192 Latency Gate \u2192 Local or Anthropic API cloud fallback'
-  },
-  techStack: {
-    pc: ['Python 3.11+', 'faster-whisper', 'silero-vad', 'pyrealsense2', 'pyautogui', 'MCP SDK', 'aiohttp', 'aiosqlite', 'DuckDB', 'Ollama', 'vLLM', 'ChromaDB', 'MiniLM-L6', 'Kokoro TTS'],
-    ipad: ['Swift/SwiftUI', 'Speech Framework', 'AVFoundation'],
-    cloud: ['Anthropic API (claude-haiku-4-5 / opus-4-8 / sonnet-4-6)', 'Amazon Polly (approval gate)'],
-  },
-};
-
-/* ── RENDER DESKTOP AGENT SECTION ─────────────────────────────────── */
-(function renderDesktopAgentSection() {
-  // Header
-  var header = document.getElementById('desktop-agent-header');
-  if (header) {
-    header.innerHTML =
-      '<h2>' + DESKTOP_AGENT.name + '</h2>' +
-      '<p>' + DESKTOP_AGENT.description + '</p>' +
-      '<a class="github-link" href="' + DESKTOP_AGENT.repoUrl + '" target="_blank" rel="noopener">View on GitHub &rarr;</a>' +
-      '<a class="github-link" href="' + DESKTOP_AGENT.detailUrl + '" style="margin-left:1rem;">Full detail page &rarr;</a>';
-  }
-
-  // Stats row
-  var statsRow = document.getElementById('desktop-agent-stats');
-  if (statsRow) {
-    DESKTOP_AGENT.stats.forEach(function(stat) {
-      var item = document.createElement('div');
-      item.className = 'stat-item';
-
-      var num = document.createElement('span');
-      num.className = 'stat-number';
-      num.setAttribute('data-target', stat.value);
-      if (stat.prefix) num.setAttribute('data-prefix', stat.prefix);
-      if (stat.suffix) num.setAttribute('data-suffix', stat.suffix);
-      num.textContent = '0';
-
-      var label = document.createElement('span');
-      label.className = 'stat-label';
-      label.textContent = stat.label;
-
-      item.appendChild(num);
-      item.appendChild(label);
-      statsRow.appendChild(item);
-    });
-
-    // Observe stat elements with the stats counter observer
-    if (window._statsCounterObserver) {
-      statsRow.querySelectorAll('.stat-number').forEach(function(el) {
-        window._statsCounterObserver.observe(el);
-      });
-    }
-  }
-
-  // Tech badges
-  var badgesContainer = document.getElementById('desktop-agent-badges');
-  if (badgesContainer) {
-    DESKTOP_AGENT.techBadges.forEach(function(badge) {
-      var span = document.createElement('span');
-      span.className = 'tech-badge';
-      span.textContent = badge;
-      badgesContainer.appendChild(span);
-    });
-  }
-})();
-
-/* ── DESKTOP AGENT TABS ───────────────────────────────────────────── */
-(function renderDesktopAgentTabs() {
-  createTabPanel('desktop-agent-tabs', [
-    {
-      id: 'architecture',
-      label: 'Architecture',
-      render: function() {
-        var html = '<div class="arch-cards">';
-        DESKTOP_AGENT.architecture.forEach(function(comp) {
-          html += '<div class="arch-card" role="button" tabindex="0" aria-expanded="false">' +
-            '<div class="arch-card-name">' + comp.name + '</div>' +
-            '<div class="arch-card-desc">' + comp.desc + '</div>' +
-            '</div>';
-        });
-        html += '</div>';
-        return html;
-      }
-    },
-    {
-      id: 'sensors',
-      label: 'Sensors',
-      render: function() {
-        var html = '<div class="sensor-table-wrap">' +
-          '<table class="sensor-table">' +
-          '<thead><tr>' +
-          '<th scope="col">Priority</th>' +
-          '<th scope="col">Source</th>' +
-          '<th scope="col">Latency</th>' +
-          '<th scope="col">Gate Behavior</th>' +
-          '</tr></thead><tbody>';
-        DESKTOP_AGENT.sensors.forEach(function(s) {
-          html += '<tr>' +
-            '<td>' + s.priority + '</td>' +
-            '<td>' + s.source + '</td>' +
-            '<td>' + s.latency + '</td>' +
-            '<td>' + s.gate + '</td>' +
-            '</tr>';
-        });
-        html += '</tbody></table></div>';
-        return html;
-      }
-    },
-    {
-      id: 'routing',
-      label: 'Routing',
-      render: function() {
-        var html = '<div class="mermaid-diagram" aria-label="4-gate routing decision flow: input passes through confidence, complexity, GPU load, and latency gates to determine local or cloud execution">';
-        html += '<pre class="mermaid">' + DESKTOP_AGENT.routing.mermaidDef + '</pre>';
-        html += '</div>';
-        html += '<div class="diagram-fallback" style="display:none;">';
-        html += '<p style="font-family:var(--mono);font-size:12px;color:var(--muted);line-height:1.8;">' + DESKTOP_AGENT.routing.fallbackText + '</p>';
-        html += '</div>';
-        html += '<div class="routing-gates">';
-        DESKTOP_AGENT.routing.gates.forEach(function(gate) {
-          html += '<div class="routing-gate-item">';
-          html += '<span class="routing-gate-name">' + gate.name + '</span>';
-          html += '<span class="routing-gate-criteria">' + gate.criteria + '</span>';
-          html += '</div>';
-        });
-        html += '</div>';
-        return html;
-      }
-    },
-    {
-      id: 'techstack',
-      label: 'Tech Stack',
-      render: function() {
-        var categories = [
-          { label: 'PC-side (Python)', items: DESKTOP_AGENT.techStack.pc },
-          { label: 'iPad-side (Swift)', items: DESKTOP_AGENT.techStack.ipad },
-          { label: 'Cloud (AWS)', items: DESKTOP_AGENT.techStack.cloud },
-        ];
-        var html = '<div class="tech-stack-groups">';
-        categories.forEach(function(cat) {
-          html += '<div class="tech-stack-group">';
-          html += '<div class="tech-stack-label">' + cat.label + '</div>';
-          html += '<div class="tech-stack-pills">';
-          cat.items.forEach(function(item) {
-            html += '<span class="tech-badge">' + item + '</span>';
-          });
-          html += '</div></div>';
-        });
-        html += '</div>';
-        return html;
-      }
-    },
-    {
-      id: 'aios',
-      label: 'AIOS Kernel',
-      render: function() {
-        var html = '<p style="font-size:13px;color:var(--muted);margin-bottom:1rem;">The system maps onto the six-module AIOS kernel (Mei et al., COLM 2025), extended with a multimodal sensor scheduler, a behavioral/physiological user twin, and a privacy-gated hybrid inference path.</p>';
-        html += '<div class="sensor-table-wrap"><table class="sensor-table"><thead><tr>';
-        html += '<th scope="col">Kernel Module</th><th scope="col">Implementation</th><th scope="col">Notable property</th>';
-        html += '</tr></thead><tbody>';
-        DESKTOP_AGENT.aiosKernel.forEach(function(row) {
-          html += '<tr>';
-          html += '<td><strong>' + row.module + '</strong></td>';
-          html += '<td style="font-family:var(--mono);font-size:12px;">' + row.impl + '</td>';
-          html += '<td>' + row.note + '</td>';
-          html += '</tr>';
-        });
-        html += '</tbody></table></div>';
-        return html;
-      }
-    }
-  ], 'architecture');
-
-  // Attach click handlers for architecture cards
-  document.querySelectorAll('.arch-card').forEach(function(card) {
-    card.addEventListener('click', function() {
-      card.classList.toggle('expanded');
-      card.setAttribute('aria-expanded', card.classList.contains('expanded') ? 'true' : 'false');
-    });
-    card.addEventListener('keydown', function(e) {
-      if (e.key === 'Enter' || e.key === ' ') {
-        e.preventDefault();
-        card.classList.toggle('expanded');
-        card.setAttribute('aria-expanded', card.classList.contains('expanded') ? 'true' : 'false');
-      }
-    });
-  });
-})();
-
-/* ── NIDS PROJECT CONFIG ───────────────────────────────────────────── */
-const NIDS_PROJECT = {
-  name: 'Network Intrusion Detection: Classical vs. Quantum ML',
-  description: 'Benchmarked classical, deep learning, and quantum ML on NSL-KDD (125,973 train / 22,544 test records under deliberate distribution shift). MLP led at 79.9% binary accuracy and 0.791 F1 against a 43.1% dummy baseline; a 6-qubit variational quantum classifier reached 77.5% accuracy — near-classical performance at current qubit scale. Includes an honestly reported negative result: 4-qubit quantum transfer learning failed to converge (F1 = 0). CSCI 459 — AI Enhanced Security, Texas A&M.',
-  repoUrl: 'https://github.com/Bradly187/NIDS_ML_Project',
-  figuresUrl: 'https://github.com/Bradly187/NIDS_ML_Project/tree/main/figures',
-  dashboardUrl: '/nids-dashboard/',
-  detailUrl: '/projects/nids.html',
-  stats: [
-    { value: 125973, label: 'Training Records' },
-    { value: 22544, label: 'Test Records' },
-    { value: 41, label: 'Features' },
-    { value: 5, label: 'Attack Classes' },
-    { value: 5, label: 'Model Types' },
-  ],
-  techBadges: ['Python', 'scikit-learn', 'PyTorch', 'Qiskit', 'Amazon Braket', 'PennyLane', 'NumPy', 'matplotlib'],
-  models: [
-    { name: 'MLP (PyTorch)', category: 'Deep Learning', binaryAcc: 0.7991, binaryF1: 0.7905, multiAcc: 0.7817, multiF1: 0.7456 },
-    { name: 'PCA + SVM (RBF)', category: 'Classical', binaryAcc: 0.7756, binaryF1: 0.7614, multiAcc: 0.7402, multiF1: 0.6942 },
-    { name: 'Braket VQC (6 qubits)', category: 'Quantum', binaryAcc: 0.7750, binaryF1: 0.7594, multiAcc: null, multiF1: null },
-  ],
-  pipeline: {
-    mermaidDef: 'graph LR\n    A[Raw NSL-KDD] --> B[One-Hot Encoding]\n    B --> C[Standard Scaling]\n    C --> D[PCA - 24 components]\n    D --> E1[SVM Training]\n    D --> E2[MLP Training]\n    D --> E3[Quantum Circuit]',
-    fallbackText: 'Raw NSL-KDD \u2192 One-Hot Encoding \u2192 Standard Scaling \u2192 PCA (24 components, \u226595% variance) \u2192 SVM / MLP / Quantum'
-  },
-  quantum: {
-    qubits: 6,
-    ansatz: 'StronglyEntanglingLayers (3 layers)',
-    featureMap: 'AngleEmbedding (RY)',
-    epochs: 30,
-    trainingTime: '~1542s (500/200 subset)',
-    backends: ['Amazon Braket simulator (PennyLane)', 'IBM Quantum Heron R2 (ibm_fez) \u2014 QSVC'],
-  },
-  dataset: {
-    classes: ['Normal', 'DoS', 'Probe', 'R2L', 'U2R'],
-    imbalanceNote: 'R2L and U2R classes are severely underrepresented in training data, creating significant class imbalance challenges.',
-    shiftNote: 'The test set has a different class distribution than training, simulating real-world distribution shift.',
-  }
-};
-
-/* ── RENDER NIDS SECTION ──────────────────────────────────────────── */
-(function renderNidsSection() {
-  // Header
-  var header = document.getElementById('nids-header');
-  if (header) {
-    header.innerHTML =
-      '<h2>' + NIDS_PROJECT.name + '</h2>' +
-      '<p>' + NIDS_PROJECT.description + '</p>' +
-      '<span class="badge" style="margin-bottom: 1rem;">CSCI 459 — AI Enhanced Security, Texas A&amp;M</span><br>' +
-      '<a class="github-link" href="' + NIDS_PROJECT.detailUrl + '" style="margin-right:1rem;">Full detail page &rarr;</a>' +
-      '<a class="github-link" href="' + NIDS_PROJECT.dashboardUrl + '" target="_blank" rel="noopener" style="margin-right:1rem;">Interactive dashboard &rarr;</a>' +
-      '<a class="github-link" href="' + NIDS_PROJECT.repoUrl + '" target="_blank" rel="noopener">View on GitHub &rarr;</a> ' +
-      '<a class="github-link" href="' + NIDS_PROJECT.figuresUrl + '" target="_blank" rel="noopener" style="margin-left: 1rem;">View Figures &rarr;</a>';
-  }
-
-  // Stats row
-  var statsRow = document.getElementById('nids-stats');
-  if (statsRow) {
-    NIDS_PROJECT.stats.forEach(function(stat) {
-      var item = document.createElement('div');
-      item.className = 'stat-item';
-
-      var num = document.createElement('span');
-      num.className = 'stat-number';
-      num.setAttribute('data-target', stat.value);
-      if (stat.prefix) num.setAttribute('data-prefix', stat.prefix);
-      if (stat.suffix) num.setAttribute('data-suffix', stat.suffix);
-      num.textContent = '0';
-
-      var label = document.createElement('span');
-      label.className = 'stat-label';
-      label.textContent = stat.label;
-
-      item.appendChild(num);
-      item.appendChild(label);
-      statsRow.appendChild(item);
-    });
-
-    // Observe stat elements with the stats counter observer
-    if (window._statsCounterObserver) {
-      statsRow.querySelectorAll('.stat-number').forEach(function(el) {
-        window._statsCounterObserver.observe(el);
-      });
-    }
-  }
-
-  // Tech badges
-  var badgesContainer = document.getElementById('nids-badges');
-  if (badgesContainer) {
-    NIDS_PROJECT.techBadges.forEach(function(badge) {
-      var span = document.createElement('span');
-      span.className = 'tech-badge';
-      span.textContent = badge;
-      badgesContainer.appendChild(span);
-    });
-  }
-})();
-
-/* ── NIDS TABS ────────────────────────────────────────────────────── */
-(function renderNidsTabs() {
-  // Determine default tab from localStorage
-  var savedTab = null;
-  try { savedTab = localStorage.getItem('nids-active-tab'); } catch(e) {}
-  var defaultTab = (savedTab && ['results','pipeline','quantum','dataset'].indexOf(savedTab) !== -1) ? savedTab : 'results';
-
-  var nidsTabs = createTabPanel('nids-tabs', [
-    {
-      id: 'results',
-      label: 'Results',
-      render: function() {
-        var models = NIDS_PROJECT.models;
-        var columns = ['binaryAcc', 'binaryF1', 'multiAcc', 'multiF1'];
-        var columnLabels = ['Binary Acc', 'Binary F1', 'Multi-Class Acc', 'Multi-Class F1'];
-
-        // Find max value per numeric column (ignore null — not all models report every metric)
-        var maxValues = {};
-        columns.forEach(function(col) {
-          var max = -Infinity;
-          models.forEach(function(m) {
-            if (m[col] != null && m[col] > max) max = m[col];
-          });
-          maxValues[col] = max;
-        });
-
-        // Model comparison table
-        var html = '<div class="model-table-wrap">' +
-          '<table class="model-table">' +
-          '<thead><tr>' +
-          '<th scope="col">Model</th>' +
-          '<th scope="col">Category</th>';
-        columnLabels.forEach(function(label) {
-          html += '<th scope="col">' + label + '</th>';
-        });
-        html += '</tr></thead><tbody>';
-
-        models.forEach(function(m) {
-          html += '<tr>';
-          html += '<td>' + m.name + '</td>';
-          html += '<td>' + m.category + '</td>';
-          columns.forEach(function(col) {
-            if (m[col] == null) {
-              html += '<td>&mdash;</td>';
-              return;
-            }
-            var isMax = m[col] === maxValues[col];
-            html += '<td' + (isMax ? ' class="highlight"' : '') + '>' + m[col].toFixed(4) + '</td>';
-          });
-          html += '</tr>';
-        });
-        html += '</tbody></table></div>';
-
-        // Benchmark chart - binary F1 scores
-        var categoryColors = {
-          'Classical': 'var(--green-text)',
-          'Deep Learning': 'var(--blue-mid)',
-          'Quantum': 'var(--amber-text)'
-        };
-
-        html += '<div class="benchmark-chart-wrap">';
-        html += '<div class="benchmark-chart">';
-        html += '<div class="benchmark-chart-title">Binary F1 Score Comparison</div>';
-
-        models.forEach(function(m) {
-          var widthPercent = (m.binaryF1 * 100).toFixed(2);
-          var color = categoryColors[m.category] || 'var(--muted)';
-          html += '<div class="chart-row">';
-          html += '<span class="chart-label">' + m.name + '</span>';
-          html += '<div class="chart-bar-container">';
-          html += '<div class="chart-bar" style="width:' + widthPercent + '%;background:' + color + ';" data-category="' + m.category + '"></div>';
-          html += '</div>';
-          html += '<span class="chart-value">' + m.binaryF1.toFixed(4) + '</span>';
-          html += '</div>';
-        });
-
-        html += '</div></div>';
-        return html;
-      }
-    },
-    {
-      id: 'pipeline',
-      label: 'Pipeline',
-      render: function() {
-        var html = '<div class="mermaid-diagram" aria-label="NIDS data pipeline: Raw NSL-KDD flows through one-hot encoding, standard scaling, and PCA to SVM, MLP, and quantum model training">';
-        html += '<pre class="mermaid">' + NIDS_PROJECT.pipeline.mermaidDef + '</pre>';
-        html += '</div>';
-        html += '<div class="diagram-fallback" style="display:none;">';
-        html += '<p style="font-family:var(--mono);font-size:12px;color:var(--muted);line-height:1.8;">' + NIDS_PROJECT.pipeline.fallbackText + '</p>';
-        html += '</div>';
-        return html;
-      }
-    },
-    {
-      id: 'quantum',
-      label: 'Quantum',
-      render: function() {
-        var q = NIDS_PROJECT.quantum;
-        var items = [
-          { label: 'Qubits', value: q.qubits },
-          { label: 'Circuit Ansatz', value: q.ansatz },
-          { label: 'Feature Map', value: q.featureMap },
-          { label: 'Training Epochs', value: q.epochs },
-          { label: 'Training Time', value: q.trainingTime },
-          { label: 'QPU Backends', value: q.backends.join(', ') },
-        ];
-        var html = '<dl class="quantum-config">';
-        items.forEach(function(item) {
-          html += '<div class="quantum-config-item">';
-          html += '<dt>' + item.label + '</dt>';
-          html += '<dd>' + item.value + '</dd>';
-          html += '</div>';
-        });
-        html += '</dl>';
-        return html;
-      }
-    },
-    {
-      id: 'dataset',
-      label: 'Dataset',
-      render: function() {
-        var d = NIDS_PROJECT.dataset;
-        var html = '<ul class="dataset-classes">';
-        d.classes.forEach(function(cls) {
-          html += '<li>' + cls + '</li>';
-        });
-        html += '</ul>';
-        html += '<div class="dataset-note">';
-        html += '<div class="dataset-note-label">Class Imbalance</div>';
-        html += '<p>' + d.imbalanceNote + '</p>';
-        html += '</div>';
-        html += '<div class="dataset-note">';
-        html += '<div class="dataset-note-label">Distribution Shift</div>';
-        html += '<p>' + d.shiftNote + '</p>';
-        html += '</div>';
-        return html;
-      }
-    }
-  ], defaultTab);
-
-  // Persist tab selection to localStorage on tab change
-  if (nidsTabs) {
-    var tabContainer = document.getElementById('nids-tabs');
-    if (tabContainer) {
-      var tabButtons = tabContainer.querySelectorAll('[role="tab"]');
-      tabButtons.forEach(function(btn) {
-        btn.addEventListener('click', function() {
-          var activeTab = nidsTabs.getActiveTab();
-          try { localStorage.setItem('nids-active-tab', activeTab); } catch(e) {}
-        });
-        btn.addEventListener('keydown', function(e) {
-          if (e.key === 'ArrowRight' || e.key === 'ArrowLeft') {
-            // Defer to allow the tab panel to update first
-            setTimeout(function() {
-              var activeTab = nidsTabs.getActiveTab();
-              try { localStorage.setItem('nids-active-tab', activeTab); } catch(e) {}
-            }, 0);
-          }
-        });
-      });
-    }
-  }
-})();
-
-/* ── IDENTITY VERIFICATION PIPELINE CONFIG ─────────────────────────── */
-const IDENTITY_PIPELINE = {
-  name: 'Identity Verification Pipeline',
-  description: 'Serverless identity verification replacing manual onboarding with a fully automated parallel workflow. Three Step Functions branches run simultaneously — face match, license OCR, insurance extraction — completing in seconds. 24 unit tests, AES-256 encrypted storage, 90-day image lifecycle.',
-  repoUrl: 'https://github.com/Bradly187/Patient_Onboard_SAM',
-  detailUrl: '/projects/identity-pipeline.html',
-  stats: [
-    { value: 8, label: 'Lambda Functions' },
-    { value: 2, label: 'Workflows' },
-    { value: 2, label: 'DynamoDB Tables' },
-    { value: 3, label: 'Parallel Checks' },
-    { value: 8, label: 'AWS Services' },
-    { value: 24, label: 'Unit Tests' },
-  ],
-  techBadges: ['Python 3.13', 'AWS SAM', 'Rekognition', 'Textract', 'Step Functions', 'Lambda', 'DynamoDB', 'S3', 'EventBridge', 'SNS'],
-  architecture: [
-    { name: 'S3 Document Bucket', desc: 'Encrypted, private bucket storing patient/therapist images. EventBridge triggers workflow on selfie upload.' },
-    { name: 'EventBridge Rules', desc: 'Decoupled event routing — detects _selfie.png or _therapist_selfie.png uploads and starts the correct state machine.' },
-    { name: 'Step Functions (Patient)', desc: 'Orchestrates 3 parallel branches: face comparison, license OCR, and insurance extraction. Merges results and stores verification.' },
-    { name: 'Step Functions (Therapist)', desc: 'Parallel branches: face comparison, medical license verification, and medical license OCR. Same merge-and-store pattern.' },
-    { name: 'CompareFaces Lambda', desc: 'Rekognition face match between selfie and driver\'s license photo. Returns similarity score and match boolean.' },
-    { name: 'ExtractLicense Lambda', desc: 'Textract analyze_id to OCR driver\'s license — extracts name, DOB, address as structured data.' },
-    { name: 'ExtractInsurance Lambda', desc: 'Textract analyze_document with Queries to read insurance card — carrier, policy number, group ID.' },
-    { name: 'VerifyMedicalLicense Lambda', desc: 'Calls an external medical board registry to validate therapist license number and status.' },
-    { name: 'ExtractMedicalLicense Lambda', desc: 'Textract analyze_document with Queries to OCR the medical license — license number, name, specialty, expiration date.' },
-    { name: 'StoreVerification Lambda', desc: 'Aggregates parallel results, writes to DynamoDB, and POSTs verification to the ClinicScheduler API.' },
-    { name: 'DynamoDB + SNS', desc: 'Patient/Therapist verification tables with auto-scaling. SNS alerts staff on failures or manual review needed.' },
-  ],
-  workflow: {
-    mermaidDef: 'graph TD\n    A[Staff uploads license + insurance] --> B[Staff takes selfie]\n    B --> C[S3 triggers EventBridge]\n    C --> D[Step Functions starts]\n    D --> E[Parallel Execution]\n    E --> F[CompareFaces<br/>Rekognition]\n    E --> G[ExtractLicense<br/>Textract]\n    E --> H[ExtractInsurance<br/>Textract]\n    F --> I[StoreVerification]\n    G --> I\n    H --> I\n    I --> J[Write to DynamoDB]\n    I --> K[POST to Clinic API]\n    I --> L{Failure?}\n    L -->|Yes| M[SNS Alert to Staff]',
-    fallbackText: 'Upload Images → S3 EventBridge Trigger → Step Functions → Parallel (Face Match + License OCR + Insurance OCR) → Store Verification → DynamoDB + Clinic API (or SNS alert on failure)'
-  },
-  security: [
-    { name: 'Encrypted Storage', detail: 'S3 bucket uses AES-256 server-side encryption for all patient images.' },
-    { name: 'HTTPS-Only Policy', detail: 'Bucket policy denies any request not using secure transport (aws:SecureTransport).' },
-    { name: '90-Day Lifecycle', detail: 'Raw images auto-expire after 90 days — processed data lives in DynamoDB.' },
-    { name: 'Auto-Scaling DynamoDB', detail: 'Read/write capacity scales 2–20 units based on 70% utilization target.' },
-    { name: 'X-Ray Tracing', detail: 'Active tracing on all Lambda functions and state machines for observability.' },
-    { name: 'Point-in-Time Recovery', detail: 'DynamoDB tables have PITR enabled for data protection and recovery.' },
-  ],
-};
-
-/* ── RENDER IDENTITY PIPELINE SECTION ──────────────────────────────── */
-(function renderIdentityPipelineSection() {
-  // Header
-  var header = document.getElementById('identity-pipeline-header');
-  if (header) {
-    header.innerHTML =
-      '<h2>' + IDENTITY_PIPELINE.name + '</h2>' +
-      '<p>' + IDENTITY_PIPELINE.description + '</p>' +
-      '<a class="github-link" href="' + IDENTITY_PIPELINE.repoUrl + '" target="_blank" rel="noopener">View on GitHub &rarr;</a>' +
-      '<a class="github-link" href="' + IDENTITY_PIPELINE.detailUrl + '" style="margin-left:1rem;">Full detail page &rarr;</a>';
-  }
-
-  // Stats row
-  var statsRow = document.getElementById('identity-pipeline-stats');
-  if (statsRow) {
-    IDENTITY_PIPELINE.stats.forEach(function(stat) {
-      var item = document.createElement('div');
-      item.className = 'stat-item';
-
-      var num = document.createElement('span');
-      num.className = 'stat-number';
-      num.setAttribute('data-target', stat.value);
-      if (stat.prefix) num.setAttribute('data-prefix', stat.prefix);
-      if (stat.suffix) num.setAttribute('data-suffix', stat.suffix);
-      num.textContent = '0';
-
-      var label = document.createElement('span');
-      label.className = 'stat-label';
-      label.textContent = stat.label;
-
-      item.appendChild(num);
-      item.appendChild(label);
-      statsRow.appendChild(item);
-    });
-
-    if (window._statsCounterObserver) {
-      statsRow.querySelectorAll('.stat-number').forEach(function(el) {
-        window._statsCounterObserver.observe(el);
-      });
-    }
-  }
-
-  // Tech badges
-  var badgesContainer = document.getElementById('identity-pipeline-badges');
-  if (badgesContainer) {
-    IDENTITY_PIPELINE.techBadges.forEach(function(badge) {
-      var span = document.createElement('span');
-      span.className = 'tech-badge';
-      span.textContent = badge;
-      badgesContainer.appendChild(span);
-    });
-  }
-})();
-
-/* ── IDENTITY PIPELINE TABS ────────────────────────────────────────── */
-(function renderIdentityPipelineTabs() {
-  createTabPanel('identity-pipeline-tabs', [
-    {
-      id: 'architecture',
-      label: 'Architecture',
-      render: function() {
-        var html = '<div class="arch-cards">';
-        IDENTITY_PIPELINE.architecture.forEach(function(comp) {
-          html += '<div class="arch-card" role="button" tabindex="0" aria-expanded="false">' +
-            '<div class="arch-card-name">' + comp.name + '</div>' +
-            '<div class="arch-card-desc">' + comp.desc + '</div>' +
-            '</div>';
-        });
-        html += '</div>';
-        return html;
-      }
-    },
-    {
-      id: 'workflow',
-      label: 'Workflow',
-      render: function() {
-        var html = '<div class="mermaid-diagram" aria-label="Identity verification workflow: upload triggers parallel face match, license OCR, and insurance extraction, then stores results">';
-        html += '<pre class="mermaid">' + IDENTITY_PIPELINE.workflow.mermaidDef + '</pre>';
-        html += '</div>';
-        html += '<div class="diagram-fallback" style="display:none;">';
-        html += '<p style="font-family:var(--mono);font-size:12px;color:var(--muted);line-height:1.8;">' + IDENTITY_PIPELINE.workflow.fallbackText + '</p>';
-        html += '</div>';
-        return html;
-      }
-    },
-    {
-      id: 'security',
-      label: 'Security',
-      render: function() {
-        var html = '<div class="arch-cards">';
-        IDENTITY_PIPELINE.security.forEach(function(item) {
-          html += '<div class="arch-card" role="button" tabindex="0" aria-expanded="false">' +
-            '<div class="arch-card-name">' + item.name + '</div>' +
-            '<div class="arch-card-desc">' + item.detail + '</div>' +
-            '</div>';
-        });
-        html += '</div>';
-        return html;
-      }
-    },
-    {
-      id: 'techstack',
-      label: 'Tech Stack',
-      render: function() {
-        var categories = [
-          { label: 'Compute', items: ['AWS Lambda', 'Python 3.13', 'AWS Lambda Powertools'] },
-          { label: 'AI/ML Services', items: ['Amazon Rekognition', 'Amazon Textract'] },
-          { label: 'Orchestration', items: ['AWS Step Functions', 'Amazon EventBridge'] },
-          { label: 'Storage', items: ['Amazon S3', 'Amazon DynamoDB'] },
-          { label: 'Infrastructure', items: ['AWS SAM', 'CloudFormation', 'Amazon SNS'] },
-        ];
-        var html = '<div class="tech-stack-groups">';
-        categories.forEach(function(cat) {
-          html += '<div class="tech-stack-group">';
-          html += '<div class="tech-stack-label">' + cat.label + '</div>';
-          html += '<div class="tech-stack-pills">';
-          cat.items.forEach(function(item) {
-            html += '<span class="tech-badge">' + item + '</span>';
-          });
-          html += '</div></div>';
-        });
-        html += '</div>';
-        return html;
-      }
-    }
-  ], 'architecture');
-
-  // Attach click handlers for architecture and security cards
-  document.querySelectorAll('#identity-pipeline-tabs .arch-card').forEach(function(card) {
-    card.addEventListener('click', function() {
-      card.classList.toggle('expanded');
-      card.setAttribute('aria-expanded', card.classList.contains('expanded') ? 'true' : 'false');
-    });
-    card.addEventListener('keydown', function(e) {
-      if (e.key === 'Enter' || e.key === ' ') {
-        e.preventDefault();
-        card.classList.toggle('expanded');
-        card.setAttribute('aria-expanded', card.classList.contains('expanded') ? 'true' : 'false');
-      }
-    });
-  });
-})();
-
-/* ── PROJECT DATA ───────────────────────────────────────────────────
-   type: 'LIVE_APP'    → opens modal with Launch App + View Repo buttons
-   type: 'GITHUB_ONLY' → navigates straight to repoUrl in a new tab
-   type: 'SCROLL_TO'   → smooth-scrolls to showcase section on the page
-──────────────────────────────────────────────────────────────────── */
-const PROJECTS = [
-  {
-    id: 'desktop-agent-card',
-    name: 'Personal Desktop Agent',
-    tag: 'Python · Swift · MCP',
-    tagClass: 'tag-blue',
-    description: 'Personal, local-first AIOS for adaptive accessibility. Six-module kernel: sensor scheduler, behavioral twin, semantic memory, tool manager, and privacy gate. Measured: 100% cmd accuracy; ~190ms warm local path; CLICK grounding 42%&rarr;92%.',
-    cta: 'View detail page →',
-    type: 'DETAIL_PAGE',
-    featured: true,
-    detailUrl: '/projects/desktop-agent.html',
-  },
-  {
-    id: 'nids-card',
-    name: 'Network Intrusion Detection',
-    tag: 'PyTorch · Qiskit · ML',
-    tagClass: 'tag-green',
-    description: 'MLP led at 79.9% binary accuracy and 0.791 F1 on the NSL-KDD test set under distribution shift (43.1% dummy baseline). A 6-qubit variational quantum classifier reached 77.5% — near-classical performance at current qubit scale.',
-    cta: 'View detail page →',
-    type: 'DETAIL_PAGE',
-    featured: false,
-    detailUrl: '/projects/nids.html',
-  },
-  {
-    id: 'clinicscheduler',
-    name: 'ClinicScheduler',
-    tag: 'ASP.NET Core · Blazor · AWS',
-    tagClass: 'tag-blue',
-    description: 'Full-stack pain-management clinic scheduler — ASP.NET Core, Blazor, and EF Core on PostgreSQL with a business-rule scheduling engine, conflict detection, and role-based access. Containerized and codified as Terraform IaC (ECS Fargate, RDS, ALB) with a GitHub Actions CI/CD pipeline. Live at clinic.bradtarver.com.',
-    cta: 'View detail page →',
-    type: 'DETAIL_PAGE',
-    featured: true,
-    detailUrl: '/projects/clinicscheduler.html',
-  },
-  {
-    id: 'patient-onboarding',
-    name: 'Identity Verification Pipeline',
-    tag: 'AWS SAM · Serverless',
-    tagClass: 'tag-amber',
-    description: "Three parallel Step Functions branches — face match, license OCR, insurance extraction — completing in seconds. 24 unit tests, AES-256 storage.",
-    cta: 'View detail page →',
-    type: 'DETAIL_PAGE',
-    featured: false,
-    detailUrl: '/projects/identity-pipeline.html',
-  },
-];
-
-/* ── RENDER CARDS ─────────────────────────────────────────────────── */
-const grid = document.getElementById('projects-grid');
-
-PROJECTS.forEach(project => {
-  const card = document.createElement('div');
-  card.className = 'card' + (project.featured ? ' featured' : '');
-  card.classList.add('reveal');
-  card.setAttribute('role', 'button');
-  card.setAttribute('tabindex', '0');
-  card.setAttribute('aria-label', 'Open ' + project.name);
-
-  card.innerHTML = `
-    <span class="card-tag ${project.tagClass}">${project.tag}</span>
-    <h3>${project.name}</h3>
-    <p>${project.description}</p>
-    <span class="card-cta">${project.cta}</span>
-  `;
-
-  card.addEventListener('click', () => openProject(project));
-  card.addEventListener('keydown', e => {
-    if (e.key === 'Enter' || e.key === ' ') openProject(project);
-  });
-
-  grid.appendChild(card);
-});
-
-/* ── MODAL ────────────────────────────────────────────────────────── */
-const overlay     = document.getElementById('overlay');
-const modalTag    = document.getElementById('modal-tag');
-const modalTitle  = document.getElementById('modal-title');
-const modalDesc   = document.getElementById('modal-desc');
-const modalImg    = document.getElementById('modal-img');
-const modalHolder = document.getElementById('modal-placeholder');
-const modalLaunch = document.getElementById('modal-launch');
-const modalRepo   = document.getElementById('modal-repo');
-const modalClose  = document.getElementById('modal-close');
-const modalCreds  = document.getElementById('modal-credentials');
-const credEmail   = document.getElementById('cred-email');
-const credPass    = document.getElementById('cred-pass');
-
-let previousFocus = null;
-
-function openProject(project) {
-  if (project.type === 'GITHUB_ONLY') {
-    window.open(project.repoUrl, '_blank', 'noopener');
-    return;
-  }
-
-  if (project.type === 'SCROLL_TO') {
-    const target = document.querySelector(project.scrollTarget);
-    if (target) target.scrollIntoView({ behavior: 'smooth' });
-    return;
-  }
-
-  if (project.type === 'DETAIL_PAGE') {
-    window.location.href = project.detailUrl;
-    return;
-  }
-
-  previousFocus = document.activeElement;
-
-  modalTag.textContent   = project.tag;
-  modalTag.className     = 'card-tag ' + project.tagClass;
-  modalTitle.textContent = project.name;
-  modalDesc.textContent  = project.description;
-  modalLaunch.href       = project.liveUrl;
-  modalRepo.href         = project.repoUrl;
-
-  if (project.demoCredentials) {
-    credEmail.textContent = project.demoCredentials.email;
-    credPass.textContent  = project.demoCredentials.password;
-    modalCreds.classList.add('visible');
-  } else {
-    modalCreds.classList.remove('visible');
-  }
-
-  if (project.screenshot) {
-    modalImg.src = project.screenshot;
-    modalImg.onload  = () => { modalImg.classList.add('loaded'); modalHolder.style.display = 'none'; };
-    modalImg.onerror = () => { modalImg.classList.remove('loaded'); modalHolder.style.display = 'flex'; };
-  } else {
-    modalImg.classList.remove('loaded');
-    modalHolder.style.display = 'flex';
-  }
-
-  overlay.classList.add('active');
-  overlay.setAttribute('aria-hidden', 'false');
-  document.body.style.overflow = 'hidden';
-  modalClose.focus();
-}
-
-function closeModal() {
-  overlay.classList.remove('active');
-  overlay.setAttribute('aria-hidden', 'true');
-  document.body.style.overflow = '';
-
-  if (previousFocus) {
-    previousFocus.focus();
-    previousFocus = null;
-  }
-}
-
-modalClose.addEventListener('click', closeModal);
-overlay.addEventListener('click', e => { if (e.target === overlay) closeModal(); });
-document.addEventListener('keydown', e => { if (e.key === 'Escape') closeModal(); });
-
-/* ── NAV KEYBOARD SUPPORT ─────────────────────────────────────────── */
-document.querySelectorAll('.nav-links a').forEach(link => {
-  link.addEventListener('keydown', e => {
-    if (e.key === 'Enter') {
-      e.preventDefault();
-      const targetId = link.getAttribute('href').replace('#', '');
-      const targetSection = document.getElementById(targetId);
-      if (targetSection) {
-        targetSection.scrollIntoView({ behavior: 'smooth' });
-        const heading = targetSection.querySelector('h2, h3, .section-label');
-        if (heading) {
-          heading.setAttribute('tabindex', '-1');
-          heading.focus({ preventScroll: true });
-        }
-      }
-    }
-  });
-});
-
-/* ── STATS COUNTER ────────────────────────────────────────────────── */
-/**
- * Animates .stat-number elements from 0 to data-target over 1500ms with ease-out.
- * Driven by data-target, data-prefix, data-suffix attributes.
- * Fires once per page load. Respects prefers-reduced-motion.
- * Can be called at any time — observes whatever .stat-number elements exist in the DOM.
- */
-function initStatsCounter() {
-  var DURATION = 1500;
-  var THRESHOLD = 0.15;
-  var prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-
-  function easeOut(t) {
-    return 1 - Math.pow(1 - t, 3);
-  }
-
-  function formatValue(value, prefix, suffix) {
-    var formatted = Math.round(value).toLocaleString();
-    return (prefix || '') + formatted + (suffix || '');
-  }
-
-  function animateCounter(el) {
-    var target = parseInt(el.getAttribute('data-target'), 10);
-    var prefix = el.getAttribute('data-prefix') || '';
-    var suffix = el.getAttribute('data-suffix') || '';
-
-    if (isNaN(target)) {
-      return;
-    }
-
-    // Reduced motion: show final value immediately
-    if (prefersReducedMotion) {
-      el.textContent = formatValue(target, prefix, suffix);
-      return;
-    }
-
-    var startTime = null;
-
-    function step(timestamp) {
-      if (!startTime) startTime = timestamp;
-      var elapsed = timestamp - startTime;
-      var t = Math.min(elapsed / DURATION, 1);
-      var easedT = easeOut(t);
-      var currentValue = Math.round(easedT * target);
-
-      el.textContent = formatValue(currentValue, prefix, suffix);
-
-      if (t < 1) {
-        requestAnimationFrame(step);
-      } else {
-        // Ensure final value is exact
-        el.textContent = formatValue(target, prefix, suffix);
-      }
-    }
-
-    requestAnimationFrame(step);
-  }
-
-  // If IntersectionObserver not supported, show final values immediately
-  if (!('IntersectionObserver' in window)) {
-    document.querySelectorAll('.stat-number').forEach(function(el) {
-      var target = parseInt(el.getAttribute('data-target'), 10);
-      var prefix = el.getAttribute('data-prefix') || '';
-      var suffix = el.getAttribute('data-suffix') || '';
-      if (!isNaN(target)) {
-        el.textContent = formatValue(target, prefix, suffix);
-      }
-    });
-    return;
-  }
-
-  var observer = new IntersectionObserver(function(entries, obs) {
-    entries.forEach(function(entry) {
-      if (entry.isIntersecting) {
-        animateCounter(entry.target);
-        obs.unobserve(entry.target);
-      }
-    });
-  }, { threshold: THRESHOLD });
-
-  // Observe any .stat-number elements currently in the DOM
-  document.querySelectorAll('.stat-number').forEach(function(el) {
-    observer.observe(el);
-  });
-
-  // Expose observer so dynamically added elements can be observed later
-  window._statsCounterObserver = observer;
-}
-
-// Initialize on DOMContentLoaded (elements may not exist yet, that's fine)
-if (document.readyState === 'loading') {
-  document.addEventListener('DOMContentLoaded', initStatsCounter);
-} else {
-  initStatsCounter();
-}
-
-/* ── TAB PANEL COMPONENT ──────────────────────────────────────────── */
-/**
- * Creates a WAI-ARIA compliant tab panel.
- * @param {string} containerId - ID of the container element
- * @param {Array<{id: string, label: string, render: () => string}>} tabs - Tab definitions
- * @param {string} defaultTab - ID of the tab to activate by default
- * @returns {object} - { activate(tabId), getActiveTab() }
- */
-function createTabPanel(containerId, tabs, defaultTab) {
-  const container = document.getElementById(containerId);
-  if (!container) return null;
-
-  // Create tablist
-  const tablist = document.createElement('div');
-  tablist.setAttribute('role', 'tablist');
-  tablist.className = 'tablist';
-
-  // Create tab buttons and panels
-  const tabButtons = [];
-  const tabPanels = [];
-
-  tabs.forEach(function(tab, index) {
-    // Tab button
-    const btn = document.createElement('button');
-    btn.className = 'tab-btn';
-    btn.setAttribute('role', 'tab');
-    btn.setAttribute('id', containerId + '-tab-' + tab.id);
-    btn.setAttribute('aria-controls', containerId + '-panel-' + tab.id);
-    btn.setAttribute('aria-selected', tab.id === defaultTab ? 'true' : 'false');
-    btn.setAttribute('tabindex', tab.id === defaultTab ? '0' : '-1');
-    btn.textContent = tab.label;
-    tablist.appendChild(btn);
-    tabButtons.push(btn);
-
-    // Tab panel
-    const panel = document.createElement('div');
-    panel.className = 'tabpanel' + (tab.id === defaultTab ? ' active' : '');
-    panel.setAttribute('role', 'tabpanel');
-    panel.setAttribute('id', containerId + '-panel-' + tab.id);
-    panel.setAttribute('aria-labelledby', containerId + '-tab-' + tab.id);
-    panel.setAttribute('tabindex', '0');
-    panel.innerHTML = tab.render();
-    tabPanels.push(panel);
-  });
-
-  container.appendChild(tablist);
-  tabs.forEach(function(_, i) {
-    container.appendChild(tabPanels[i]);
-  });
-
-  // Activate a tab by id
-  function activate(tabId) {
-    tabs.forEach(function(tab, i) {
-      var isActive = tab.id === tabId;
-      tabButtons[i].setAttribute('aria-selected', isActive ? 'true' : 'false');
-      tabButtons[i].setAttribute('tabindex', isActive ? '0' : '-1');
-      if (isActive) {
-        tabPanels[i].classList.add('active');
-      } else {
-        tabPanels[i].classList.remove('active');
-      }
-    });
-  }
-
-  // Click handler
-  tabButtons.forEach(function(btn, i) {
-    btn.addEventListener('click', function() {
-      activate(tabs[i].id);
-      btn.focus();
-    });
-
-    // Keyboard handler
-    btn.addEventListener('keydown', function(e) {
-      var handled = false;
-
-      if (e.key === 'ArrowRight') {
-        var next = (i + 1) % tabs.length;
-        activate(tabs[next].id);
-        tabButtons[next].focus();
-        handled = true;
-      } else if (e.key === 'ArrowLeft') {
-        var prev = (i - 1 + tabs.length) % tabs.length;
-        activate(tabs[prev].id);
-        tabButtons[prev].focus();
-        handled = true;
-      } else if (e.key === 'Enter' || e.key === ' ') {
-        activate(tabs[i].id);
-        handled = true;
-      }
-
-      if (handled) {
-        e.preventDefault();
-      }
-    });
-  });
-
-  return {
-    activate: activate,
-    getActiveTab: function() {
-      for (var i = 0; i < tabs.length; i++) {
-        if (tabButtons[i].getAttribute('aria-selected') === 'true') {
-          return tabs[i].id;
-        }
-      }
-      return defaultTab;
-    }
-  };
-}
-
-/* ── SCROLL REVEAL SYSTEM ─────────────────────────────────────────── */
-(function initScrollReveal() {
-  const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-
-  // If user prefers reduced motion, keep everything visible (default state) — do nothing
-  if (prefersReducedMotion) return;
-
-  // Check for IntersectionObserver support — if not supported, keep elements visible
-  if (!('IntersectionObserver' in window)) return;
-
-  // Enable animations by adding the class to body
-  document.body.classList.add('animations-enabled');
-
-  const observer = new IntersectionObserver(function(entries) {
-    entries.forEach(function(entry) {
-      if (entry.isIntersecting) {
-        const el = entry.target;
-
-        // Calculate stagger delay based on sibling index within parent
-        const parent = el.parentElement;
-        if (parent) {
-          const siblings = Array.from(parent.children).filter(function(child) {
-            return child.classList.contains('reveal');
-          });
-          const index = siblings.indexOf(el);
-          if (index > 0) {
-            el.style.transitionDelay = (index * 80) + 'ms';
-          }
-        }
-
-        el.classList.add('revealed');
-        observer.unobserve(el);
-      }
-    });
-  }, { threshold: 0.1 });
-
-  document.querySelectorAll('.reveal').forEach(function(el) {
-    observer.observe(el);
-  });
-})();
-
-/* ── MERMAID.JS INTEGRATION ───────────────────────────────────────── */
-(function initMermaidDiagrams() {
-  var LOAD_TIMEOUT = 5000; // 5 seconds
-  var activeTooltip = null;
-
-  /**
-   * Reads CSS custom properties and returns a Mermaid theme config object.
-   */
-  function getMermaidThemeConfig() {
-    var style = getComputedStyle(document.documentElement);
-    return {
-      theme: 'base',
-      themeVariables: {
-        background: style.getPropertyValue('--bg').trim(),
-        primaryColor: style.getPropertyValue('--surface').trim(),
-        primaryTextColor: style.getPropertyValue('--text').trim(),
-        lineColor: style.getPropertyValue('--blue-mid').trim(),
-        secondaryColor: style.getPropertyValue('--surface-2').trim()
-      }
-    };
-  }
-
-  /**
-   * Shows the plaintext fallback for a specific diagram container.
-   */
-  function showFallback(diagramContainer) {
-    var fallback = diagramContainer.nextElementSibling;
-    if (fallback && fallback.classList.contains('diagram-fallback')) {
-      fallback.style.display = 'block';
-    }
-    diagramContainer.style.display = 'none';
-  }
-
-  /**
-   * Shows all plaintext fallbacks (when Mermaid fails to load entirely).
-   */
-  function showAllFallbacks() {
-    document.querySelectorAll('.mermaid-diagram').forEach(function(container) {
-      showFallback(container);
-    });
-  }
-
-  /**
-   * Dismisses the currently active tooltip.
-   */
-  function dismissTooltip() {
-    if (activeTooltip) {
-      activeTooltip.remove();
-      activeTooltip = null;
-    }
-  }
-
-  /**
-   * Shows a tooltip near a clicked SVG node with gate criteria info.
-   */
-  function showNodeTooltip(nodeEl, text) {
-    dismissTooltip();
-
-    var tooltip = document.createElement('div');
-    tooltip.className = 'mermaid-tooltip';
-    tooltip.textContent = text;
-    tooltip.style.cssText = 'position:absolute;background:var(--surface);border:1px solid var(--border-md);' +
-      'border-radius:var(--radius-md);padding:8px 12px;font-family:var(--mono);font-size:11px;' +
-      'color:var(--text);max-width:280px;z-index:60;box-shadow:0 4px 12px rgba(0,0,0,0.15);' +
-      'pointer-events:none;line-height:1.5;';
-
-    // Position relative to the diagram container
-    var container = nodeEl.closest('.mermaid-diagram');
-    if (!container) return;
-    container.style.position = 'relative';
-
-    var nodeRect = nodeEl.getBoundingClientRect();
-    var containerRect = container.getBoundingClientRect();
-
-    tooltip.style.left = (nodeRect.left - containerRect.left + nodeRect.width / 2) + 'px';
-    tooltip.style.top = (nodeRect.bottom - containerRect.top + 8) + 'px';
-    tooltip.style.transform = 'translateX(-50%)';
-
-    container.appendChild(tooltip);
-    activeTooltip = tooltip;
-  }
-
-  /**
-   * Attaches click handlers to SVG nodes in the routing diagram for tooltip display.
-   */
-  function attachNodeClickHandlers() {
-    document.querySelectorAll('.mermaid-diagram').forEach(function(container) {
-      var svg = container.querySelector('svg');
-      if (!svg) return;
-
-      // Find all clickable nodes (g elements with class .node)
-      var nodes = svg.querySelectorAll('.node');
-      nodes.forEach(function(node) {
-        node.style.cursor = 'pointer';
-        node.addEventListener('click', function(e) {
-          e.stopPropagation();
-
-          // Extract node label text
-          var labelEl = node.querySelector('.nodeLabel') || node.querySelector('text') || node.querySelector('foreignObject span');
-          var nodeText = labelEl ? labelEl.textContent.trim() : '';
-
-          // Try to match against routing gates for criteria info
-          var tooltipText = nodeText;
-          if (typeof DESKTOP_AGENT !== 'undefined' && DESKTOP_AGENT.routing && DESKTOP_AGENT.routing.gates) {
-            DESKTOP_AGENT.routing.gates.forEach(function(gate) {
-              if (nodeText.toLowerCase().indexOf(gate.name.toLowerCase().replace(' gate', '')) !== -1 ||
-                  gate.name.toLowerCase().indexOf(nodeText.toLowerCase().replace(/gate \d+:\s*/i, '').trim()) !== -1) {
-                tooltipText = gate.name + ': ' + gate.criteria;
-              }
-            });
-          }
-
-          showNodeTooltip(node, tooltipText);
-        });
-      });
-    });
-
-    // Dismiss tooltip when clicking outside
-    document.addEventListener('click', function(e) {
-      if (activeTooltip && !e.target.closest('.node')) {
-        dismissTooltip();
-      }
-    });
-  }
-
-  /**
-   * Renders all Mermaid diagrams on the page with theme config.
-   * Uses mermaid.render() with try/catch per diagram for error handling.
-   */
-  function renderAllDiagrams() {
-    var themeConfig = getMermaidThemeConfig();
-
-    mermaid.initialize({
-      startOnLoad: false,
-      theme: themeConfig.theme,
-      themeVariables: themeConfig.themeVariables,
-      securityLevel: 'loose',
-      flowchart: { useMaxWidth: true, htmlLabels: true }
-    });
-
-    var diagrams = document.querySelectorAll('.mermaid-diagram pre.mermaid');
-    var renderPromises = [];
-
-    diagrams.forEach(function(pre, index) {
-      var container = pre.closest('.mermaid-diagram');
-      var definition = pre.textContent.trim();
-      var id = 'mermaid-diagram-' + index + '-' + Date.now();
-
-      renderPromises.push(
-        (function(preEl, containerEl, def, renderingId) {
-          return mermaid.render(renderingId, def).then(function(result) {
-            preEl.innerHTML = result.svg;
-            preEl.classList.add('mermaid-rendered');
-          }).catch(function(err) {
-            console.warn('Mermaid render error for diagram:', err);
-            showFallback(containerEl);
-          });
-        })(pre, container, definition, id)
-      );
-    });
-
-    // After all diagrams render, attach click handlers
-    Promise.all(renderPromises).then(function() {
-      attachNodeClickHandlers();
-    }).catch(function() {
-      // Some diagrams may have failed, still attach handlers to successful ones
-      attachNodeClickHandlers();
-    });
-  }
-
-  /**
-   * Checks if Mermaid loaded and initializes, or shows fallbacks after timeout.
-   */
-  function checkMermaidAndInit() {
-    if (window.mermaid) {
-      renderAllDiagrams();
-    } else {
-      // Mermaid not loaded yet — set a timeout
-      var timeoutId = setTimeout(function() {
-        if (!window.mermaid) {
-          showAllFallbacks();
-        }
-      }, LOAD_TIMEOUT);
-
-      // Also listen for the script to load
-      var mermaidScript = document.querySelector('script[src*="mermaid"]');
-      if (mermaidScript) {
-        mermaidScript.addEventListener('load', function() {
-          clearTimeout(timeoutId);
-          if (window.mermaid) {
-            renderAllDiagrams();
-          } else {
-            showAllFallbacks();
-          }
-        });
-        mermaidScript.addEventListener('error', function() {
-          clearTimeout(timeoutId);
-          showAllFallbacks();
-        });
-      }
-    }
-  }
-
-  // Listen for dark/light mode changes and re-render diagrams
-  var colorSchemeQuery = window.matchMedia('(prefers-color-scheme: dark)');
-  var reRenderTimeout = null;
-
-  colorSchemeQuery.addEventListener('change', function() {
-    if (!window.mermaid) return;
-    // Debounce re-render to stay within 500ms requirement
-    if (reRenderTimeout) clearTimeout(reRenderTimeout);
-    reRenderTimeout = setTimeout(function() {
-      dismissTooltip();
-      renderAllDiagrams();
-    }, 50);
-  });
-
-  // Initialize when DOM is ready
-  if (document.readyState === 'loading') {
-    document.addEventListener('DOMContentLoaded', checkMermaidAndInit);
-  } else {
-    checkMermaidAndInit();
-  }
-})();
-
-/* ── THEME TOGGLE ─────────────────────────────────────────────────── */
 (function initThemeToggle() {
   var btn = document.getElementById('theme-toggle');
   if (!btn) return;
-
   var SUN  = '<svg width="16" height="16" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" aria-hidden="true"><circle cx="8" cy="8" r="3"/><line x1="8" y1="1" x2="8" y2="2.5"/><line x1="8" y1="13.5" x2="8" y2="15"/><line x1="1" y1="8" x2="2.5" y2="8"/><line x1="13.5" y1="8" x2="15" y2="8"/><line x1="3.4" y1="3.4" x2="4.5" y2="4.5"/><line x1="11.5" y1="11.5" x2="12.6" y2="12.6"/><line x1="12.6" y1="3.4" x2="11.5" y2="4.5"/><line x1="4.5" y1="11.5" x2="3.4" y2="12.6"/></svg>';
   var MOON = '<svg width="16" height="16" viewBox="0 0 16 16" fill="currentColor" aria-hidden="true"><path d="M6 2a6 6 0 1 0 8 8 4.5 4.5 0 0 1-8-8z"/></svg>';
-
   function isDark() {
     var t = document.documentElement.getAttribute('data-theme');
-    if (t === 'dark')  return true;
+    if (t === 'dark') return true;
     if (t === 'light') return false;
     return window.matchMedia('(prefers-color-scheme: dark)').matches;
   }
-
   function applyTheme(dark) {
     document.documentElement.setAttribute('data-theme', dark ? 'dark' : 'light');
     btn.innerHTML = dark ? SUN : MOON;
     btn.setAttribute('aria-label', dark ? 'Switch to light mode' : 'Switch to dark mode');
     try { localStorage.setItem('theme', dark ? 'dark' : 'light'); } catch(e) {}
   }
-
-  // Set initial icon
   applyTheme(isDark());
-
   btn.addEventListener('click', function() { applyTheme(!isDark()); });
-
-  // Follow system changes only if user hasn't set a manual preference
   window.matchMedia('(prefers-color-scheme: dark)').addEventListener('change', function(e) {
     if (!localStorage.getItem('theme')) applyTheme(e.matches);
   });
 })();
 
-/* ── CONTACT FORM ─────────────────────────────────────────────────── */
-(function initContactForm() {
-  var form   = document.getElementById('contact-form');
-  var status = document.getElementById('form-status');
-  var submit = document.getElementById('contact-submit');
-  if (!form || !status || !submit) return;
-
-  form.addEventListener('submit', function(e) {
-    e.preventDefault();
-
-    // Basic client-side validation
-    var name    = form.querySelector('[name="name"]').value.trim();
-    var email   = form.querySelector('[name="email"]').value.trim();
-    var message = form.querySelector('[name="message"]').value.trim();
-
-    if (!name || !email || !message) {
-      status.className = 'form-status error';
-      status.textContent = 'Please fill in all fields.';
-      return;
-    }
-
-    submit.disabled    = true;
-    submit.textContent = 'Sending…';
-    status.className   = 'form-status';
-    status.textContent = '';
-
-    fetch(form.action, {
-      method:  'POST',
-      body:    new FormData(form),
-      headers: { 'Accept': 'application/json' }
-    })
-    .then(function(res) {
-      if (res.ok) {
-        form.reset();
-        status.className   = 'form-status success';
-        status.textContent = 'Message sent — I\'ll get back to you soon.';
-        submit.disabled    = false;
-        submit.textContent = 'Send Message →';
-      } else {
-        return res.json().then(function(data) {
-          var msg = (data.errors || []).map(function(err) { return err.message; }).join(', ');
-          throw new Error(msg || 'Submission failed.');
-        });
-      }
-    })
-    .catch(function(err) {
-      status.className   = 'form-status error';
-      status.textContent = err.message || 'Could not send — try emailing directly.';
-      submit.disabled    = false;
-      submit.textContent = 'Send Message →';
-    });
-  });
-})();
-
-/* ── ACTIVE NAV HIGHLIGHTING ──────────────────────────────────────── */
-(function initNavHighlight() {
-  if (!('IntersectionObserver' in window)) return;
-
-  var navMap = {};
-  document.querySelectorAll('.nav-links a').forEach(function(a) {
-    var href = a.getAttribute('href');
-    if (href && href.startsWith('#')) {
-      navMap[href.slice(1)] = a;
-    }
-  });
-
-  var currentActive = null;
-
-  var observer = new IntersectionObserver(function(entries) {
-    entries.forEach(function(entry) {
-      if (entry.isIntersecting) {
-        if (currentActive) currentActive.classList.remove('nav-active');
-        currentActive = navMap[entry.target.id] || null;
-        if (currentActive) currentActive.classList.add('nav-active');
-      }
-    });
-  }, { rootMargin: '-10% 0px -80% 0px', threshold: 0 });
-
-  Object.keys(navMap).forEach(function(id) {
-    var el = document.getElementById(id);
-    if (el) observer.observe(el);
-  });
-})();
-
-/* ── BACK TO TOP ──────────────────────────────────────────────────── */
 (function initBackToTop() {
   var btn = document.getElementById('back-to-top');
   if (!btn) return;
-
   window.addEventListener('scroll', function() {
-    if (window.pageYOffset > 400) {
-      btn.classList.add('visible');
-    } else {
-      btn.classList.remove('visible');
-    }
+    btn.classList.toggle('visible', window.pageYOffset > 400);
   }, { passive: true });
-
-  btn.addEventListener('click', function() {
-    window.scrollTo({ top: 0, behavior: 'smooth' });
-  });
+  btn.addEventListener('click', function() { window.scrollTo({ top: 0, behavior: 'smooth' }); });
 })();
 
-/* ── SCROLL PROGRESS BAR ──────────────────────────────────────────── */
 (function initScrollProgress() {
   var bar = document.getElementById('scroll-progress');
   if (!bar) return;
-
-  function updateProgress() {
+  window.addEventListener('scroll', function() {
     var scrollTop = window.pageYOffset || document.documentElement.scrollTop;
     var docHeight = document.documentElement.scrollHeight - document.documentElement.clientHeight;
-    var progress = docHeight > 0 ? (scrollTop / docHeight) * 100 : 0;
-    bar.style.width = progress + '%';
-  }
-
-  window.addEventListener('scroll', updateProgress, { passive: true });
-  updateProgress();
+    bar.style.width = (docHeight > 0 ? (scrollTop / docHeight) * 100 : 0) + '%';
+  }, { passive: true });
 })();
 </script>
 

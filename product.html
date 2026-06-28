@@ -1,0 +1,277 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Product — ClinicAgent</title>
+  <meta name="description" content="ClinicAgent features: conversational AI scheduling, intake triage, MCP server, REST API, RBAC, and audit logging. Built on ASP.NET Core, Blazor, and PostgreSQL." />
+  <meta name="author" content="Brad Tarver" />
+
+  <meta property="og:title" content="Product — ClinicAgent" />
+  <meta property="og:description" content="Features, integration options, and technical details for ClinicAgent — AI-powered scheduling and triage." />
+  <meta property="og:type" content="website" />
+  <meta property="og:url" content="https://bradtarver.com/product.html" />
+  <meta property="og:image" content="https://bradtarver.com/assets/og-image.png" />
+
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><rect width='100' height='100' rx='16' fill='%23185FA5'/><text x='50' y='68' font-family='system-ui' font-size='44' font-weight='700' fill='white' text-anchor='middle'>CA</text></svg>" />
+
+  <script>try{var t=localStorage.getItem('theme');if(t)document.documentElement.setAttribute('data-theme',t);}catch(e){}</script>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Space+Mono:wght@400;700&family=DM+Serif+Display&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="/style.css" />
+</head>
+<body>
+
+<div class="scroll-progress" id="scroll-progress" aria-hidden="true"></div>
+<button class="back-to-top" id="back-to-top" aria-label="Back to top" title="Back to top">↑</button>
+
+<nav>
+  <a class="nav-logo" href="/" style="text-decoration:none;"><strong>ClinicAgent</strong></a>
+  <div style="display:flex;align-items:center;gap:1.5rem;">
+    <ul class="nav-links">
+      <li><a href="/product.html" class="nav-active">Product</a></li>
+      <li><a href="/docs.html">Docs</a></li>
+      <li><a href="/about.html">About</a></li>
+    </ul>
+    <button class="theme-toggle" id="theme-toggle" aria-label="Switch to dark mode"></button>
+    <a href="mailto:brad@bradtarver.com?subject=ClinicAgent API Access Request" class="btn-primary" style="font-size:11px;padding:8px 16px;white-space:nowrap;">Request Access</a>
+  </div>
+</nav>
+
+<div class="wrap">
+
+  <section class="hero">
+    <div class="badge">ClinicAgent · MVP Live</div>
+    <h1>Everything a clinic needs<br>to automate scheduling.</h1>
+    <p class="hero-sub">
+      From patient intake to appointment management, ClinicAgent handles the full scheduling workflow through conversational AI —
+      accessible as an MCP server, REST API, or Blazor web application.
+    </p>
+    <div class="hero-actions">
+      <a href="mailto:brad@bradtarver.com?subject=ClinicAgent API Access Request" class="btn-primary">Request API Access</a>
+      <a href="https://clinic.bradtarver.com" class="btn-secondary" target="_blank" rel="noopener">View Live Demo &rarr;</a>
+    </div>
+  </section>
+
+  <!-- ── WHAT IT DOES ── -->
+  <section class="section" id="what-it-does">
+    <div class="section-label">// What it does</div>
+    <div class="features-grid">
+      <div class="feature-card">
+        <div class="feature-card-name">Conversational Scheduling</div>
+        <div class="feature-card-desc">
+          Patients and staff interact with a Google Gemini-powered AI agent to book, modify, and cancel appointments in plain English.
+          The agent resolves conflicts, enforces business rules, and confirms in real time.
+        </div>
+      </div>
+      <div class="feature-card">
+        <div class="feature-card-name">Patient Intake &amp; Triage</div>
+        <div class="feature-card-desc">
+          Collects reason for visit, urgency signals, and relevant history during the scheduling flow.
+          Structured intake data is stored and available to providers before the appointment.
+        </div>
+      </div>
+      <div class="feature-card">
+        <div class="feature-card-name">Appointment Management</div>
+        <div class="feature-card-desc">
+          Full CRUD with conflict detection, recurring scheduling, and automated waitlist management.
+          Calendar integration hooks expose appointment data to external systems.
+        </div>
+      </div>
+      <div class="feature-card">
+        <div class="feature-card-name">Role-Based Access</div>
+        <div class="feature-card-desc">
+          Five permission levels: Admin, Provider, Staff, Patient, and Auditor.
+          Each role sees only the data and actions relevant to their function, enforced at the API layer.
+        </div>
+      </div>
+      <div class="feature-card">
+        <div class="feature-card-name">TOTP Multi-Factor Auth</div>
+        <div class="feature-card-desc">
+          Time-based one-time passwords for all user accounts.
+          HIPAA-style audit logging captures every data access and modification event with timestamps and actor identity.
+        </div>
+      </div>
+      <div class="feature-card">
+        <div class="feature-card-name">Automated Waitlist</div>
+        <div class="feature-card-desc">
+          When an appointment opens, the waitlist engine automatically identifies and notifies the next eligible patient —
+          no manual tracking required.
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ── INTEGRATION OPTIONS ── -->
+  <section class="section" id="integrations">
+    <div class="section-label">// Integration options</div>
+    <div class="integration-grid">
+      <div class="integration-card">
+        <div class="integration-card-tag">MCP Server</div>
+        <div class="integration-card-name">Model Context Protocol</div>
+        <div class="integration-card-desc">
+          Connect any MCP-compatible LLM client directly to clinic data and workflows.
+          Exposes four tool endpoints: schedule appointment, get availability, update appointment, and retrieve patient context.
+          Drop into an existing agentic pipeline in minutes.
+        </div>
+      </div>
+      <div class="integration-card">
+        <div class="integration-card-tag">REST API</div>
+        <div class="integration-card-name">HTTP / JSON API</div>
+        <div class="integration-card-desc">
+          Nine controller endpoints covering appointments, patients, providers, availability, and the waitlist.
+          JWT authentication, standard HTTP status codes, and structured JSON responses.
+          Works with any language or framework that can make HTTP requests.
+        </div>
+      </div>
+      <div class="integration-card">
+        <div class="integration-card-tag">Included UI</div>
+        <div class="integration-card-name">Blazor Web Application</div>
+        <div class="integration-card-desc">
+          A complete Blazor Server + WASM hybrid front-end for clinic staff.
+          Provides scheduling management, provider calendars, patient records, and the AI scheduling chat interface —
+          no custom UI required to go live.
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ── BUILT ON ── -->
+  <section class="section" id="built-on">
+    <div class="section-label">// Built on</div>
+    <div class="features-grid">
+      <div class="feature-card">
+        <div class="feature-card-name">Application Stack</div>
+        <div class="feature-card-desc" style="display:flex;flex-wrap:wrap;gap:6px;margin-top:4px;">
+          <span class="pill">ASP.NET Core 10</span>
+          <span class="pill">Blazor Server + WASM</span>
+          <span class="pill">Entity Framework Core 10</span>
+          <span class="pill">PostgreSQL 17</span>
+          <span class="pill">Clean Architecture</span>
+          <span class="pill">Google Gemini 2.5 Flash</span>
+        </div>
+      </div>
+      <div class="feature-card">
+        <div class="feature-card-name">Infrastructure</div>
+        <div class="feature-card-desc" style="display:flex;flex-wrap:wrap;gap:6px;margin-top:4px;">
+          <span class="pill">AWS ECS Fargate</span>
+          <span class="pill">AWS RDS (PostgreSQL)</span>
+          <span class="pill">AWS ALB</span>
+          <span class="pill">Terraform IaC</span>
+          <span class="pill">GitHub Actions CI/CD</span>
+          <span class="pill">Docker</span>
+        </div>
+      </div>
+      <div class="feature-card">
+        <div class="feature-card-name">Quality &amp; Security</div>
+        <div class="feature-card-desc" style="display:flex;flex-wrap:wrap;gap:6px;margin-top:4px;">
+          <span class="pill">220+ automated tests</span>
+          <span class="pill">TOTP MFA</span>
+          <span class="pill">HIPAA-style audit log</span>
+          <span class="pill">JWT auth</span>
+          <span class="pill">Role-based access</span>
+          <span class="pill">Conflict detection</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ── USE CASES ── -->
+  <section class="section" id="use-cases">
+    <div class="section-label">// Use cases</div>
+    <div style="display:flex;flex-direction:column;gap:1rem;">
+      <div class="integration-card">
+        <div class="integration-card-name">Small clinic operators</div>
+        <div class="integration-card-desc">
+          Replace manual phone scheduling with an AI that handles intake, conflict resolution, and patient communication.
+          Staff access a full-featured web UI; patients interact with the AI in natural language.
+          Production-ready infrastructure included — no devops required to get started.
+        </div>
+      </div>
+      <div class="integration-card">
+        <div class="integration-card-name">Healthcare SaaS platforms</div>
+        <div class="integration-card-desc">
+          Embed intelligent scheduling into an existing platform via the REST API.
+          The role model, audit logging, and business rules are already built —
+          integrate the scheduling engine without rebuilding it.
+          JWT auth and structured responses make it straightforward to wire into any existing auth system.
+        </div>
+      </div>
+      <div class="integration-card">
+        <div class="integration-card-name">Developers building LLM workflows</div>
+        <div class="integration-card-desc">
+          Connect any MCP-compatible LLM client directly to structured clinic data.
+          The MCP server exposes scheduling tools as first-class agent actions —
+          book appointments, check availability, and retrieve patient context from within an agentic loop.
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ── CTA ── -->
+  <section class="section">
+    <div class="cta-section">
+      <h2>Ready to integrate?</h2>
+      <p>Request early API access or explore the live demo to see ClinicAgent in action.</p>
+      <div class="cta-actions">
+        <a href="mailto:brad@bradtarver.com?subject=ClinicAgent API Access Request" class="btn-primary">Request API Access</a>
+        <a href="https://clinic.bradtarver.com" class="btn-secondary" target="_blank" rel="noopener">View Live Demo &rarr;</a>
+        <a href="/docs.html" class="btn-secondary">API Docs &rarr;</a>
+      </div>
+    </div>
+  </section>
+
+  <footer>
+    <div class="footer-inner">
+      <span>&copy; 2026 ClinicAgent &mdash; <a href="/about.html" style="color:inherit;">by Brad Tarver</a></span>
+      <a class="contact-link" href="mailto:brad@bradtarver.com">brad@bradtarver.com</a>
+    </div>
+  </footer>
+
+</div>
+
+<script>
+(function initThemeToggle() {
+  var btn = document.getElementById('theme-toggle');
+  if (!btn) return;
+  var SUN  = '<svg width="16" height="16" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" aria-hidden="true"><circle cx="8" cy="8" r="3"/><line x1="8" y1="1" x2="8" y2="2.5"/><line x1="8" y1="13.5" x2="8" y2="15"/><line x1="1" y1="8" x2="2.5" y2="8"/><line x1="13.5" y1="8" x2="15" y2="8"/><line x1="3.4" y1="3.4" x2="4.5" y2="4.5"/><line x1="11.5" y1="11.5" x2="12.6" y2="12.6"/><line x1="12.6" y1="3.4" x2="11.5" y2="4.5"/><line x1="4.5" y1="11.5" x2="3.4" y2="12.6"/></svg>';
+  var MOON = '<svg width="16" height="16" viewBox="0 0 16 16" fill="currentColor" aria-hidden="true"><path d="M6 2a6 6 0 1 0 8 8 4.5 4.5 0 0 1-8-8z"/></svg>';
+  function isDark() {
+    var t = document.documentElement.getAttribute('data-theme');
+    if (t === 'dark') return true;
+    if (t === 'light') return false;
+    return window.matchMedia('(prefers-color-scheme: dark)').matches;
+  }
+  function applyTheme(dark) {
+    document.documentElement.setAttribute('data-theme', dark ? 'dark' : 'light');
+    btn.innerHTML = dark ? SUN : MOON;
+    btn.setAttribute('aria-label', dark ? 'Switch to light mode' : 'Switch to dark mode');
+    try { localStorage.setItem('theme', dark ? 'dark' : 'light'); } catch(e) {}
+  }
+  applyTheme(isDark());
+  btn.addEventListener('click', function() { applyTheme(!isDark()); });
+  window.matchMedia('(prefers-color-scheme: dark)').addEventListener('change', function(e) {
+    if (!localStorage.getItem('theme')) applyTheme(e.matches);
+  });
+})();
+(function initBackToTop() {
+  var btn = document.getElementById('back-to-top');
+  if (!btn) return;
+  window.addEventListener('scroll', function() { btn.classList.toggle('visible', window.pageYOffset > 400); }, { passive: true });
+  btn.addEventListener('click', function() { window.scrollTo({ top: 0, behavior: 'smooth' }); });
+})();
+(function initScrollProgress() {
+  var bar = document.getElementById('scroll-progress');
+  if (!bar) return;
+  window.addEventListener('scroll', function() {
+    var s = window.pageYOffset || document.documentElement.scrollTop;
+    var h = document.documentElement.scrollHeight - document.documentElement.clientHeight;
+    bar.style.width = (h > 0 ? (s / h) * 100 : 0) + '%';
+  }, { passive: true });
+})();
+</script>
+
+<script data-goatcounter="https://bradtarver.goatcounter.com/count" async src="//gc.zgo.at/count.js"></script>
+</body>
+</html>
