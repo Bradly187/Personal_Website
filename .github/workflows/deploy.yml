@@ -16,5 +16,5 @@ jobs:
           host: ${{ secrets.EC2_HOST }}
           username: ${{ secrets.EC2_USER }}
           key: ${{ secrets.EC2_SSH_KEY }}
-          source: "index.html,style.css,resume.pdf,multi-agent-orchestration-on-aws.pdf,assets/,projects/,nids-dashboard/,sitemap.xml,robots.txt,404.html"
+          source: "index.html,product.html,docs.html,about.html,resume.html,style.css,resume.pdf,multi-agent-orchestration-on-aws.pdf,assets/,projects/,nids-dashboard/,sitemap.xml,robots.txt,404.html"
           target: "/var/www/html"
