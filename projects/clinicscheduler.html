@@ -15,6 +15,7 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Space+Mono:wght@400;700&family=DM+Serif+Display&display=swap" rel="stylesheet" />
   <link rel="stylesheet" href="/style.css" />
+  <script defer src="https://cdn.jsdelivr.net/npm/mermaid@10/dist/mermaid.min.js"></script>
   <style>
     .feature-grid {
       display: grid;
@@ -108,12 +109,22 @@
       recurring treatment-plan scheduling, and an automated waitlist that re-fills canceled slots.
       Built as a Systems Analysis &amp; Design capstone, then hardened toward production. It features
       a natural-language scheduling agent, HIPAA-style audit logging, structured logging and health
-      checks, optimistic concurrency, and 199 unit tests plus an integration suite against real
+      checks, optimistic concurrency, and 220+ unit tests plus an integration suite against real
       PostgreSQL, all codified for AWS with Terraform and a CI/CD pipeline.
     </p>
     <div class="hero-actions">
       <a href="https://clinic.bradtarver.com" target="_blank" rel="noopener" class="btn-primary">Launch App &rarr;</a>
       <a href="https://github.com/Bradly187/clinic-scheduler" target="_blank" rel="noopener" class="btn-secondary">View on GitHub &rarr;</a>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="stats-row">
+      <div class="stat-item"><span class="stat-number">5</span><span class="stat-label">User Roles</span></div>
+      <div class="stat-item"><span class="stat-number">5</span><span class="stat-label">AI Agents</span></div>
+      <div class="stat-item"><span class="stat-number">4</span><span class="stat-label">MCP Tools</span></div>
+      <div class="stat-item"><span class="stat-number">220+</span><span class="stat-label">Unit Tests</span></div>
+      <div class="stat-item"><span class="stat-number">6</span><span class="stat-label">AWS Services</span></div>
     </div>
   </section>
 
@@ -128,11 +139,13 @@
     <div class="section-label">// Scheduling agent</div>
     <p style="color: var(--muted); font-size: 14px; line-height: 1.7; margin-bottom: 1rem;">
       A conversational agent embedded in the sidebar lets staff book appointments, cancel visits,
-      and query the schedule in plain English. Requests are handled by <strong style="color: var(--text);">Llama 3.1:8b
-      running locally via Ollama</strong> — keeping all patient interactions on-premise with no data
-      sent to external APIs. The agent routes intent through the application&rsquo;s existing service
-      layer, so every action it takes respects the same conflict rules, role permissions, and
-      waitlist behavior as the rest of the system.
+      and query the schedule in plain English. Requests are handled by a
+      <strong style="color: var(--text);">Google Gemini (gemini-2.5-flash)</strong>
+      agent that uses function calling to act only through the application&rsquo;s existing
+      service layer — so every booking, cancellation, or query it makes respects the same
+      conflict rules, role permissions, and waitlist behavior as the rest of the system.
+      The model never writes to the database directly; it can only invoke the same
+      C#-enforced skills a staff member would.
     </p>
     <div class="screenshot-wrap">
       <img src="/assets/clinicscheduler-agent.png" alt="AI Assistant sidebar canceling an appointment via natural language" loading="lazy" />
@@ -155,7 +168,11 @@
     <div class="feature-grid">
       <div class="feature-item">
         <strong>Natural-Language Agent</strong>
-        Sidebar chat powered by Llama 3.1:8b via Ollama — staff can book, cancel, and query appointments in plain English. Runs fully on-premise so no patient data reaches an external API.
+        Sidebar chat powered by Google Gemini (gemini-2.5-flash) with function calling — staff can book, cancel, and query appointments in plain English. The model acts only through the app&rsquo;s C#-enforced service layer, so it can&rsquo;t bypass conflict rules or role permissions.
+      </div>
+      <div class="feature-item">
+        <strong>MCP Server</strong>
+        A Model Context Protocol server (stdio) exposes the scheduling tools: list therapists, look up, book, and cancel appointments: to any MCP-capable agent such as Claude Desktop. It reuses the same C# domain logic as the web app, so operating-hours, conflict, and capacity rules hold identically; cancellations require an explicit two-step confirmation.
       </div>
       <div class="feature-item">
         <strong>Role-Based Access + MFA</strong>
@@ -190,21 +207,39 @@
         Documented OpenAPI surface with pagination and optimistic concurrency via PostgreSQL xmin row versioning.
       </div>
       <div class="feature-item">
-        <strong>Hybrid Blazor Client</strong>
-        Interactive Server and WebAssembly render modes from a single shared UI project with per-page render-mode selection.
-      </div>
-      <div class="feature-item">
         <strong>Production Observability</strong>
         Serilog structured logging (JSON in production), load-balancer health checks, rate-limited login, and security headers throughout.
       </div>
-      <div class="feature-item">
-        <strong>Infrastructure as Code</strong>
-        The entire AWS stack — VPC, ECS Fargate, RDS PostgreSQL, ALB, ECR, Secrets Manager — defined in modular Terraform.
-      </div>
-      <div class="feature-item">
-        <strong>CI/CD Pipeline</strong>
-        GitHub Actions builds and tests every push and PR, authenticating to AWS via OIDC — deploys are an explicit one-click action, never automatic.
-      </div>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="section-label">// Architecture</div>
+    <p style="color: var(--muted); font-size: 14px; line-height: 1.7; margin-bottom: 1rem;">
+      Three surfaces drive the clinic &mdash; the Blazor UI, the in-app Gemini agent, and the
+      external MCP server &mdash; but none of them touch the database directly. Every booking,
+      cancellation, and lookup funnels through the same C#-enforced
+      <strong style="color: var(--text);">ISkillExecutor</strong> skills and a shared
+      <strong style="color: var(--text);">AppointmentSchedulingService</strong>, so the
+      no-double-booking, daily-capacity, and business-hours rules hold identically no matter
+      who is asking.
+    </p>
+    <div class="mermaid-diagram" aria-label="Application architecture: the Blazor UI, the Gemini agent via function calling, and the MCP server all act through the ISkillExecutor skill layer into the shared AppointmentSchedulingService, which enforces booking rules and writes through audit-logging EF Core to PostgreSQL; ASP.NET Identity guards the service layer.">
+      <pre class="mermaid">
+graph TD
+    UI["Blazor UI&lt;br/&gt;Server + WASM"] --> SVC
+    AGENT["Gemini Agent&lt;br/&gt;gemini-2.5-flash"] -->|function calling| SKILLS["ISkillExecutor&lt;br/&gt;C#-enforced skills"]
+    MCP["MCP Server&lt;br/&gt;stdio · external agents"] --> SKILLS
+    SKILLS --> SVC["AppointmentSchedulingService&lt;br/&gt;no double-booking · daily capacity · business hours"]
+    SVC --> EF["EF Core&lt;br/&gt;audit-logging SaveChanges"]
+    EF --> DB[("PostgreSQL 17")]
+    IDENTITY["ASP.NET Identity&lt;br/&gt;5 roles · TOTP MFA"] -.->|guards| SVC
+      </pre>
+    </div>
+    <div class="diagram-fallback" style="display:none;">
+      <p style="font-family:var(--mono);font-size:12px;color:var(--muted);line-height:1.8;">
+        Blazor UI, the Gemini agent (function calling), and the MCP server all act through ISkillExecutor &rarr; AppointmentSchedulingService (no double-booking, daily capacity, business hours) &rarr; EF Core (audit logging) &rarr; PostgreSQL 17. ASP.NET Identity (5 roles, TOTP MFA) guards the service layer.
+      </p>
     </div>
   </section>
 
@@ -218,10 +253,22 @@
       Actions pipeline builds the image to ECR and rolls the service using short-lived,
       OIDC-federated IAM roles with no long-lived cloud keys.
     </p>
-    <p style="font-family: var(--mono); font-size: 12px; color: var(--muted); line-height: 1.9;">
-      Internet &rarr; ALB &rarr; ECS Fargate (app :8080) &rarr; RDS PostgreSQL (private)<br>
-      Secrets Manager &rarr; app &nbsp;&middot;&nbsp; ECR &larr; GitHub Actions (OIDC) &rarr; ECS deploy
-    </p>
+    <div class="mermaid-diagram" aria-label="Cloud architecture: the internet reaches an Application Load Balancer, which forwards to an ECS Fargate service on port 8080, which connects to a private RDS PostgreSQL instance. Secrets Manager injects credentials into the app. GitHub Actions authenticates via OIDC to build the image to ECR, which deploys to Fargate.">
+      <pre class="mermaid">
+graph LR
+    NET["Internet"] --> ALB["Application&lt;br/&gt;Load Balancer"]
+    ALB --> APP["ECS Fargate&lt;br/&gt;app :8080"]
+    APP --> RDS[("RDS PostgreSQL&lt;br/&gt;private subnets")]
+    SM["Secrets Manager"] -.->|injects creds| APP
+    GHA["GitHub Actions&lt;br/&gt;OIDC"] -->|build image| ECR["ECR"]
+    ECR -->|deploy| APP
+      </pre>
+    </div>
+    <div class="diagram-fallback" style="display:none;">
+      <p style="font-family:var(--mono);font-size:12px;color:var(--muted);line-height:1.8;">
+        Internet &rarr; ALB &rarr; ECS Fargate (app :8080) &rarr; RDS PostgreSQL (private). Secrets Manager injects credentials into the app; GitHub Actions (OIDC) builds the image to ECR, which deploys to Fargate.
+      </p>
+    </div>
   </section>
 
   <section class="section">
@@ -244,7 +291,7 @@
           <span class="tech-badge">ASP.NET Identity</span>
           <span class="tech-badge">Serilog</span>
           <span class="tech-badge">xUnit + Testcontainers</span>
-          <span class="tech-badge">Ollama (Llama 3.1)</span>
+          <span class="tech-badge">Google Gemini</span>
         </div>
       </div>
       <div class="tech-stack-group">
@@ -273,6 +320,87 @@
   </footer>
 
 </div>
+<script>
+/* ── MERMAID DIAGRAMS ─────────────────────────────────────────────── */
+(function initMermaidDiagrams() {
+  var LOAD_TIMEOUT = 5000;
+
+  function getMermaidThemeConfig() {
+    var style = getComputedStyle(document.documentElement);
+    return {
+      theme: 'base',
+      themeVariables: {
+        background: style.getPropertyValue('--bg').trim(),
+        primaryColor: style.getPropertyValue('--surface').trim(),
+        primaryTextColor: style.getPropertyValue('--text').trim(),
+        lineColor: style.getPropertyValue('--blue-mid').trim(),
+        secondaryColor: style.getPropertyValue('--surface-2').trim()
+      }
+    };
+  }
+
+  function showFallback(container) {
+    var fallback = container.nextElementSibling;
+    if (fallback && fallback.classList.contains('diagram-fallback')) fallback.style.display = 'block';
+    container.style.display = 'none';
+  }
+
+  function showAllFallbacks() {
+    document.querySelectorAll('.mermaid-diagram').forEach(showFallback);
+  }
+
+  function renderAllDiagrams() {
+    var cfg = getMermaidThemeConfig();
+    mermaid.initialize({
+      startOnLoad: false,
+      theme: cfg.theme,
+      themeVariables: cfg.themeVariables,
+      securityLevel: 'loose',
+      flowchart: { useMaxWidth: true, htmlLabels: true }
+    });
+    document.querySelectorAll('.mermaid-diagram pre.mermaid').forEach(function(pre, index) {
+      var container = pre.closest('.mermaid-diagram');
+      // Cache the original definition so theme-change re-renders don't read back the rendered SVG.
+      var def = pre.getAttribute('data-mmd');
+      if (def === null) { def = pre.textContent.trim(); pre.setAttribute('data-mmd', def); }
+      var id = 'mermaid-cs-' + index + '-' + Date.now();
+      mermaid.render(id, def).then(function(result) {
+        pre.innerHTML = result.svg;
+      }).catch(function(err) {
+        console.warn('Mermaid render error:', err);
+        showFallback(container);
+      });
+    });
+  }
+
+  function checkMermaidAndInit() {
+    if (window.mermaid) { renderAllDiagrams(); return; }
+    var timeoutId = setTimeout(function() { if (!window.mermaid) showAllFallbacks(); }, LOAD_TIMEOUT);
+    var script = document.querySelector('script[src*="mermaid"]');
+    if (script) {
+      script.addEventListener('load', function() {
+        clearTimeout(timeoutId);
+        if (window.mermaid) renderAllDiagrams(); else showAllFallbacks();
+      });
+      script.addEventListener('error', function() { clearTimeout(timeoutId); showAllFallbacks(); });
+    }
+  }
+
+  var colorSchemeQuery = window.matchMedia('(prefers-color-scheme: dark)');
+  var reRenderTimeout = null;
+  colorSchemeQuery.addEventListener('change', function() {
+    if (!window.mermaid) return;
+    if (reRenderTimeout) clearTimeout(reRenderTimeout);
+    reRenderTimeout = setTimeout(renderAllDiagrams, 50);
+  });
+
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', checkMermaidAndInit);
+  } else {
+    checkMermaidAndInit();
+  }
+})();
+</script>
 <script data-goatcounter="https://bradtarver.goatcounter.com/count" async src="//gc.zgo.at/count.js"></script>
 </body>
 </html>
