@@ -96,26 +96,26 @@
     <div style="display:flex;flex-direction:column;gap:8px;">
       <div class="integration-card" style="padding:1rem 1.25rem;">
         <div style="display:flex;align-items:center;gap:1rem;flex-wrap:wrap;">
+          <code style="font-family:var(--mono);font-size:12px;color:var(--blue-mid);background:var(--blue-bg);padding:3px 10px;border-radius:4px;">list_therapists</code>
+          <span style="font-size:13px;color:var(--muted);">List available therapists and specialties — use before scheduling to resolve names</span>
+        </div>
+      </div>
+      <div class="integration-card" style="padding:1rem 1.25rem;">
+        <div style="display:flex;align-items:center;gap:1rem;flex-wrap:wrap;">
+          <code style="font-family:var(--mono);font-size:12px;color:var(--blue-mid);background:var(--blue-bg);padding:3px 10px;border-radius:4px;">get_appointments</code>
+          <span style="font-size:13px;color:var(--muted);">Retrieve a patient's upcoming appointments by name, including appointment IDs</span>
+        </div>
+      </div>
+      <div class="integration-card" style="padding:1rem 1.25rem;">
+        <div style="display:flex;align-items:center;gap:1rem;flex-wrap:wrap;">
           <code style="font-family:var(--mono);font-size:12px;color:var(--blue-mid);background:var(--blue-bg);padding:3px 10px;border-radius:4px;">schedule_appointment</code>
-          <span style="font-size:13px;color:var(--muted);">Book a new appointment from natural language input</span>
+          <span style="font-size:13px;color:var(--muted);">Book a new appointment — enforces conflict detection, operating hours, and slot rules</span>
         </div>
       </div>
       <div class="integration-card" style="padding:1rem 1.25rem;">
         <div style="display:flex;align-items:center;gap:1rem;flex-wrap:wrap;">
-          <code style="font-family:var(--mono);font-size:12px;color:var(--blue-mid);background:var(--blue-bg);padding:3px 10px;border-radius:4px;">get_availability</code>
-          <span style="font-size:13px;color:var(--muted);">Query open slots for a provider within a date range</span>
-        </div>
-      </div>
-      <div class="integration-card" style="padding:1rem 1.25rem;">
-        <div style="display:flex;align-items:center;gap:1rem;flex-wrap:wrap;">
-          <code style="font-family:var(--mono);font-size:12px;color:var(--blue-mid);background:var(--blue-bg);padding:3px 10px;border-radius:4px;">update_appointment</code>
-          <span style="font-size:13px;color:var(--muted);">Modify or cancel an existing appointment</span>
-        </div>
-      </div>
-      <div class="integration-card" style="padding:1rem 1.25rem;">
-        <div style="display:flex;align-items:center;gap:1rem;flex-wrap:wrap;">
-          <code style="font-family:var(--mono);font-size:12px;color:var(--blue-mid);background:var(--blue-bg);padding:3px 10px;border-radius:4px;">get_patient_context</code>
-          <span style="font-size:13px;color:var(--muted);">Retrieve patient history and intake data for an appointment</span>
+          <code style="font-family:var(--mono);font-size:12px;color:var(--blue-mid);background:var(--blue-bg);padding:3px 10px;border-radius:4px;">cancel_appointment</code>
+          <span style="font-size:13px;color:var(--muted);">Cancel an appointment by ID — requires explicit confirmation before committing</span>
         </div>
       </div>
     </div>
