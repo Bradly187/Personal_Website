@@ -101,6 +101,7 @@
     <div class="skills-row">
       <a class="pill pill-blue" href="https://www.credly.com/badges/25b7d80d-d33f-41df-905f-9b9f271daf85/public_url" target="_blank" rel="noopener">AWS Cloud Practitioner ✓</a>
       <a class="pill pill-blue" href="https://www.credly.com/badges/47cd603a-9028-4557-87fc-d042ceffc676/public_url" target="_blank" rel="noopener">AWS AI Practitioner ✓</a>
+      <span class="pill pill-blue">AWS Cloud Application Developer ✓</span>
       <span class="pill pill-blue">IBM Qiskit Advocate ✓</span>
       <span class="pill pill-amber">AWS Developer Associate &middot; Jul 2026</span>
     </div>
@@ -137,9 +138,23 @@
   </section>
 
   <section class="section">
-    <div class="section-label">// Experience</div>
+    <div class="section-label">// Experience &amp; Projects</div>
     <div class="experience-list">
       <div class="experience-item">
+        <div>
+          <div class="experience-role">Founder / Lead Engineer</div>
+          <div class="experience-company">ClinicAgent</div>
+          <ul style="margin-top:0.75rem; padding-left:1.25rem; font-size:14px; color:var(--muted); line-height:1.6; display:flex; flex-direction:column; gap:0.5rem;">
+            <li>Designed and built an agentic healthcare platform where a coordinator LLM routes natural-language requests to specialist sub-agents over real domain services, enforcing business rules and authorization in code rather than in prompts.</li>
+            <li>Architected a pluggable workflow-pack + self-registering-skill model so new clinical workflows are added without modifying the orchestration engine.</li>
+            <li>Implemented a multi-tenant data layer with server-side tenant resolution from auth claims and EF Core global query filters, plus audit logging, at-rest PHI encryption, and optimistic concurrency.</li>
+            <li>Exposed one domain contract through three channels (Blazor chat, REST API, and a standalone MCP server) and a FHIR mapping layer for EHR interoperability.</li>
+            <li>Backed the system with 290+ automated tests, including real-PostgreSQL integration tests via Testcontainers.</li>
+          </ul>
+        </div>
+        <div class="experience-years">2023 &ndash; Present</div>
+      </div>
+      <div class="experience-item" style="margin-top:2rem;">
         <div>
           <div class="experience-role">Operations Assistant</div>
           <div class="experience-company">Treece Funeral Services</div>

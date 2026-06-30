@@ -45,8 +45,8 @@
     <div class="badge">ClinicAgent · MVP Live</div>
     <h1>Everything a clinic needs<br>to automate scheduling.</h1>
     <p class="hero-sub">
-      From patient intake to appointment management, ClinicAgent handles the full scheduling workflow through conversational AI —
-      accessible as an MCP server, REST API, or Blazor web application.
+      From patient intake to appointment management, an LLM orchestrator routes each request to a specialist agent —
+      accessible as an in-app chat, REST API, or a standalone MCP server.
     </p>
     <div class="hero-actions">
       <a href="mailto:brad@bradtarver.com?subject=ClinicAgent API Access Request" class="btn-primary">Request API Access</a>
@@ -59,24 +59,21 @@
     <div class="section-label">// What it does</div>
     <div class="features-grid">
       <div class="feature-card">
-        <div class="feature-card-name">Conversational Scheduling</div>
+        <div class="feature-card-name">Multi-Agent Orchestration</div>
         <div class="feature-card-desc">
-          Patients and staff interact with a Google Gemini-powered AI agent to book, modify, and cancel appointments in plain English.
-          The agent resolves conflicts, enforces business rules, and confirms in real time.
+          A coordinator LLM classifies requests and routes them to 6 specialist agents over real domain services. Business rules (conflicts, capacity, two-step confirmation) are enforced in C#, not left to the model.
         </div>
       </div>
       <div class="feature-card">
-        <div class="feature-card-name">Patient Intake &amp; Triage</div>
+        <div class="feature-card-name">Pluggable Workflow Packs</div>
         <div class="feature-card-desc">
-          Collects reason for visit, urgency signals, and relevant history during the scheduling flow.
-          Structured intake data is stored and available to providers before the appointment.
+          Add a clinical workflow by registering a pack, not editing the orchestrator. Currently shipping scheduling, treatment-plan, triage, and patient-intake workflows.
         </div>
       </div>
       <div class="feature-card">
-        <div class="feature-card-name">Appointment Management</div>
+        <div class="feature-card-name">FHIR Interoperability</div>
         <div class="feature-card-desc">
-          Full CRUD with conflict detection, recurring scheduling, and automated waitlist management.
-          Calendar integration hooks expose appointment data to external systems.
+          Domain entities map to FHIR resources (Patient, Appointment, Practitioner, Location, Encounter) behind a stable internal contract for EHR compatibility.
         </div>
       </div>
       <div class="feature-card">
@@ -149,15 +146,13 @@
           <span class="pill">Entity Framework Core 10</span>
           <span class="pill">PostgreSQL 17</span>
           <span class="pill">Clean Architecture</span>
-          <span class="pill">Google Gemini 2.5 Flash</span>
+          <span class="pill">Google Gemini API</span>
         </div>
       </div>
       <div class="feature-card">
         <div class="feature-card-name">Infrastructure</div>
         <div class="feature-card-desc" style="display:flex;flex-wrap:wrap;gap:6px;margin-top:4px;">
-          <span class="pill">AWS ECS Fargate</span>
-          <span class="pill">AWS RDS (PostgreSQL)</span>
-          <span class="pill">AWS ALB</span>
+          <span class="pill">AWS EC2</span>
           <span class="pill">Terraform IaC</span>
           <span class="pill">GitHub Actions CI/CD</span>
           <span class="pill">Docker</span>
@@ -166,7 +161,7 @@
       <div class="feature-card">
         <div class="feature-card-name">Quality &amp; Security</div>
         <div class="feature-card-desc" style="display:flex;flex-wrap:wrap;gap:6px;margin-top:4px;">
-          <span class="pill">220+ automated tests</span>
+          <span class="pill">292 automated tests</span>
           <span class="pill">TOTP MFA</span>
           <span class="pill">HIPAA-style audit log</span>
           <span class="pill">JWT auth</span>

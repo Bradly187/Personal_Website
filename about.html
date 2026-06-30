@@ -80,19 +80,15 @@
       </div>
       <div class="about-bio">
         <p>
-          I started building ClinicAgent as a capstone project at Texas A&amp;M-RELLIS and realized partway through
-          that the scheduling engine, role model, and audit infrastructure I was building had real commercial value —
-          the kind of thing clinic operators pay for and healthcare SaaS platforms spend months rebuilding from scratch.
+          ClinicAgent originated as a team capstone project (CSCI-440 Group 7) at Texas A&amp;M-RELLIS. I realized the core orchestrator and scheduling engine had real commercial value, so I've since rebuilt the platform as a real multi-tenant SaaS product.
         </p>
         <p>
           The live system at <a href="https://clinic.bradtarver.com" target="_blank" rel="noopener" style="color:var(--blue-mid);">clinic.bradtarver.com</a> runs on
-          AWS ECS Fargate with a Terraform-provisioned stack, a Blazor front-end, and a Google Gemini agent that handles
-          scheduling in natural language. The MCP server and REST API layer are the next step: exposing that infrastructure
-          to other systems rather than keeping it behind one front-end.
+          a single AWS EC2 demo box with a Blazor front-end, and a coordinator LLM that routes natural language requests to specialist agents. The MCP server, REST API, and in-app chat all expose the exact same domain logic.
         </p>
         <p>
           My background is across the full stack — AI agents, cloud infrastructure, systems programming, and healthcare software.
-          I'm AWS certified (Cloud Practitioner, AI Practitioner) and an IBM Qiskit Advocate, with additional
+          I'm AWS certified (Cloud Practitioner, AI Practitioner, Cloud Application Developer) and an IBM Qiskit Advocate, with additional
           AWS certifications in progress. I graduate with a B.S. in Computer Science from East Texas A&amp;M University in December 2026.
         </p>
       </div>
@@ -104,6 +100,7 @@
     <div class="skills-row">
       <a class="pill pill-blue" href="https://www.credly.com/badges/25b7d80d-d33f-41df-905f-9b9f271daf85/public_url" target="_blank" rel="noopener">AWS Cloud Practitioner ✓</a>
       <a class="pill pill-blue" href="https://www.credly.com/badges/47cd603a-9028-4557-87fc-d042ceffc676/public_url" target="_blank" rel="noopener">AWS AI Practitioner ✓</a>
+      <span class="pill pill-blue">AWS Cloud Application Developer ✓</span>
       <span class="pill pill-blue">IBM Qiskit Advocate ✓</span>
       <span class="pill pill-amber">AWS Developer Associate &middot; Jul 2026</span>
     </div>

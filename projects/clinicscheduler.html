@@ -4,10 +4,10 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>ClinicScheduler · Brad Tarver</title>
-  <meta name="description" content="Full-stack pain-management clinic scheduler built with ASP.NET Core, Blazor, and EF Core on PostgreSQL — role-based access with TOTP MFA, configurable conflict-aware scheduling, recurring treatment-plan booking, an automated waitlist, and consent-gated SMS/email reminders. Deployed on AWS with Terraform (ECS Fargate, RDS, ALB) and a CI/CD pipeline." />
+  <meta name="description" content="Agentic healthcare workflow platform for clinics built with ASP.NET Core, Blazor, and EF Core on PostgreSQL — multi-agent orchestration, configurable conflict-aware scheduling, recurring treatment-plan booking, an automated waitlist, and consent-gated SMS/email reminders. Deployed on AWS with a CI/CD pipeline." />
   <meta name="author" content="Brad Tarver" />
   <meta property="og:title" content="ClinicScheduler · Brad Tarver" />
-  <meta property="og:description" content="Full-stack pain-management clinic scheduler in ASP.NET Core, Blazor, and PostgreSQL — MFA, automated waitlist, recurring scheduling, and HIPAA-style audit logging, provisioned on AWS with Terraform (ECS Fargate, RDS, ALB) and an OIDC-secured CI/CD pipeline. Live demo available." />
+  <meta property="og:description" content="Agentic healthcare workflow platform in ASP.NET Core, Blazor, and PostgreSQL — MFA, automated waitlist, recurring scheduling, and HIPAA-style audit logging. Live demo available." />
   <meta property="og:type" content="website" />
   <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><rect width='100' height='100' rx='16' fill='%23185FA5'/><text x='50' y='68' font-family='system-ui' font-size='48' font-weight='700' fill='white' text-anchor='middle'>BT</text></svg>" />
   <script>try{var t=localStorage.getItem('theme');if(t)document.documentElement.setAttribute('data-theme',t);}catch(e){}</script>
@@ -101,16 +101,16 @@
 
   <section class="hero" style="padding-top: 2rem;">
     <span class="card-tag tag-blue">ASP.NET Core &middot; Blazor &middot; AWS</span>
-    <h1>ClinicScheduler</h1>
+    <h1>ClinicAgent</h1>
     <p class="hero-sub">
-      Full-stack scheduling system for a pain-management clinic utilizing ASP.NET Core, Blazor, and
-      Entity Framework Core over PostgreSQL on a clean, layered architecture. Role-based access
-      with TOTP two-factor auth, conflict-aware booking across therapists, rooms, and patients,
-      recurring treatment-plan scheduling, and an automated waitlist that re-fills canceled slots.
-      Built as a Systems Analysis &amp; Design capstone, then hardened toward production. It features
-      a natural-language scheduling agent, HIPAA-style audit logging, structured logging and health
-      checks, optimistic concurrency, and 220+ unit tests plus an integration suite against real
-      PostgreSQL, all codified for AWS with Terraform and a CI/CD pipeline.
+      An agentic healthcare workflow platform for outpatient clinics utilizing ASP.NET Core, Blazor, and
+      Entity Framework Core over PostgreSQL on a clean, layered architecture. A coordinator LLM routes
+      natural-language requests to specialist sub-agents over real domain services, enforcing business
+      rules and authorization in code. Features include role-based access with TOTP two-factor auth,
+      conflict-aware booking, recurring treatment-plan scheduling, and an automated waitlist.
+      Built initially as a capstone, then hardened into a multi-tenant SaaS. It features
+      FHIR interoperability, HIPAA-style audit logging, structured logging, optimistic concurrency, and
+      292 automated tests (including real PostgreSQL integration tests via Testcontainers), all codified for AWS with a CI/CD pipeline.
     </p>
     <div class="hero-actions">
       <a href="https://clinic.bradtarver.com" target="_blank" rel="noopener" class="btn-primary">Launch App &rarr;</a>
@@ -120,11 +120,11 @@
 
   <section class="section">
     <div class="stats-row">
-      <div class="stat-item"><span class="stat-number">5</span><span class="stat-label">User Roles</span></div>
-      <div class="stat-item"><span class="stat-number">5</span><span class="stat-label">AI Agents</span></div>
-      <div class="stat-item"><span class="stat-number">4</span><span class="stat-label">MCP Tools</span></div>
-      <div class="stat-item"><span class="stat-number">220+</span><span class="stat-label">Unit Tests</span></div>
-      <div class="stat-item"><span class="stat-number">6</span><span class="stat-label">AWS Services</span></div>
+      <div class="stat-item"><span class="stat-number">6</span><span class="stat-label">Specialist Agents</span></div>
+      <div class="stat-item"><span class="stat-number">4</span><span class="stat-label">Workflow Packs</span></div>
+      <div class="stat-item"><span class="stat-number">3</span><span class="stat-label">Channels</span></div>
+      <div class="stat-item"><span class="stat-number">5</span><span class="stat-label">FHIR Resources</span></div>
+      <div class="stat-item"><span class="stat-number">292</span><span class="stat-label">Automated Tests</span></div>
     </div>
   </section>
 
@@ -139,9 +139,9 @@
     <div class="section-label">// Scheduling agent</div>
     <p style="color: var(--muted); font-size: 14px; line-height: 1.7; margin-bottom: 1rem;">
       A conversational agent embedded in the sidebar lets staff book appointments, cancel visits,
-      and query the schedule in plain English. Requests are handled by a
-      <strong style="color: var(--text);">Google Gemini (gemini-2.5-flash)</strong>
-      agent that uses function calling to act only through the application&rsquo;s existing
+      and query the schedule in plain English. Requests are handled by a coordinator LLM that routes
+      to a <strong style="color: var(--text);">Google Gemini</strong> specialist agent.
+      The agent uses function calling to act only through the application&rsquo;s existing
       service layer — so every booking, cancellation, or query it makes respects the same
       conflict rules, role permissions, and waitlist behavior as the rest of the system.
       The model never writes to the database directly; it can only invoke the same
@@ -167,16 +167,16 @@
     <div class="section-label">// Features</div>
     <div class="feature-grid">
       <div class="feature-item">
-        <strong>Natural-Language Agent</strong>
-        Sidebar chat powered by Google Gemini (gemini-2.5-flash) with function calling — staff can book, cancel, and query appointments in plain English. The model acts only through the app&rsquo;s C#-enforced service layer, so it can&rsquo;t bypass conflict rules or role permissions.
+        <strong>Multi-Agent Orchestration</strong>
+        Sidebar chat powered by a coordinator LLM that classifies requests and delegates them to one of 6 specialist agents (info, scheduling, waitlist, treatment-plan, intake, triage). The model acts only through the app&rsquo;s C#-enforced service layer.
       </div>
       <div class="feature-item">
         <strong>MCP Server</strong>
-        A Model Context Protocol server (stdio) exposes the scheduling tools: list therapists, look up, book, and cancel appointments: to any MCP-capable agent such as Claude Desktop. It reuses the same C# domain logic as the web app, so operating-hours, conflict, and capacity rules hold identically; cancellations require an explicit two-step confirmation.
+        A Model Context Protocol server (stdio) exposes scheduling tools to any MCP-capable agent such as Claude Desktop. It reuses the same C# domain logic as the web app and REST API, so operating-hours, conflict, and capacity rules hold identically.
       </div>
       <div class="feature-item">
         <strong>Role-Based Access + MFA</strong>
-        Five roles: Admin, Clinic Manager, Therapist, Staff, and Patient; each enforced with ASP.NET Core Identity, plus opt-in TOTP two-factor auth with QR enrollment and recovery codes.
+        Six roles: Admin, Clinic Manager, Provider (Therapist), Staff, Patient, and Auditor; each enforced with ASP.NET Core Identity, plus opt-in TOTP two-factor auth.
       </div>
       <div class="feature-item">
         <strong>Conflict-Aware Scheduling</strong>
@@ -228,17 +228,18 @@
       <pre class="mermaid">
 graph TD
     UI["Blazor UI&lt;br/&gt;Server + WASM"] --> SVC
-    AGENT["Gemini Agent&lt;br/&gt;gemini-2.5-flash"] -->|function calling| SKILLS["ISkillExecutor&lt;br/&gt;C#-enforced skills"]
+    AGENT["Gemini Orchestrator&lt;br/&gt;Specialist Agents"] -->|function calling| SKILLS["ISkillExecutor&lt;br/&gt;C#-enforced skills"]
     MCP["MCP Server&lt;br/&gt;stdio · external agents"] --> SKILLS
-    SKILLS --> SVC["AppointmentSchedulingService&lt;br/&gt;no double-booking · daily capacity · business hours"]
+    REST["REST API"] --> SVC
+    SKILLS --> SVC["Domain Services&lt;br/&gt;no double-booking · daily capacity · business hours"]
     SVC --> EF["EF Core&lt;br/&gt;audit-logging SaveChanges"]
-    EF --> DB[("PostgreSQL 17")]
-    IDENTITY["ASP.NET Identity&lt;br/&gt;5 roles · TOTP MFA"] -.->|guards| SVC
+    EF --> DB[("PostgreSQL")]
+    IDENTITY["ASP.NET Identity&lt;br/&gt;6 roles · TOTP MFA"] -.->|guards| SVC
       </pre>
     </div>
     <div class="diagram-fallback" style="display:none;">
       <p style="font-family:var(--mono);font-size:12px;color:var(--muted);line-height:1.8;">
-        Blazor UI, the Gemini agent (function calling), and the MCP server all act through ISkillExecutor &rarr; AppointmentSchedulingService (no double-booking, daily capacity, business hours) &rarr; EF Core (audit logging) &rarr; PostgreSQL 17. ASP.NET Identity (5 roles, TOTP MFA) guards the service layer.
+        Blazor UI, REST API, Gemini Orchestrator (Specialist Agents), and the MCP server all act through ISkillExecutor &rarr; Domain Services (no double-booking, daily capacity, business hours) &rarr; EF Core (audit logging) &rarr; PostgreSQL. ASP.NET Identity (6 roles, TOTP MFA) guards the service layer.
       </p>
     </div>
   </section>
